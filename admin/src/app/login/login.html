@@ -1,0 +1,41 @@
+<md-whiteframe class="md-whiteframe-10dp">
+
+<!--LOGIN____________________________-->
+<form ng-submit="login()" autocomplete="off" name="loginForm" id="loginForm">
+    <md-card class="md-whiteframe-z5" ng-cloak >
+    	<img ng-src="src/assets/images/clouds.png" class="md-card-image" alt="A Psomas Project">
+
+        <md-card-content layout="column">  
+        	<!--Username-->
+            <md-input-container>
+	            <label>Username</label>
+	            <input ng-model="user.username" name="username" required minlength="3" maxlength="20" placeholder="Enter your username">
+	            <div ng-messages="loginForm.name.$error">
+	                <div ng-message="md-minlength">Analytic name must be at least 3 characters</div>
+	            </div>
+	        </md-input-container>
+
+	        <!--Password-->
+            <md-input-container>
+	            <label>Password</label>
+	            <input ng-model="user.password" name="password" type="password" required minlength="3" maxlength="35" placeholder="Enter your password">
+	            <div ng-messages="loginForm.description.$error">
+	                <div ng-message="md-minlength">Please enter a password.</div>
+	            </div>
+	        </md-input-container>
+        </md-card-content>
+
+		<!--Login Loader Icon-->
+        <div class="md-actions" layout="column" layout-padding>
+            <md-button type="submit" class="md-raised md-primary">Log In</md-button>
+            <md-progress-linear md-mode="indeterminate" hide-gt-sm ng-show="progress"></md-progress-linear>
+        </div>
+
+        <!--Forgot Password-->
+        <div layout="column" layout-padding>
+            <md-button type="button" ng-click="common.routeTo('/forgot')">Forgot your password?</md-button>
+        </div>
+    </md-card>
+</form>
+
+</md-whiteframe>

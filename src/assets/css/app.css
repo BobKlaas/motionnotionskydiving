@@ -1,0 +1,40 @@
+/* Project Search CSS */
+/* Designed by: Robert Klaas and Daniel Mejia */
+/* Copyright 2015 Psomas */
+
+body, .app-container {
+  background-color: whitesmoke;
+}
+/*  ng-view Animation  */
+.view-fade-in.ng-enter {
+  transition: all 1s ease;
+  -webkit-transition:all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  position:relative;
+  opacity:0;
+}
+.view-fade-in.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+.view-fade-in.ng-leave.ng-leave-active{
+  opacity:1;
+}
+.view-fade-in.ng-leave{
+  opacity:0;
+}
+
+.request-progress {    
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* mobile */
+@media (max-width: 360px) {
+    
+}
+
+@media (max-width: 800px) {
+  
+}
