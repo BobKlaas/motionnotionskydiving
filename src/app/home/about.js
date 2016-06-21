@@ -4,12 +4,12 @@
 
     angular
         .module('app.home')
-        .controller('homeController', homeController);
+        .controller('aboutController', aboutController);
 
-    homeController.$inject = ['$scope','common'];
+    aboutController.$inject = ['$scope','common'];
 
-    function homeController($scope,common) {       
-    	console.log('Home Controller has been called');
+    function aboutController($scope,common) {       
+    	console.log('About controller has been called');
     };
 
 })();

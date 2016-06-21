@@ -1,0 +1,46 @@
+ <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Coaches
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.cfm">Home</a>
+                    </li>
+                    <li class="active">Coaches</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+        <!--Coaches-->
+        <div class="row" ng-repeat="chunk in coaches.chunked">
+            <div class="col-md-4 text-center" ng-repeat="coach in chunk">
+                <div class="thumbnail">
+                    <img class="img-responsive" ng-src="{{buildImagePath(peopleImagePath,coach.IMAGENAME)}}" alt="">
+                    <div class="caption">
+                        <h3>{{coach.FIRSTNAME}} {{coach.LASTNAME}}<br>
+                            <small>{{coach.CONTRACTORSKILLSTITLE}}</small>
+                        </h3>
+                        <!-- <p>{{coach.FIRSTNAME}} is one of the Motion Notion coaches.</p><br> -->
+                        <ul class="list-inline">
+                            <li><a ng-href="coach.instagramurl" target="_blank"><i class="fa fa-2x fa-instagram"></i></a></li>
+                            <li><a ng-href="coach.facebookurl" target="_blank"><i class="fa fa-2x fa-facebook"></i></a></li>
+                            <li><a ng-href="coach.linkedinurl" target="_blank"><i class="fa fa-2x fa-linkedin"></i></a></li>                           
+                            <li><a ng-href="coach.videourl" target="_blank"><i class="fa fa-2x fa-video-camera"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <customfooter></customfooter>
+
+    </div>
+    <!-- /.container -->

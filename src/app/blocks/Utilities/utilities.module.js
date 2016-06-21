@@ -50,7 +50,6 @@
                 var date = new Date(odbcdate);
                 return $filter('date')(date,format);
             }
-
         };
 
         HttpService.$inject = ['$http','$q','$log'];

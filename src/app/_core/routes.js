@@ -16,6 +16,15 @@
                         ,url: "http://www.motionnotionskydiving.com/"
                     }
                 })
+                .when('/next', {
+                     templateUrl: 'src/app/home/home.html#myCarousel'
+                    ,controller: 'homeController'
+                    ,meta: {
+                         title: "Home"
+                        ,description: "Page Description"
+                        ,url: "http://www.motionnotionskydiving.com/"
+                    }
+                })
                 .when('/about', {
                      templateUrl: 'src/app/home/about.html'
                     ,controller: 'aboutController'
@@ -25,13 +34,31 @@
                         ,url: "http://www.motionnotionskydiving.com/about"
                     }
                 })
-                .when('/login', {
-                     templateUrl: 'src/app/login/login.html'
-                    ,controller: 'loginController'
+                .when('/coaches', {
+                     templateUrl: 'src/app/coach/list.html'
+                    ,controller: 'coachListController'
                     ,meta: {
-                         title: "Login Page Title"
-                        ,description: "Login Page Description"
-                        ,url: "http://www.motionnotionskydiving.com/login"
+                         title: "Coaches"
+                        ,description: "Check out or list of experienced motion coaches."
+                        ,url: "http://www.motionnotionskydiving.com/coaches"
+                    }
+                })
+                .when('/events', {
+                     templateUrl: 'src/app/event/list.html'
+                    ,controller: 'eventListController'
+                    ,meta: {
+                         title: "Events"
+                        ,description: "Check out or list of skydiving events."
+                        ,url: "http://www.motionnotionskydiving.com/events"
+                    }
+                })
+                .when('/events/view/:eventid', {
+                     templateUrl: 'src/app/event/view.html'
+                    ,controller: 'eventListController'
+                    ,meta:{
+                         title: ""
+                        ,description: ""
+                        ,url: ""
                     }
                 })
                 .otherwise({redirectTo:'/'});

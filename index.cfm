@@ -69,61 +69,43 @@
     <!---Slideshow--->
     <customslideshow ng-show="common.showslideshow()"></customslideshow>
 
+    <!---Angular NGVIEW Include Content--->
     <div layout="column" class="app-container" layout-align="center center" flex>
         <div data-ng-view="" class="view-fade-in"></div>
     </div>
 
-  <!---   <!-- Page Content -->
-    <div class="container">
-
-        <!-- Marketing Icons Section -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    Administrator Login
-                </h1>
-            </div>
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i> Bootstrap v3.2.0</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr> --->
 
     </div>
     <!-- /.container -->
-
-
 
     <!-- 3rd-party libraries js -->
     <!-- inject:lib:js -->
     <script src="src/lib/jquery/dist/jquery.js"></script>
     <script src="src/lib/angular/angular.js"></script>
-    <script src="src/lib/angular-animate/angular-animate.js"></script>
+    <script src="src/lib/angular-animate/angular-animate.js"></script>    
     <script src="src/lib/angular-aria/angular-aria.js"></script>
+    <script src="src/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="src/lib/angular-cookies/angular-cookies.js"></script>
     <script src="src/lib/angular-material/angular-material.js"></script>
     <script src="src/lib/angular-messages/angular-messages.js"></script>
     <script src="src/lib/angular-route/angular-route.js"></script>
+    <script src="src/lib/angular-touch/angular-touch.js"></script>
     <script src="src/lib/ng-device-detector/ng-device-detector.js"></script>
     <script src="src/lib/re-tree/re-tree.js"></script>
     <script src="src/lib/toastr/toastr.js"></script>
     <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
+    <!--- API URL --->
+    <script>
+        var _globalAPIEnv = "<cfoutput>#APPLICATION.apiurl#</cfoutput>";
+    </script>
+    
     <!--- Global JS --->
     <script src="src/app/blocks/Utilities/utilities.module.js"></script>
     <script src="src/app/blocks/Logger/logger.module.js"></script>
@@ -140,14 +122,20 @@
     <script src="src/app/_core/routes.js"></script>
     <script src="src/app/_core/config.js"></script>
 
-    <!---LOGIN--->    
-    <script src="src/app/login/login.module.js"></script>
-    <script src="src/app/login/login.js"></script>
-
     <!---HOME--->
     <script src="src/app/home/home.module.js"></script>
     <script src="src/app/home/home.js"></script>
+    <script src="src/app/home/about.js"></script>
 
+    <!---COACH--->
+    <script src="src/app/coach/coach.module.js"></script>
+    <script src="src/app/coach/list.js"></script>
+
+    <!---EVENTS--->
+    <script src="src/app/event/event.module.js"></script>
+    <script src="src/app/event/list.js"></script>
+    <script src="src/app/event/view.js"></script>
+    
 </body>
 
 </html>

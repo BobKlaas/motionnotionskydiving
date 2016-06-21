@@ -4,7 +4,7 @@
     'use strict';
 
     //Create Module
-    var app = angular.module('app',['app.core','app.home','app.login']);
+    var app = angular.module('app',['app.core','app.home','app.coach','app.event']);
         app.controller('appController',appController);
         
     appController.$inject = ['$scope','$log','common','logger'];
