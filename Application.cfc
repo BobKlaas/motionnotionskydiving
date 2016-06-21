@@ -12,6 +12,8 @@
     		<!--- Default --->
     		<cfset APPLICATION.apiurl = 'http://local.motionnotionskydiving.com'>
 
+            <!---Create Rest API--->
+            <cfset restInitApplication(THIS.restOptions.apiFolder,"api")>  
 		<cfreturn true />
     </cffunction>
 
@@ -22,9 +24,6 @@
         <cfif structKeyExists(url, "reinit") and refind("1|true",url.reinit)>
             <cfset OnApplicationStart() />
         </cfif>
-
-        <!---Create Rest API--->
-		<cfset restInitApplication(THIS.restOptions.apiFolder,"api")>  
 
 		<cfreturn true />
     </cffunction>

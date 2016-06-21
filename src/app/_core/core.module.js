@@ -11,8 +11,8 @@
             ,'ngMessages'
             ,'ngMaterial'
             ,'ngMeta'
-            ,'ui.bootstrap'
-            ,'angular.filter'
+            //,'ui.bootstrap'
+            //,'angular.filter'
       
             //Other 3rd-Party
             ,'Logger'
