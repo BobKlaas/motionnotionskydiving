@@ -1,0 +1,89 @@
+<!-- Page Content -->
+<div class="container">
+
+   <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" ng-bind="coach.details.FULLNAME">
+            </h1>
+            <ol class="breadcrumb">
+                <li><a ng-href="/">Home</a></li>
+                <li><a ng-href="/coaches/">Coaches</a></li>
+                <li class="active" ng-bind="coach.details.FULLNAME"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!--Name, Blurb, Request Coach-->
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-responsive img-hover" src="/assets/images/people/{{coach.details.IMAGENAME}}" alt="">
+        </div>
+        <div class="col-md-6">
+            <h3 ng-bind="coach.details.FULLNAME"></h3>
+            <p>
+            <blockquote>
+              <p>"{{coach.details.BLURB}}"</p>            
+            </blockquote>
+            <a class="btn btn-primary" href="">Request Coach</a>
+            </p>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Marketing Icons Section -->
+    <div class="row">
+     <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-info-sign"></span>Booking Info</h4>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">Home Dropzone: {{coach.details.HOMEDZ}}</li>
+                    <li class="list-group-item">Current Location: {{coach.details.CITY}}, {{coach.details.ABV}}</li>
+                    <li class="list-group-item">Daily Rate: <strong>${{coach.details.DAYRATE}} + Slots</strong></li>
+                </ul>
+                <div class="panel-body">
+                    <ul class="list-inline" style="text-align:center">
+                        <li><a ng-href="{{coach.details.INSTAGRAMURL}}" ng-show="coach.details.INSTAGRAMURL.length" target="_blank"><i class="fa fa-2x fa-instagram"></i></a></li>
+                        <li><a ng-href="{{coach.details.LINKEDINURL}}" ng-show="coach.details.LINKEDINURL.length" target="_blank"><i class="fa fa-2x fa-linkedin"></i></a></li>
+                        <li><a ng-href="{{coach.details.VIDEOURL}}" ng-show="coach.details.VIDEOURL.length" target="_blank"><i class="fa fa-2x fa-video-camera"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-tasks"></span>Skills Offered</h4>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="skill in coach.skills">{{skill.TITLE}} <i>({{skill.SKILL_LEVEL}})</i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><i class="fa fa-fw fa-compass"></i>Ratings</h4>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="rating in coach.ratings">{{rating.RATING}} <i>({{rating.AGENCY}})</i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+   
+
+    <hr>
+
+    <!-- Footer -->
+   <customfooter></customfooter>
+
+</div>
+<!-- /.container -->

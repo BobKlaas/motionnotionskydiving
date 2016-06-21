@@ -24,9 +24,16 @@ body, .app-container {
   opacity:0;
 }
 
+blockquote p {
+  font-size: 14px;
+}
+
 .request-progress {    
   margin-left: auto;
   margin-right: auto;
+}
+.glyphicon{
+  padding-right:7px;
 }
 
 

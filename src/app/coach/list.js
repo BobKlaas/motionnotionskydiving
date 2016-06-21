@@ -6,39 +6,39 @@
         .module('app.coach')
         .controller('coachListController',coachListController);
 
-    coachListController.$inject = ['$scope','common','coachservice'];
+    coachListController.$inject = ['$scope','common','contractorservice'];
 
-    function coachListController($scope,common,coachservice) {       
+    function coachListController($scope,common,contractorservice) {       
     	console.log('Coach List Controller has been called');
 
     	//METHODS
     	$scope.init = init;
-    	$scope.getCoaches = getCoaches;
+    	$scope.getContractors = getContractors;
     	$scope.buildImagePath = buildImagePath;
 
 		//VARIABLES
 		$scope.common = common;
 		$scope.peopleImagePath = '/assets/images/people/';
-		$scope.coaches = {all:[],chunked:[]};
+		$scope.contractors = {all:[],chunked:[]};
 
     	//Init Function
     	$scope.init();
     	function init(){
-    		$scope.getCoaches();
+    		$scope.getContractors();
     	}
 
-    	//Get Coaches
-        function getCoaches(){
-            coachservice.getCoaches().then(
+    	//Get Contractors
+        function getContractors(){
+            contractorservice.getContractors().then(
                 function(results){
-                    $scope.coaches.all = results; 
+                    $scope.contractors.all = results; 
 
                     //Chunk Out Array
                     for(var i=0; i<results.length; i+=3) {
-                        $scope.coaches.chunked.push(results.slice(i,i+3));
+                        $scope.contractors.chunked.push(results.slice(i,i+3));
                     }
 
-                    console.log($scope.coaches);
+                    console.log($scope.contractors);
                 }    
             );            
         }

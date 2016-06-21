@@ -33,7 +33,7 @@
 	</cffunction>
 
 	<!---Get Contractor Details --->
-	<cffunction name="getContractorDetails" access="remote" httpMethod="GET" restPath="/get/{contractorid}" returntype="struct" produces="application/json">		
+	<cffunction name="getContractorByID" access="remote" httpMethod="GET" restPath="/get/{contractorid}" returntype="any" produces="application/json">		
 		<cfargument name="contractorid" type="numeric" required="true" restargsource="path">
 		<cfstoredproc procedure="sp_get_contractor_details" datasource="motion">
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#contractorid#" dbvarname="@contractorid"/>
@@ -44,10 +44,11 @@
 
 		<!---Create Structure From Results--->
 		<cfset contractor = structNew()>
-		<cfset contractor.details = details>
-		<cfset contractor.skills = skills>
-		<cfset contractor.ratings = ratings>
-		<cfreturn contractor>
+		<cfset contractor.details = QueryToStruct(details)>
+		<cfset contractor.skills = QueryToStruct(skills)>
+		<cfset contractor.ratings = QueryToStruct(ratings)>
+		<cfset JSONReturn = SerializeJSON(contractor)>
+		<cfreturn JSONReturn>
 	</cffunction>
 	    
 </cfcomponent>

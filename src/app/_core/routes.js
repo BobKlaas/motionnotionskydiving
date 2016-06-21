@@ -43,6 +43,15 @@
                         ,url: "http://www.motionnotionskydiving.com/coaches"
                     }
                 })
+                .when('/coaches/view/:id', {
+                     templateUrl: 'src/app/coach/view.html'
+                    ,controller: 'coachViewController'
+                    ,meta: {
+                         title: "Coaches"
+                        ,description: "Check out or list of experienced motion coaches."
+                        ,url: "http://www.motionnotionskydiving.com/coaches"
+                    }
+                })
                 .when('/events', {
                      templateUrl: 'src/app/event/list.html'
                     ,controller: 'eventListController'

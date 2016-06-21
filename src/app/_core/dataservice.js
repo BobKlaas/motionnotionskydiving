@@ -4,7 +4,7 @@
     angular
         .module('app.core')
         .factory('loginservice',loginservice)
-        .factory('coachservice',coachservice)
+        .factory('contractorservice',contractorservice)
         .factory('eventsservice',eventsservice)
         //.factory('detailservice',detailservice)
         //.factory('reportservice',reportservice);
@@ -14,14 +14,14 @@
     //LOGIN Service
     //********************************************************
     loginservice.$inject = ['utility'];
-    coachservice.$inject = ['utility'];
+    contractorservice.$inject = ['utility'];
     eventsservice.$inject = ['utility'];
 
     //LOGIN Service___________________________________________________________________>
     function loginservice(utility) {
         var service = {
-            userLogin: userLogin,
-            getAlert: getAlert
+             userLogin: userLogin
+            ,getAlert: getAlert
         };
         return service;
 
@@ -38,22 +38,22 @@
     }
 
 
-    //COACHES Service___________________________________________________________________>
-    function coachservice(utility) {
+    //Contractors Service___________________________________________________________________>
+    function contractorservice(utility) {
         var service = {
-            getCoaches: getCoaches,
-            getCoachByID: getCoachByID
+             getContractors: getContractors
+            ,getContractorByID: getContractorByID
         };
         return service;
 
-        //Get All Active Coaches
-        function getCoaches(params){
+        //Get All Active Contractors
+        function getContractors(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/get/');
         }
 
-        //Get Coach by ID
-        function getCoachByID(params){
-            return utility.HttpService.sendRequest('/project/analytic/get/'+params.coachid);
+        //Get Contractors by ID
+        function getContractorByID(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/get/'+params.id);
         }
 
     }
