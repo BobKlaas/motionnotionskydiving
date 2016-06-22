@@ -2,33 +2,10 @@
 
 	<!---Get All Contractors --->
 	<cffunction name="getContractors" access="remote" httpMethod="GET" restPath="/get" returntype="any" produces="application/json">		
-		<cfquery name="qryGetContractors" datasource="motion">
-			SELECT 
-				 c.id
-				,c.firstname
-				,c.lastname
-				,c.emailaddress
-				,c.phonenumber
-				,c.uspalicenseno
-				,c.uspamemberno
-				,c.imagename
-				,ct.title
-				,c.active
-				,cp.instagramurl
-				,cp.facebookurl
-				,cp.linkedinurl
-				,cp.videourl
-				,contractorSkillsTitle=(SELECT dbo.getContractorsSkillTitle(c.id))
-			FROM 
-				 contractors c
-				 LEFT JOIN contractor_title ct ON ct.id = c.title_id
-				 LEFT JOIN contractor_profile cp ON c.id = cp.contractorid
-			WHERE
-				 active=1
-			ORDER BY 
-				 lastname ASC
-		</cfquery>
-		<cfset ls=QueryToStruct(qryGetContractors)>    
+		<cfstoredproc procedure="sp_get_contractors" datasource="motion">
+			<cfprocresult name="contractors" resultset="1">
+		</cfstoredproc>
+		<cfset ls=QueryToStruct(contractors)>    
 		<cfreturn ls>
 	</cffunction>
 

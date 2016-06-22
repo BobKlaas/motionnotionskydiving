@@ -129,6 +129,7 @@
     <script src="src/app/home/home.module.js"></script>
     <script src="src/app/home/home.js"></script>
     <script src="src/app/home/about.js"></script>
+    <script src="src/app/home/contact.js"></script>
 
     <!---COACH--->
     <script src="src/app/coach/coach.module.js"></script>
@@ -139,6 +140,11 @@
     <script src="src/app/event/event.module.js"></script>
     <script src="src/app/event/list.js"></script>
     <script src="src/app/event/view.js"></script>
+
+    <!---EVENTS--->
+    <script src="src/app/media/media.module.js"></script>
+    <script src="src/app/media/list.js"></script>
+    <script src="src/app/media/view.js"></script>
     
 </body>
 
