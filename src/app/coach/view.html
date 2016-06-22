@@ -18,7 +18,7 @@
     <!--Name, Blurb, Request Coach-->
     <div class="row">
         <div class="col-md-4">
-            <img class="img-responsive img-hover" src="/assets/images/people/{{coach.details.IMAGENAME}}" alt="">
+            <img class="img-responsive" src="/assets/images/people/{{coach.details.IMAGENAME}}" alt="">
         </div>
         <div class="col-md-6">
             <h3 ng-bind="coach.details.FULLNAME"></h3>
@@ -42,7 +42,7 @@
                     <h4><span class="glyphicon glyphicon-info-sign"></span>Booking Info</h4>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">Home Dropzone: {{coach.details.HOMEDZ}}</li>
+                    <li class="list-group-item">Home Dropzone: <a ng-href="{{coach.details.HOMEDZWEBSITE}}" target="_blank">{{coach.details.HOMEDZ}}</a></li>
                     <li class="list-group-item">Current Location: {{coach.details.CITY}}, {{coach.details.ABV}}</li>
                     <li class="list-group-item">Daily Rate: <strong>${{coach.details.DAYRATE}} + Slots</strong></li>
                 </ul>
@@ -68,11 +68,15 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-compass"></i>Ratings</h4>
+                    <h4><i class="fa fa-fw fa-compass"></i>USPA Ratings</h4>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="rating in coach.ratings">{{rating.RATING}} <i>({{rating.AGENCY}})</i></li>
+                    <li class="list-group-item" ng-repeat="rating in coach.ratings">{{rating.RATING}}</li>
+                    <li class="list-group-item">
+                        <a href="http://www.uspa.org/Safety-Training/Ratings" target="_blank">View USPA Ratings Information</a>
+                    </li>
                 </ul>
+                
             </div>
         </div>
     </div>

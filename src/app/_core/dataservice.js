@@ -5,7 +5,7 @@
         .module('app.core')
         .factory('loginservice',loginservice)
         .factory('contractorservice',contractorservice)
-        .factory('eventsservice',eventsservice)
+        .factory('eventservice',eventservice)
         //.factory('detailservice',detailservice)
         //.factory('reportservice',reportservice);
 
@@ -15,7 +15,7 @@
     //********************************************************
     loginservice.$inject = ['utility'];
     contractorservice.$inject = ['utility'];
-    eventsservice.$inject = ['utility'];
+    eventservice.$inject = ['utility'];
 
     //LOGIN Service___________________________________________________________________>
     function loginservice(utility) {
@@ -59,7 +59,7 @@
     }
 
     //EVENTS Service___________________________________________________________________>
-    function eventsservice(utility) {
+    function eventservice(utility) {
         var service = {
             getEvents: getEvents
         };

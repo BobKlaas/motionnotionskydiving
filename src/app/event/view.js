@@ -4,11 +4,11 @@
 
     angular
         .module('app.event')
-        .controller('eventListController',eventListController);
+        .controller('eventViewController',eventViewController);
 
-    eventListController.$inject = ['$scope','common','coachservice'];
+    eventViewController.$inject = ['$scope','common','eventservice'];
 
-    function eventListController($scope,common,coachservice) {       
+    function eventViewController($scope,common,eventservice) {       
     	console.log('Event list controller has been called');
 
     	//METHODS

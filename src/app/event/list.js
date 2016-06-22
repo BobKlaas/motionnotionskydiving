@@ -6,9 +6,9 @@
         .module('app.event')
         .controller('eventListController',eventListController);
 
-    eventListController.$inject = ['$scope','common','coachservice'];
+    eventListController.$inject = ['$scope','common','contractorservice'];
 
-    function eventListController($scope,common,coachservice) {       
+    function eventListController($scope,common,contractorservice) {       
     	console.log('Event list controller has been called');
 
     	//METHODS
