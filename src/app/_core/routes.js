@@ -43,7 +43,7 @@
                         ,url: "http://www.motionnotionskydiving.com/coaches/"
                     }
                 })
-                .when('/coaches/view/:id', {
+                .when('/coaches/:uniquename', {
                      templateUrl: 'src/app/coach/view.html'
                     ,controller: 'coachViewController'
                     ,meta: {

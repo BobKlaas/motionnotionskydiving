@@ -42,7 +42,7 @@
     function contractorservice(utility) {
         var service = {
              getContractors: getContractors
-            ,getContractorByID: getContractorByID
+            ,getContractorByUniqueName: getContractorByUniqueName
         };
         return service;
 
@@ -52,8 +52,8 @@
         }
 
         //Get Contractors by ID
-        function getContractorByID(params){
-            return utility.HttpService.sendRequest('/rest/api/contractors/get/'+params.id);
+        function getContractorByUniqueName(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/get/'+params.uniquename);
         }
 
     }

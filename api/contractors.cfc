@@ -10,10 +10,10 @@
 	</cffunction>
 
 	<!---Get Contractor Details --->
-	<cffunction name="getContractorByID" access="remote" httpMethod="GET" restPath="/get/{contractorid}" returntype="any" produces="application/json">		
-		<cfargument name="contractorid" type="numeric" required="true" restargsource="path">
+	<cffunction name="getContractorByUniqueName" access="remote" httpMethod="GET" restPath="/get/{uniquename}" returntype="any" produces="application/json">
+		<cfargument name="uniquename" type="string" required="true" restargsource="path">
 		<cfstoredproc procedure="sp_get_contractor_details" datasource="motion">
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#contractorid#" dbvarname="@contractorid"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#uniquename#" dbvarname="@uniquename"/>
 			<cfprocresult name="details" resultset="1">
 			<cfprocresult name="skills" resultset="2">
 			<cfprocresult name="ratings" resultset="3">		

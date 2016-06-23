@@ -13,23 +13,23 @@
 
     	//METHODS
     	$scope.init = init;
-        $scope.getContractorByID = getContractorByID;
+        $scope.getContractorByUniqueName = getContractorByUniqueName;
 
 		//VARIABLES
 		$scope.common = common;        
-        $scope.coachId = common.$routeParams.id;
+        $scope.uniquename = common.$routeParams.uniquename;
         $scope.coach = {details: [],ratings: [],skills: []};
 
     	//Init Function
     	$scope.init();
     	function init(){
-    		$scope.getContractorByID();
+    		$scope.getContractorByUniqueName();
     	}
 
     	//Get Coach by ID
-        function getContractorByID(){
-            var params = {id: $scope.coachId}
-            contractorservice.getContractorByID(params).then(
+        function getContractorByUniqueName(){
+            var params = {uniquename: $scope.uniquename}
+            contractorservice.getContractorByUniqueName(params).then(
                 function(results){
                     $scope.coach.details = results.DETAILS[0];
                     $scope.coach.ratings = results.RATINGS;

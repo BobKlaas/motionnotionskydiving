@@ -68,7 +68,7 @@
         </div>
 
         <div class="col-sm-3 col-xs-6" ng-repeat="contractor in event.contractors">
-            <a href="/coaches/view/{{contractor.ID}}">
+            <a href="/coaches/{{contractor.UNIQUENAME}}">
                 <img class="img-responsive img-hover img-related" ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" alt="">
             </a>
             <h4 ng-cloak>{{contractor.FULLNAME}} - {{contractor.SKILL_TITLE}}</h4>
