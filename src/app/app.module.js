@@ -11,11 +11,11 @@
 
         app.run(function(ngMeta){
             ngMeta.init();
-            console.log('ngmeta loaded');
         });
 
         function appController($scope,$log,common,logger){
             $scope.common = common;
+            $scope.navCollapsed = 1;
         }
 
         //Header Custom Directive
