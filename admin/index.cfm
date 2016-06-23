@@ -11,7 +11,7 @@
 
     <title>Motion Notion - Admin</title>
 
-    <base href="/admin/">
+    <base href="/admin/" />
 
     <!-- 3rd-party libraries css -->
     <!-- build:css dist/css/lib.css -->
@@ -28,9 +28,7 @@
     
     <!-- Custom CSS -->
     <link href="/assets/css/modern-business.css" rel="stylesheet">
-
-    <link href="src/assets/css/app.css" rel="stylesheet">  
-
+    <link href="/src/assets/css/app.css" rel="stylesheet">    
 </head>
 
 <body ng-controller="appController">
