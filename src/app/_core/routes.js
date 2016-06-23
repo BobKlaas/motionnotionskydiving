@@ -72,7 +72,7 @@
                 })
                 .when('/events/view/:eventid', {
                      templateUrl: 'src/app/event/view.html'
-                    ,controller: 'eventListController'
+                    ,controller: 'eventViewController'
                     ,meta:{
                          title: ""
                         ,description: ""

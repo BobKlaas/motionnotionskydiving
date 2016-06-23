@@ -16,6 +16,8 @@
             navigateToLink      : navigateToLink,
             routeTo             : routeTo,
             showslideshow       : showslideshow,
+            formatDateRange     : formatDateRange,
+            buildfilepath       : buildfilepath,
             $log                : $log,
             $http               : $http,
             $q                  : $q,
@@ -57,6 +59,21 @@
             else
                 return 0;
         };
+
+        //Format Date: Month DD to DD YYYY
+        function formatDateRange(startdate,enddate){
+            var sdate = Date.parse(startdate);
+            var edate = Date.parse(enddate);
+            var fdate = $filter('date')(sdate,'LLLL dd');
+            fdate = fdate + ' to '+ $filter('date')(edate,'dd yyyy');
+
+            return fdate;
+        }
+
+        //Build Path
+        function buildfilepath(path,filename){
+            return path+filename;
+        }
 
     };
 

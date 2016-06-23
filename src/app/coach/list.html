@@ -19,7 +19,9 @@
     <div class="row" ng-repeat="chunk in contractors.chunked">
         <div class="col-md-4 text-center" ng-repeat="contractor in chunk">
             <div class="thumbnail">
-                <a ng-href="/coaches/view/{{contractor.ID}}"><img class="img-responsive img-hover" ng-src="{{buildImagePath(peopleImagePath,contractor.IMAGENAME)}}" alt=""></a>
+                <a ng-href="/coaches/view/{{contractor.ID}}">
+                    <img class="img-responsive img-hover" ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" alt="">
+                </a>
                 <div class="caption">
                     <h3>{{contractor.FIRSTNAME}} {{contractor.LASTNAME}}<br>
                         <small>{{contractor.CONTRACTORSKILLSTITLE}}</small>

@@ -15,18 +15,19 @@
     <!-- /.row -->
 
     <!-- Project One -->
-    <div class="row">
+    <div class="row" ng-repeat="event in events" style="padding-bottom:25px;">
         <div class="col-md-7">
-            <a ng-href="/events/view/1">
-                <img class="img-responsive img-hover" src="/assets/images/events/event1.jpg" alt="">
+            <a ng-href="/events/view/{{event.ID}}">
+                <img class="img-responsive img-hover" ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" alt="">
             </a>
         </div>
         <div class="col-md-5">
-            <h3>Motion and Canopy Hybrid Course</h3>
-            <h4>Intermediate</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-            <a class="btn btn-primary" ng-href="/events/view/1">View Event Details</i></a>
+            <h3 ng-bind="event.TITLE"></h3>
+            <h4 ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></h4>
+            <p ng-bind="event.DESCRIPTION"></p>
+            <a class="btn btn-primary" ng-href="/events/view/{{event.ID}}">View Event Details</i></a>
         </div>
+        <hr>
     </div>
     <!-- /.row -->
 

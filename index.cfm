@@ -91,7 +91,6 @@
     <script src="src/lib/angular-messages/angular-messages.js"></script>
     <script src="src/lib/angular-route/angular-route.js"></script>
     <script src="src/lib/angular-touch/angular-touch.js"></script>
-    <script src="src/lib/material-design-icons/index.js"></script>
     <script src="src/lib/ng-device-detector/ng-device-detector.js"></script>
     <script src="src/lib/re-tree/re-tree.js"></script>
     <script src="src/lib/toastr/toastr.js"></script>
@@ -141,10 +140,9 @@
     <script src="src/app/event/list.js"></script>
     <script src="src/app/event/view.js"></script>
 
-    <!---EVENTS--->
+    <!---MEDIA--->
     <script src="src/app/media/media.module.js"></script>
-    <script src="src/app/media/list.js"></script>
-    <script src="src/app/media/view.js"></script>
+    <script src="src/app/media/media.js"></script>
     
 </body>
 

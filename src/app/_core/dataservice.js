@@ -61,13 +61,19 @@
     //EVENTS Service___________________________________________________________________>
     function eventservice(utility) {
         var service = {
-            getEvents: getEvents
+             getEvents: getEvents
+            ,getEventByID: getEventByID
         };
         return service;
 
         //Get All Events
         function getEvents(params){
             return utility.HttpService.sendRequest('/rest/api/events/get/');
+        }
+
+        //Get Event By ID
+        function getEventByID(params){
+            return utility.HttpService.sendRequest('/rest/api/events/get/'+params.id);
         }
     }
     
