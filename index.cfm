@@ -129,7 +129,6 @@
     <script src="src/app/home/home.js"></script>
     <script src="src/app/home/about.js"></script>
     <script src="src/app/home/contact.js"></script>
-    <script src="src/app/home/admin.js"></script>
 
     <!---COACH--->
     <script src="src/app/coach/coach.module.js"></script>

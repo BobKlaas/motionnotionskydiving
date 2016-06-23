@@ -47,15 +47,19 @@
     <script src="src/lib/angular/angular.js"></script>
     <script src="src/lib/angular-animate/angular-animate.js"></script>
     <script src="src/lib/angular-aria/angular-aria.js"></script>
+    <script src="src/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="src/lib/angular-cookies/angular-cookies.js"></script>
     <script src="src/lib/angular-material/angular-material.js"></script>
     <script src="src/lib/angular-messages/angular-messages.js"></script>
     <script src="src/lib/angular-route/angular-route.js"></script>
+    <script src="src/lib/angular-touch/angular-touch.js"></script>
     <script src="src/lib/ng-device-detector/ng-device-detector.js"></script>
     <script src="src/lib/re-tree/re-tree.js"></script>
     <script src="src/lib/toastr/toastr.js"></script>
+    <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
     <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
+    <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endinject -->
     <!-- endbuild -->

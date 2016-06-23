@@ -10,6 +10,8 @@
             'ngAnimate',
             'ngMessages',
             'ngMaterial',
+            'ui.bootstrap',
+            'angular.filter',
       
             //Other 3rd-Party
             'Logger',
