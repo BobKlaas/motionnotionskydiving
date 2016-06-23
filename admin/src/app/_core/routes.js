@@ -7,11 +7,15 @@
         .config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider) {
 
             $routeProvider
+                .when('/', {
+                    templateUrl: 'src/app/home/home.html',
+                    controller: 'homeController'
+                })
                 .when('/login', {
                     templateUrl: 'src/app/login/login.html',
                     controller: 'loginController'
                 })
-                .otherwise({redirectTo:'/login'});
+                .otherwise({redirectTo:'/'});
 
                 $locationProvider.html5Mode(true);
         }]);
