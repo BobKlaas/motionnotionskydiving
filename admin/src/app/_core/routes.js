@@ -15,6 +15,14 @@
                     templateUrl: 'src/app/login/login.html',
                     controller: 'loginController'
                 })
+                .when('/contractors', {
+                    templateUrl: 'src/app/contractors/contractors.html',
+                    controller: 'contractorsController'
+                })
+                .when('/events', {
+                    templateUrl: 'src/app/events/events.html',
+                    controller: 'eventsController'
+                })
                 .otherwise({redirectTo:'/'});
 
                 $locationProvider.html5Mode(true);

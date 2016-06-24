@@ -3,12 +3,12 @@
     'use strict';
 
     angular
-        .module('app.events')
-        .controller('eventsController', eventsController);
+        .module('app.home')
+        .controller('homeController', homeController);
 
-    eventsController.$inject = ['$scope','common'];
+    homeController.$inject = ['$scope','common'];
 
-    function eventsController($scope,common) {       
+    function homeController($scope,common) {       
         //METHODS
         $scope.init = init;
 

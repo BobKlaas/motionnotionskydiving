@@ -3,22 +3,27 @@
     'use strict';
 
     //Create Module
-    var app = angular.module('app',['app.core','app.home','app.login']);
+    var app = angular.module('app',['app.core','app.home','app.login','app.contractors','app.events']);
         app.controller('appController',appController);
         
-    appController.$inject = ['$scope','$log','common','logger'];
+    appController.$inject = ['$scope','$log','common','logger','$mdSidenav','$mdMedia'];
        
 
-    function appController($scope,$log,common,logger){
+    function appController($scope,$log,common,logger,$mdSidenav,$mdMedia){
         $scope.common = common;
+        $scope.toggleSidenavLeft = toggleSidenavLeft;
         
+        //Open Sidenav
+        function toggleSidenavLeft() {
+          $mdSidenav('left').toggle();
+        }        
     }
 
     //Header Custom Directive
     app.directive("customheader",function(){
         return{
              restrict: 'E'
-            ,templateUrl: '/src/app/partials/header.html'
+            ,templateUrl: 'src/app/partials/header.html'
         };
     });
 
@@ -29,5 +34,14 @@
             ,templateUrl: '/src/app/partials/footer.html'
         };
     });
+
+    //Sidenav
+    app.directive("customsidenav",function(){
+        return{
+             restrict: 'E'
+            ,templateUrl: 'src/app/partials/sidenav.html'
+        };
+    });
+
     
 })();
