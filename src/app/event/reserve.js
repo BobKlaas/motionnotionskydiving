@@ -4,22 +4,19 @@
 
     angular
         .module('app.event')
-        .controller('eventViewController',eventViewController);
+        .controller('eventReserveListController',eventReserveListController);
 
-    eventViewController.$inject = ['$scope','common','eventservice'];
+    eventReserveListController.$inject = ['$scope','common','eventservice'];
 
-    function eventViewController($scope,common,eventservice) {       
-    	console.log('Event view controller has been called');
+    function eventReserveListController($scope,common,eventservice) {       
+    	console.log('Event list controller has been called');
 
     	//METHODS
     	$scope.init = init;
         $scope.getEventByID = getEventByID;
-        $scope.buildSlotsString = buildSlotsString;
     	
 		//VARIABLES
 		$scope.common = common;
-        $scope.eventsImagePath = '/assets/images/events/';
-        $scope.peopleImagePath = '/assets/images/people/';
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[]};
 		
@@ -40,18 +37,6 @@
                     console.log(results);
                 }    
             );            
-        }
-
-        //Build Slots String
-        function buildSlotsString(slotsleft,slots){
-            var string = '';
-
-            if(slotsleft < 1){
-                string = 'CAMP FULL'
-            }else{
-                string = 'Slots: '+slotsleft+' of '+slots+' available';
-            }
-            return string;
         }
 
     };

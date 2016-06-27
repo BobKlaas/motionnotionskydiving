@@ -6,7 +6,7 @@
         .factory('loginservice',loginservice)
         .factory('contractorservice',contractorservice)
         .factory('eventservice',eventservice)
-        //.factory('detailservice',detailservice)
+        .factory('dropzoneservice',dropzoneservice)
         //.factory('reportservice',reportservice);
 
   
@@ -16,6 +16,7 @@
     loginservice.$inject = ['utility'];
     contractorservice.$inject = ['utility'];
     eventservice.$inject = ['utility'];
+    dropzoneservice.$inject = ['utility'];
 
     //LOGIN Service___________________________________________________________________>
     function loginservice(utility) {
@@ -38,7 +39,7 @@
     }
 
 
-    //Contractors Service___________________________________________________________________>
+    //CONTRACTOR Service___________________________________________________________________>
     function contractorservice(utility) {
         var service = {
              getContractors: getContractors
@@ -78,5 +79,24 @@
     }
     
 
+    //DROPZONE Service___________________________________________________________________>
+    function dropzoneservice(utility) {
+        var service = {
+             getDropzones: getDropzones
+            ,getDropzoneByName: getDropzoneByName
+        };
+        return service;
+
+        //Get All Dropzones
+        function getDropzones(params){
+            return utility.HttpService.sendRequest('/rest/api/dropzones/get/');
+        }
+
+        //Get Dropzone by Name
+        function getDropzoneByName(params){
+            return utility.HttpService.sendRequest('/rest/api/dropzones/get/'+params.name);
+        }
+    }
+    
 
 })();

@@ -79,6 +79,24 @@
                         ,url: ""
                     }
                 })
+                .when('/events/register/:eventid', {
+                     templateUrl: 'src/app/event/register.html'
+                    ,controller: 'eventRegisterController'
+                    ,meta:{
+                         title: ""
+                        ,description: ""
+                        ,url: ""
+                    }
+                })
+                .when('/events/reservelist/:eventid', {
+                     templateUrl: 'src/app/event/reserve.html'
+                    ,controller: 'eventReserveListController'
+                    ,meta:{
+                         title: ""
+                        ,description: ""
+                        ,url: ""
+                    }
+                })
                 .otherwise({redirectTo:'/'});
 
                 $locationProvider.html5Mode(true);

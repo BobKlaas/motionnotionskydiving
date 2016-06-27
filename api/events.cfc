@@ -29,7 +29,5 @@
 		<cfreturn JSONReturn>
 	</cffunction>
 
-
-
 	    
 </cfcomponent>

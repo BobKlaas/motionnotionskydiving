@@ -33,6 +33,7 @@
     <base href="/">
 
     <!--Dynamic Meta-->
+    <meta name="google-site-verification" content="Db-C5CrbnpVPrW8vq1-Jt-1fgV21YzkduMRXONA8Zbk" />
     <meta name="application-name" content="Motion Notion">
     <meta property="og:site_name" content="Motion Notion"/>
     <meta property="og:url" metaproperty="url" content="{{ngMeta.url}}" />
@@ -139,6 +140,8 @@
     <script src="src/app/event/event.module.js"></script>
     <script src="src/app/event/list.js"></script>
     <script src="src/app/event/view.js"></script>
+    <script src="src/app/event/register.js"></script>
+    <script src="src/app/event/reserve.js"></script>
 
     <!---MEDIA--->
     <script src="src/app/media/media.module.js"></script>

@@ -36,6 +36,10 @@ blockquote p {
   padding-right:7px;
 }
 
+.hint{
+  color: grey;
+  font-size:12px;
+}
 
 /* mobile */
 @media (max-width: 360px) {

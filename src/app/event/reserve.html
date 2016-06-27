@@ -7,7 +7,8 @@
             <ol class="breadcrumb">
                 <li><a ng-href="/">Home</a></li>
                 <li><a ng-href="/events/">Events</a></li>
-                <li class="active" ng-bind="event.details.TITLE"></li>
+                <li><a ng-href="/events/view/{{eventid}}" ng-bind="event.details.TITLE"></a></li>
+                <li class="active">Registration</li>
             </ol>
         </div>
     </div>
