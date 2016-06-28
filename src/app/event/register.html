@@ -18,7 +18,7 @@
     <div class="row">
 
         <div class="col-md-6">
-            <div flex="100" layout="column" class="panel panel-default">
+            <div class="panel panel-default">
                 <form name="registrationForm" ng-submit="proceedToPayment()">
                     <div class="panel-heading">
                         <h4><span class="glyphicon glyphicon-list"></span> Event Registration</h4>
@@ -94,14 +94,23 @@
                             <div ng-message="required">Please enter your home dropzone.</div>
                         </div>
 
+                        <!--Submit Button-->
                         <md-button class="md-raised md-primary" type="submit" ng-cloak>Proceed To Payment</md-button>
-                </div>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
             
         <div class="col-md-6">
-        TEST
+            <div layout-padding>
+                <img class="img-responsive" ng-src="{{common.buildfilepath(eventsImagePath,event.details.IMAGENAME)}}" alt="">
+            <div>
+            <ul class="list-group">
+                <li class="list-group-item"><span class="event-details">Dates: {{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}}</span></li>
+                <li class="list-group-item"><span class="event-details">Location: {{event.details.DROPZONENAME}}</span></li>
+                <li class="list-group-item"><span class="event-details">Price: {{event.details.REGISTRATIONFEE | currency}}</span></li>
+                <li class="list-group-item"><span class="event-details">Slots Remaining: {{event.details.SLOTSLEFT}}</span></li>
+            </ul>
         </div>
 
     </div>
@@ -109,8 +118,8 @@
 
     <hr>
 
-    <!-- Footer -->
-    <customfooter></customfooter>
+  <!-- Footer -->
+   <customfooter></customfooter>
 
 </div>
-<!-- /.container
+<!-- /.container -->

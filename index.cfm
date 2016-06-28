@@ -47,20 +47,19 @@
     <!-- 3rd-party libraries css -->
     <!-- build:css dist/css/lib.css -->
     <!-- inject:lib:css -->
-    <link rel="stylesheet" href="src/lib/angular-material/angular-material.css">
-    <link rel="stylesheet" href="src/lib/toastr/toastr.css">
-    <link rel="stylesheet" href="src/lib/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="src/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="src/lib/toastr/toastr.css">
+    <link rel="stylesheet" href="src/lib/angular-loading-bar/build/loading-bar.css">    
+    <link rel="stylesheet" href="src/lib/angular-material/angular-material.css">
     <!-- endinject -->
     <!-- endbuild -->  
 
+    <!--Custom CSS -->
+    <link href="/assets/css/modern-business.css" rel="stylesheet">
+    <link href="src/assets/css/app.css" rel="stylesheet">    
+
     <!---Material Icon Fonts--->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link href="/assets/css/modern-business.css" rel="stylesheet">
-
-    <link href="src/assets/css/app.css" rel="stylesheet">    
 </head>
 
 <body ng-controller="appController">
@@ -75,10 +74,6 @@
     <div layout="column" class="app-container" layout-align="center center" flex>
         <div data-ng-view="" class="view-fade-in"></div>
     </div>
-
-
-    </div>
-    <!-- /.container -->
 
     <!-- 3rd-party libraries js -->
     <!-- inject:lib:js -->

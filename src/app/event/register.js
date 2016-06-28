@@ -21,6 +21,7 @@
 		$scope.common = common;
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[]};
+        $scope.eventsImagePath = '/assets/images/events/';
         $scope.registration = {
              firstname: ''
             ,lastname: ''
