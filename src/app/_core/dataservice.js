@@ -7,7 +7,8 @@
         .factory('contractorservice',contractorservice)
         .factory('eventservice',eventservice)
         .factory('dropzoneservice',dropzoneservice)
-        //.factory('reportservice',reportservice);
+        .factory('commonservice',commonservice)
+        .factory('transactionservice',transactionservice);
 
   
     //********************************************************
@@ -17,6 +18,8 @@
     contractorservice.$inject = ['utility'];
     eventservice.$inject = ['utility'];
     dropzoneservice.$inject = ['utility'];
+    commonservice.$inject = ['utility'];
+    transactionservice.$inject = ['utility'];
 
     //LOGIN Service___________________________________________________________________>
     function loginservice(utility) {
@@ -37,7 +40,6 @@
         }
 
     }
-
 
     //CONTRACTOR Service___________________________________________________________________>
     function contractorservice(utility) {
@@ -64,6 +66,7 @@
         var service = {
              getEvents: getEvents
             ,getEventByID: getEventByID
+            ,addCustomerToEvent: addCustomerToEvent
         };
         return service;
 
@@ -75,6 +78,11 @@
         //Get Event By ID
         function getEventByID(params){
             return utility.HttpService.sendRequest('/rest/api/events/get/'+params.id);
+        }
+
+        //Add Customer to Event
+        function addCustomerToEvent(params){
+            return utility.HttpService.sendRequest('/rest/api/events/customer/add/',params,'POST');
         }
     }
     
@@ -95,6 +103,39 @@
         //Get Dropzone by Name
         function getDropzoneByName(params){
             return utility.HttpService.sendRequest('/rest/api/dropzones/get/'+params.name);
+        }
+    }
+
+    //Common Service___________________________________________________________________>
+    function commonservice(utility) {
+        var service = {
+              getStates: getStates
+             ,getDisciplines: getDisciplines
+        };
+        return service;
+
+        //Get States
+        function getStates(params){
+            return utility.HttpService.sendRequest('/rest/api/common/states/get/');
+        }
+
+        //Get Disciplines
+        function getDisciplines(){
+            return utility.HttpService.sendRequest('/rest/api/common/skills/get/1');
+        }
+
+    }
+
+    //Common Service___________________________________________________________________>
+    function transactionservice(utility) {
+        var service = {
+              sendPayment: sendPayment
+        };
+        return service;
+
+        //Get States
+        function sendPayment(params){
+            return utility.HttpService.sendRequest('/rest/api/transaction/sendPayment/',params,'post');
         }
     }
     

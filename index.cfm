@@ -47,16 +47,16 @@
     <!-- 3rd-party libraries css -->
     <!-- build:css dist/css/lib.css -->
     <!-- inject:lib:css -->
-    <link rel="stylesheet" href="src/lib/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="src/lib/toastr/toastr.css">
-    <link rel="stylesheet" href="src/lib/angular-loading-bar/build/loading-bar.css">    
     <link rel="stylesheet" href="src/lib/angular-material/angular-material.css">
+    <link rel="stylesheet" href="src/lib/toastr/toastr.css">
+    <link rel="stylesheet" href="src/lib/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="src/lib/bootstrap/dist/css/bootstrap.css">
     <!-- endinject -->
     <!-- endbuild -->  
 
     <!--Custom CSS -->
     <link href="/assets/css/modern-business.css" rel="stylesheet">
-    <link href="src/assets/css/app.css" rel="stylesheet">    
+    <link href="/src/assets/css/app.css" rel="stylesheet">    
 
     <!---Material Icon Fonts--->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -92,6 +92,7 @@
     <script src="src/lib/toastr/toastr.js"></script>
     <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
     <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -135,7 +136,8 @@
     <script src="src/app/event/event.module.js"></script>
     <script src="src/app/event/list.js"></script>
     <script src="src/app/event/view.js"></script>
-    <script src="src/app/event/register.js"></script>
+    <script src="src/app/event/register_step1.js"></script>
+    <script src="src/app/event/register_step2.js"></script>
     <script src="src/app/event/reserve.js"></script>
 
     <!---MEDIA--->

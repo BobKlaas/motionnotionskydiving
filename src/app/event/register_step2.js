@@ -4,21 +4,25 @@
 
     angular
         .module('app.event')
-        .controller('eventRegisterController',eventRegisterController);
+        .controller('eventRegisterStep2Controller',eventRegisterStep2Controller);
 
-    eventRegisterController.$inject = ['$scope','common','eventservice','dropzoneservice'];
+    eventRegisterStep2Controller.$inject = ['$scope','common','eventservice','dropzoneservice','commonservice'];
 
-    function eventRegisterController($scope,common,eventservice,dropzoneservice) {       
+    function eventRegisterStep2Controller($scope,common,eventservice,dropzoneservice,commonservice) {       
     	console.log('Register controller has been called');
 
     	//METHODS
     	$scope.init = init;
         $scope.getEventByID = getEventByID;
         $scope.proceedToPayment = proceedToPayment;
-        
-    	
+        $scope.getStates = getStates;
+        $scope.getDisciplines = getDisciplines;
+            	
 		//VARIABLES
 		$scope.common = common;
+        $scope.states = [];
+        $scope.disciplines = [];
+        $scope.uspaLicenses = [{id: 1, name: 'A'},{id: 2, name: 'B'},{id: 3, name: 'C'},{id: 3, name: 'D'}];
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[]};
         $scope.eventsImagePath = '/assets/images/events/';
@@ -27,15 +31,22 @@
             ,lastname: ''
             ,email: ''
             ,phone: ''
+            ,address: ''
+            ,zipcode: ''
+            ,city: ''
+            ,state: ''            
+            ,uspalicense: ''
             ,jumpnumber: ''
             ,homedropzone: ''
-            ,canopy: ''
+            ,homedropzoneid: ''
             ,primarydiscipline: ''
         };
 		
     	//Init Function
     	$scope.init();
     	function init(){
+            $scope.getStates();
+            $scope.getDisciplines();
             $scope.getEventByID($scope.eventid);            
     	}
 
@@ -47,6 +58,24 @@
                     $scope.event.details = results.DETAILS[0];
                     $scope.event.contractors = results.CONTRACTORS;
                     $scope.event.customers = results.CUSTOMERS;
+                }    
+            );            
+        }
+
+        //Get States
+        function getStates(){
+            commonservice.getStates().then(
+                function(results){
+                    $scope.states = results;
+                }    
+            );            
+        }
+
+        //Get States
+        function getDisciplines(){
+            commonservice.getDisciplines().then(
+                function(results){
+                    $scope.disciplines = results;
                 }    
             );            
         }
@@ -75,7 +104,10 @@
 
         //Save Registration and Proceed to Payment
         function proceedToPayment(){
+            $scope.registration.homedropzoneid = $scope.registration.homedropzone.id;
+            $scope.registration.homedropzone = $scope.registration.homedropzone.name;            
 
+            console.log($scope.registration);
         }
 
     };

@@ -1,0 +1,149 @@
+<div class="container">
+
+     <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" ng-bind="event.details.TITLE"></h1>
+            <ol class="breadcrumb">
+                <li><a ng-href="/">Home</a></li>
+                <li><a ng-href="/events/">Events</a></li>
+                <li><a ng-href="/events/view/{{eventid}}" ng-bind="event.details.TITLE"></a></li>
+                <li class="active">Registration</li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-7">
+            <div class="panel panel-default md-whiteframe-4dp">
+                <form name="registrationForm" ng-submit="registrationForm.$valid && proceedToPayment()">
+                    <div class="panel-heading">
+                        <h4><span class="glyphicon glyphicon-list"></span>Event Registration</h4>
+                    </div>
+                    <div class="panel-body" layout="column" style="background-color:#f6f6f6">
+                        <!--First Name-->
+                        <md-input-container>
+                            <label>First Name</label>
+                            <input ng-model="registration.firstname" autofocus name="firstname" required minlength="2" maxlength="20">
+                            <div ng-messages="registrationForm.firstname.$error">
+                                <div ng-message="md-minlength">Your first name must be at least 2 characters long.</div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Last Name-->
+                        <md-input-container>
+                            <label>Last Name</label>
+                            <input ng-model="registration.lastname" name="lastname" required minlength="2" maxlength="20">
+                            <div ng-messages="registrationForm.lastname.$error">
+                                <div ng-message="md-minlength">Your last name must be at least 2 characters long.</div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Phone-->
+                        <md-input-container>
+                            <label>Phone Number</label>
+                            <input ng-model="registration.phone" name="phone" autoComplete="off" required minlength="7" maxlength="40" ui-mask="999-999-9999" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/" />
+                            <!-- <div class="hint" class="hints">###-###-####</div> -->
+                            <div ng-messages="registrationForm.phone.$error">                              
+                                <div ng-message="pattern">###-###-#### - Please enter a valid phone number.</div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Email Address-->
+                        <md-input-container class="md-block">
+                            <label>Email Address</label>
+                            <input required ng-model="registration.email" name="email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                            <!-- <div class="hint">What email can we reach you at?</div> -->
+                            <div ng-messages="registrationForm.email.$error">
+                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                    Your email must be between 10 and 100 characters long and be valid.
+                                </div>
+                            </div>
+                        </md-input-container>   
+
+                        <!--Home Dropzone-->
+                        <div layout="row">
+                            <md-autocomplete 
+                                md-input-name="homeDropzoneField"
+                                md-min-length="2"
+                                md-no-cache="false"
+                                md-selected-item="registration.homedropzone"                            
+                                md-search-text="searchText"                            
+                                md-items="item in dropzoneSearch(searchText)"
+                                md-item-text="item.name"                            
+                                md-floating-label="Home Dropzone"
+                                ng-cloak flex
+                                required>
+                                <md-item-template>
+                                    <span md-highlight-text="searchText">{{item.name}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                            <div ng-messages="registrationForm.homeDropzoneField.$error" ng-if="registrationForm.homeDropzoneField.$touched">
+                                <div ng-message="required">Please enter your home dropzone.</div>
+                            </div>
+
+                            <md-input-container flex>
+                                <label>USPA License</label>
+                                <md-select ng-model="registration.uspalicense" name="uspalicense" required>
+                                    <md-option value="{{license.name}}" ng-repeat="license in uspaLicenses">{{license.name}} - License</md-option>
+                                </md-select>
+                                <div class="errors" ng-messages="registrationForm.uspalicense.$error" ng-if="registrationForm.uspalicense.$touched">
+                                    <div ng-message="required">USPA License is Required</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <!--Number of Jumps-->
+                        <md-input-container>
+                            <label>Number of Jumps Logged</label>
+                            <input ng-model="registration.jumpnumber" name="jumpnumber" required minlength="2" maxlength="5" ng-pattern="/^[0-9]/"/>
+                            <div ng-messages="registrationForm.jumpnumber.$error">
+                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                    Please enter a valid jump number
+                                </div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Primary Discipline-->
+                        <md-input-container>
+                            <label>Primary Discipline</label>
+                            <md-select required ng-model="registration.primarydiscipline" name="primarydiscipline">
+                                <md-option ng-repeat="discipline in disciplines" value="{{discipline.ID}}">{{discipline.TITLE}}</md-option>
+                            </md-select>
+                            <div class="errors" ng-messages="registrationForm.primarydiscipline.$error" ng-if="registrationForm.primarydiscipline.$touched">
+                                <div ng-message="required">Primary Discipline is Required</div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Submit Button-->
+                        <md-button class="md-raised md-primary" type="submit" ng-disabled="!registrationForm.$valid" ng-cloak>Proceed To Payment</md-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            
+        <div class="col-md-5">
+            <div layout-padding>
+                <img class="img-responsive" ng-src="{{common.buildfilepath(eventsImagePath,event.details.IMAGENAME)}}" alt="">
+            <div>
+            <ul class="list-group">
+                <li class="list-group-item"><span class="event-details">Dates: {{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}}</span></li>
+                <li class="list-group-item"><span class="event-details">Location: {{event.details.DROPZONENAME}}</span></li>
+                <li class="list-group-item"><span class="event-details">Price: {{event.details.REGISTRATIONFEE | currency}}</span></li>
+                <li class="list-group-item"><span class="event-details">Slots Remaining: {{event.details.SLOTSLEFT}}</span></li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+  <!-- Footer -->
+   <customfooter></customfooter>
+
+</div>
+<!-- /.container -->

@@ -79,9 +79,18 @@
                         ,url: ""
                     }
                 })
-                .when('/events/register/:eventid', {
-                     templateUrl: 'src/app/event/register.html'
-                    ,controller: 'eventRegisterController'
+                .when('/events/register/step1/:eventid', {
+                     templateUrl: 'src/app/event/register_step1.html'
+                    ,controller: 'eventRegisterStep1Controller'
+                    ,meta:{
+                         title: ""
+                        ,description: ""
+                        ,url: ""
+                    }
+                })
+                .when('/events/register/step2/:customerid', {
+                     templateUrl: 'src/app/event/register_step2.html'
+                    ,controller: 'eventRegisterStep2Controller'
                     ,meta:{
                          title: ""
                         ,description: ""

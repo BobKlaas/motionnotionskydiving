@@ -13,6 +13,7 @@
             ,'ngMeta'
             ,'ui.bootstrap'
             ,'angular.filter'
+            ,'ui.mask'
       
             //Other 3rd-Party
             ,'Logger'

@@ -33,6 +33,13 @@
     $mdThemingProvider.theme('default').primaryPalette('MotionNotionPalette')
     });
 
+
+    //UI-Mask Configs
+    core.config(['uiMask.ConfigProvider', function(uiMaskConfigProvider){
+        uiMaskConfigProvider.addDefaultPlaceholder(false);
+    }]);
+
+
     // TODO: look up how to use .value .constant .config etc.
 
 })();
