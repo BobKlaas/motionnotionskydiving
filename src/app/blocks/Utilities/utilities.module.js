@@ -57,39 +57,27 @@
         function HttpService($http,$q,$log,logger){
 
             var factory = {
-                sendRequest: sendRequest,
-                post: post
+                sendRequest: sendRequest
             };
             return factory;
 
             //Send HTTP Request
-            function sendRequest(url,params,method){
+            function sendRequest(url,params,method,useSecure){
                 if(method == undefined)
                     method="GET";
                 else
                     method="POST";
                 
+                var host = _hostName;
+                if(useSecure == undefined)
+                    host = _hostName;
+                else
+                    host = _secureHostName;
 
                 var request = $http({
                      method: method,
-                     url: _globalAPIEnv + url,
+                     url: host + url,
                      data: params
-                 });
-                return(request.then(handleSuccess,handleError));
-            };
-
-            //Send HTTP Request
-            function post(url,params,method){
-                if(method == undefined)
-                    method="GET";
-                else
-                    method="POST";
-                
-
-                var request = $http({
-                     method: method,
-                     url: _globalAPIEnv + url,
-                     params: params
                  });
                 return(request.then(handleSuccess,handleError));
             };

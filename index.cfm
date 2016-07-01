@@ -101,7 +101,8 @@
 
     <!--- API URL --->
     <script>
-        var _globalAPIEnv = "<cfoutput>#APPLICATION.apiurl#</cfoutput>";
+        var _hostName = "<cfoutput>#APPLICATION.HostName#</cfoutput>";
+        var _secureHostName = "<cfoutput>#APPLICATION.SecureHostName#</cfoutput>";
     </script>
     
     <!--- Global JS --->
