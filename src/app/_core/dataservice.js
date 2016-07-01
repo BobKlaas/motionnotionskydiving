@@ -67,6 +67,9 @@
              getEvents: getEvents
             ,getEventByID: getEventByID
             ,addCustomerToEvent: addCustomerToEvent
+            ,updateCustomerToEvent: updateCustomerToEvent
+            ,getEventCustomers: getEventCustomers
+            ,getCustomerByID: getCustomerByID
         };
         return service;
 
@@ -82,7 +85,22 @@
 
         //Add Customer to Event
         function addCustomerToEvent(params){
-            return utility.HttpService.sendRequest('/rest/api/events/customer/add/',params,'POST');
+            return utility.HttpService.sendRequest('/rest/api/events/customer/add/',params,'post');
+        }
+
+        //Update Customer to Event
+        function updateCustomerToEvent(params){
+            return utility.HttpService.sendRequest('/rest/api/events/customer/update/',params,'post');
+        }
+
+        //Get All Customers for an Event
+        function getEventCustomers(params){
+            return utility.HttpService.sendRequest('/rest/api/events/customers/get/');
+        }
+
+        //Add Customer by CustomerID
+        function getCustomerByID(params){
+            return utility.HttpService.sendRequest('/rest/api/events/customers/get/'+params.id);
         }
     }
     

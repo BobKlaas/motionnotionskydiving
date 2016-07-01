@@ -8,7 +8,8 @@
                 <li><a ng-href="/">Home</a></li>
                 <li><a ng-href="/events/">Events</a></li>
                 <li><a ng-href="/events/view/{{eventid}}" ng-bind="event.details.TITLE"></a></li>
-                <li class="active">Registration</li>
+                <li><a ng-href="/events/register/step1/{{customer.eventid}}/{{customer.id}}">Step 1: Registration</a></li>
+                <li>Step 2: Payment</li>
             </ol>
         </div>
     </div>
@@ -19,124 +20,28 @@
 
         <div class="col-md-7">
             <div class="panel panel-default md-whiteframe-4dp">
-                <form name="registrationForm" ng-submit="registrationForm.$valid && proceedToPayment()">
+                <form name="paymentForm" ng-submit="paymentForm.$valid && processPayment()">
                     <div class="panel-heading">
-                        <h4><span class="glyphicon glyphicon-list"></span> Event Registration / Payment</h4>
+                        <h4><span class="glyphicon glyphicon-shopping-cart"></span> Step 2: Payment</h4>
                     </div>
                     <div class="panel-body" layout="column" style="background-color:#f6f6f6">
-                        <h4>Registration</h4>
+                        <h4>Billing Address</h4>
 
-                        <!--First Name-->
-                        <md-input-container>
-                            <label>First Name</label>
-                            <input ng-model="registration.firstname" autofocus name="firstname" required minlength="2" maxlength="20">
-                            <div ng-messages="registrationForm.firstname.$error">
-                                <div ng-message="md-minlength">Your first name must be at least 2 characters long.</div>
-                            </div>
-                        </md-input-container>
-
-                        <!--Last Name-->
-                        <md-input-container>
-                            <label>Last Name</label>
-                            <input ng-model="registration.lastname" name="lastname" required minlength="2" maxlength="20">
-                            <div ng-messages="registrationForm.lastname.$error">
-                                <div ng-message="md-minlength">Your last name must be at least 2 characters long.</div>
-                            </div>
-                        </md-input-container>
-
-                        <!--Phone-->
-                        <md-input-container>
-                            <label>Phone Number</label>
-                            <input ng-model="registration.phone" name="phone" autoComplete="off" required minlength="7" maxlength="40" ui-mask="999-999-9999" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/" />
-                            <!-- <div class="hint" class="hints">###-###-####</div> -->
-                            <div ng-messages="registrationForm.phone.$error">                              
-                                <div ng-message="pattern">###-###-#### - Please enter a valid phone number.</div>
-                            </div>
-                        </md-input-container>
-
-                        <!--Email Address-->
-                        <md-input-container class="md-block">
-                            <label>Email Address</label>
-                            <input required ng-model="registration.email" name="email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
-                            <!-- <div class="hint">What email can we reach you at?</div> -->
-                            <div ng-messages="registrationForm.email.$error">
-                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                    Your email must be between 10 and 100 characters long and be valid.
-                                </div>
-                            </div>
-                        </md-input-container>   
-
-                        <!--Home Dropzone-->
-                        <div layout="row">
-                            <md-autocomplete 
-                                md-input-name="homeDropzoneField"
-                                md-min-length="2"
-                                md-no-cache="false"
-                                md-selected-item="registration.homedropzone"                            
-                                md-search-text="searchText"                            
-                                md-items="item in dropzoneSearch(searchText)"
-                                md-item-text="item.name"                            
-                                md-floating-label="Home Dropzone"
-                                ng-cloak flex
-                                required>
-                                <md-item-template>
-                                    <span md-highlight-text="searchText">{{item.name}}</span>
-                                </md-item-template>
-                            </md-autocomplete>
-                            <div ng-messages="registrationForm.homeDropzoneField.$error" ng-if="registrationForm.homeDropzoneField.$touched">
-                                <div ng-message="required">Please enter your home dropzone.</div>
-                            </div>
-
-                            <md-input-container flex>
-                                <label>USPA License</label>
-                                <md-select ng-model="registration.uspalicense" name="uspalicense" required>
-                                    <md-option value="{{license.name}}" ng-repeat="license in uspaLicenses">{{license.name}} - License</md-option>
-                                </md-select>
-                                <div class="errors" ng-messages="registrationForm.uspalicense.$error" ng-if="registrationForm.uspalicense.$touched">
-                                    <div ng-message="required">USPA License is Required</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-
-                        <!--Number of Jumps-->
-                        <md-input-container>
-                            <label>Number of Jumps Logged</label>
-                            <input ng-model="registration.jumpnumber" name="jumpnumber" required minlength="2" maxlength="5" ng-pattern="/^[0-9]/"/>
-                            <div ng-messages="registrationForm.jumpnumber.$error">
-                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                    Please enter a valid jump number
-                                </div>
-                            </div>
-                        </md-input-container>
-
-                        <!--Primary Discipline-->
-                        <md-input-container>
-                            <label>Primary Discipline</label>
-                            <md-select required ng-model="registration.primarydiscipline" name="primarydiscipline">
-                                <md-option ng-repeat="discipline in disciplines" value="{{discipline.ID}}">{{discipline.TITLE}}</md-option>
-                            </md-select>
-                            <div class="errors" ng-messages="registrationForm.primarydiscipline.$error" ng-if="registrationForm.primarydiscipline.$touched">
-                                <div ng-message="required">Primary Discipline is Required</div>
-                            </div>
-                        </md-input-container>
-
-                        <!--Address-->
+                        <!--Address 1 And Address 2-->
                         <div layout="row">
                             <md-input-container flex>
-                                <label>Street Address</label>
-                                <input ng-model="registration.address" name="address" minlength="7" maxlength="40" />
-                                <div ng-messages="registrationForm.city.$error">
-                                    <div ng-message="md-minlength">Please enter a valid address.</div>
+                                <label>Address 1</label>
+                                <input required ng-model="billing.address1" autofocus name="address1" minlength="7" maxlength="40" />
+                                <div ng-messages="paymentForm.address1.$error" ng-if="paymentForm.address1.$touched">
+                                    <div ng-message="required">Address is required.</div>
+                                    <div ng-message="minlength">Address must be a minimum of 7 characters.</div>
                                 </div>
                             </md-input-container>
 
                             <!--Address-->
-                            <md-input-container flex>
-                                <label>Address 2</label>
-                                <input ng-model="registration.addres2s" name="address2" minlength="7" maxlength="40" />
-                                <div ng-messages="registrationForm.city.$error">
-                                    <div ng-message="md-minlength">Please enter a valid address.</div>
-                                </div>
+                             <md-input-container flex>
+                                <label>Address 2 (optional)</label>
+                                <input ng-model="billing.address2" name="address2" minlength="1" maxlength="25" />
                             </md-input-container>
                         </div>
                        
@@ -144,21 +49,23 @@
                             <!--City-->
                             <md-input-container flex>
                                 <label>City</label>
-                                <input ng-model="registration.city" required name="city" minlength="2" maxlength="20" />
-                                <div ng-messages="registrationForm.city.$error">
-                                    <div ng-message="md-minlength">Please enter a valid city.</div>
+                                <input required ng-model="billing.city" required name="city" minlength="2" maxlength="20" ng-pattern="/^[a-zA-Z\s-]+$/" />
+                                <div ng-messages="paymentForm.city.$error">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
+                                        Please enter a valid city.
+                                    </div>
                                 </div>
                             </md-input-container>
 
                             <!--State-->
                             <md-input-container flex>
                                 <label>State</label>
-                                <md-select ng-model="registration.state" name="state" required>
+                                <md-select required ng-model="billing.state" name="state">
                                     <md-option ng-repeat="state in states" value="{{state.ID}}">
                                         {{state.TITLE}}
                                     </md-option>
                                 </md-select>
-                                <div class="errors" ng-messages="registrationForm.state.$error" ng-if="registrationForm.homeDropzoneField.$touched">
+                                <div class="errors" ng-messages="paymentForm.state.$error" ng-if="paymentForm.state.$touched">
                                     <div ng-message="required">State is Required</div>
                                 </div>
                             </md-input-container>
@@ -166,15 +73,90 @@
                              <!--Zipcode-->
                             <md-input-container>
                                 <label>Zipcode</label>
-                                <input ng-model="registration.zipcode" name="zipcode" minlength="5" maxlength="5" ui-mask="99999" ng-pattern="/^[0-9]{5}/"/>
-                                <div ng-messages="registrationForm.city.$error">
-                                    <div ng-message="md-minlength">Please enter a valid zipcode.</div>
+                                <input required ng-model="billing.zipcode" name="zipcode" minlength="5" maxlength="5" ui-mask="99999" ng-pattern="/^[0-9]{5}/"/>
+                                <div ng-messages="paymentForm.zipcode.$error">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
+                                        Please enter a valid zipcode.
+                                    </div>
                                 </div>
                             </md-input-container>
                         </div>
 
+                        <h4>Payment Information</h4>
+
+                        <div layout="row">
+                            <md-input-container flex="30">
+                                <label>Card Type</label>
+                                <md-select ng-model="billing.cardtype" name="cardtype" required>
+                                    <md-option value="{{type.name}}" ng-repeat="type in cardtypes">{{type.name}}</md-option>
+                                </md-select>
+                                <div class="errors" ng-messages="paymentForm.cardtype.$error" ng-if="paymentForm.cardtype.$touched">
+                                    <div ng-message="required">Card Type is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <!--Card Number-->
+                            <md-input-container flex>
+                                <label>Card Number</label>
+                                <input required ng-model="billing.cardnumber" name="cardnumber" ui-mask="9999-9999-9999-9999" ng-pattern="/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/">
+                                <div ng-messages="paymentForm.cardnumber.$error">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
+                                        Please enter a valid credit card number.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <!--Card Holder First Name and Last Name-->
+                        <div layout="row">
+                            <md-input-container flex>
+                                <label>Card Holder First Name</label>
+                                <input required ng-model="billing.cardholderfname" name="cardholderfname" required minlength="1" maxlength="20">
+                                <div ng-messages="paymentForm.cardholderfname.$error">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
+                                        Cardholder first name is required
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Card Holder Last Name</label>
+                                <input required ng-model="billing.cardholderlname" name="cardholderlname" required minlength="1" maxlength="20">
+                                <div ng-messages="paymentForm.cardholderlname.$error">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
+                                        Cardholder last name is required
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <!--Exiration and CVC/CVV/CID-->
+                        <div layout="row">
+                            <md-input-container flex>
+                                <label>Card Expiration</label>
+                                <input required ng-model="billing.cardexpiration" name="cardexpiration" minlength="6" maxlength="7" ui-mask="99/9999" ng-pattern="/^((0[1-9])|(1[0-2]))\/((2009)|(20[1-2][0-9]))$/"/>
+                                <div class="hint" class="hints">Example: 01/2018</div>
+                                <div ng-messages="paymentForm.cardexpiration.$error">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
+                                        Please enter a valid expiration date.
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex>
+                                <label>Card CVC/CVV/CID</label>
+                                <input required ng-model="billing.cardseccode" name="cardseccode" minlength="3" maxlength="4" ng-pattern="/^[0-9]{3,4}$/"/>   
+                                <div class="hint" class="hints">Example: 123</div>
+                                <div ng-messages="paymentForm.cardseccode.$error">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
+                                        CVC should be 3-4 characters long.
+                                    </div>
+                                </div>                             
+                            </md-input-container>
+                        </div>
+
                         <!--Submit Button-->
-                        <md-button class="md-raised md-primary" type="submit" ng-disabled="!registrationForm.$valid" ng-cloak>Proceed To Payment</md-button>
+                        <md-button class="md-raised md-primary" type="submit" ng-disabled="!paymentForm.$valid" ng-cloak>Send Payment</md-button>
                     </div>
                 </form>
             </div>

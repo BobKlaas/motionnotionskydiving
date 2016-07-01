@@ -8,7 +8,7 @@
                 <li><a ng-href="/">Home</a></li>
                 <li><a ng-href="/events/">Events</a></li>
                 <li><a ng-href="/events/view/{{eventid}}" ng-bind="event.details.TITLE"></a></li>
-                <li class="active">Registration</li>
+                <li class="active">Step 1: Registration</li>
             </ol>
         </div>
     </div>
@@ -21,33 +21,36 @@
             <div class="panel panel-default md-whiteframe-4dp">
                 <form name="registrationForm" ng-submit="registrationForm.$valid && proceedToPayment()">
                     <div class="panel-heading">
-                        <h4><span class="glyphicon glyphicon-list"></span>Event Registration</h4>
+                        <h4><span class="glyphicon glyphicon-list"></span> Step 1: Registration</h4>
                     </div>
                     <div class="panel-body" layout="column" style="background-color:#f6f6f6">
                         <!--First Name-->
                         <md-input-container>
                             <label>First Name</label>
-                            <input ng-model="registration.firstname" autofocus name="firstname" required minlength="2" maxlength="20">
+                            <input ng-model="customer.firstname" autofocus name="firstname" required minlength="2" maxlength="20">
                             <div ng-messages="registrationForm.firstname.$error">
-                                <div ng-message="md-minlength">Your first name must be at least 2 characters long.</div>
+                                <div ng-message="required">First name is required.</div>
+                                <div ng-message="minlength">Your first name must be at least 2 characters long.</div>
                             </div>
                         </md-input-container>
 
                         <!--Last Name-->
                         <md-input-container>
                             <label>Last Name</label>
-                            <input ng-model="registration.lastname" name="lastname" required minlength="2" maxlength="20">
+                            <input ng-model="customer.lastname" name="lastname" required minlength="2" maxlength="20">
                             <div ng-messages="registrationForm.lastname.$error">
-                                <div ng-message="md-minlength">Your last name must be at least 2 characters long.</div>
+                                <div ng-message="required">Last name is required.</div>
+                                <div ng-message="minlength">Your last name must be at least 2 characters long.</div>
                             </div>
                         </md-input-container>
 
                         <!--Phone-->
                         <md-input-container>
                             <label>Phone Number</label>
-                            <input ng-model="registration.phone" name="phone" autoComplete="off" required minlength="7" maxlength="40" ui-mask="999-999-9999" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/" />
+                            <input ng-model="customer.phonenumber" name="phonenumber" autoComplete="off" required minlength="7" maxlength="40" ui-mask="999-999-9999" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/" />
                             <!-- <div class="hint" class="hints">###-###-####</div> -->
-                            <div ng-messages="registrationForm.phone.$error">                              
+                            <div ng-messages="registrationForm.phonenumber.$error">                              
+                                <div ng-message="required">Phone number is required.</div>
                                 <div ng-message="pattern">###-###-#### - Please enter a valid phone number.</div>
                             </div>
                         </md-input-container>
@@ -55,9 +58,9 @@
                         <!--Email Address-->
                         <md-input-container class="md-block">
                             <label>Email Address</label>
-                            <input required ng-model="registration.email" name="email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                            <input required ng-model="customer.emailaddress" name="emailaddress" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
                             <!-- <div class="hint">What email can we reach you at?</div> -->
-                            <div ng-messages="registrationForm.email.$error">
+                            <div ng-messages="registrationForm.emailaddress.$error">
                                 <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
                                     Your email must be between 10 and 100 characters long and be valid.
                                 </div>
@@ -70,7 +73,7 @@
                                 md-input-name="homeDropzoneField"
                                 md-min-length="2"
                                 md-no-cache="false"
-                                md-selected-item="registration.homedropzone"                            
+                                md-selected-item="customer.homedropzone"                            
                                 md-search-text="searchText"                            
                                 md-items="item in dropzoneSearch(searchText)"
                                 md-item-text="item.name"                            
@@ -80,14 +83,14 @@
                                 <md-item-template>
                                     <span md-highlight-text="searchText">{{item.name}}</span>
                                 </md-item-template>
-                            </md-autocomplete>
-                            <div ng-messages="registrationForm.homeDropzoneField.$error" ng-if="registrationForm.homeDropzoneField.$touched">
-                                <div ng-message="required">Please enter your home dropzone.</div>
-                            </div>
+                                <div ng-messages="registrationForm.homeDropzoneField.$error" ng-if="registrationForm.homeDropzoneField.$touched">
+                                    <div ng-message="required">Please enter your home dropzone.</div>
+                                </div>
+                            </md-autocomplete>                            
 
                             <md-input-container flex>
                                 <label>USPA License</label>
-                                <md-select ng-model="registration.uspalicense" name="uspalicense" required>
+                                <md-select ng-model="customer.uspalicense" name="uspalicense" required>
                                     <md-option value="{{license.name}}" ng-repeat="license in uspaLicenses">{{license.name}} - License</md-option>
                                 </md-select>
                                 <div class="errors" ng-messages="registrationForm.uspalicense.$error" ng-if="registrationForm.uspalicense.$touched">
@@ -99,8 +102,8 @@
                         <!--Number of Jumps-->
                         <md-input-container>
                             <label>Number of Jumps Logged</label>
-                            <input ng-model="registration.jumpnumber" name="jumpnumber" required minlength="2" maxlength="5" ng-pattern="/^[0-9]/"/>
-                            <div ng-messages="registrationForm.jumpnumber.$error">
+                            <input ng-model="customer.jumpslogged" name="jumpslogged" required minlength="2" maxlength="5" ng-pattern="/^[0-9]/"/>
+                            <div ng-messages="registrationForm.jumpslogged.$error">
                                 <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
                                     Please enter a valid jump number
                                 </div>
@@ -110,10 +113,10 @@
                         <!--Primary Discipline-->
                         <md-input-container>
                             <label>Primary Discipline</label>
-                            <md-select required ng-model="registration.primarydiscipline" name="primarydiscipline">
+                            <md-select required ng-model="customer.primarydisciplineid" name="primarydisciplineid">
                                 <md-option ng-repeat="discipline in disciplines" value="{{discipline.ID}}">{{discipline.TITLE}}</md-option>
                             </md-select>
-                            <div class="errors" ng-messages="registrationForm.primarydiscipline.$error" ng-if="registrationForm.primarydiscipline.$touched">
+                            <div class="errors" ng-messages="registrationForm.primarydisciplineid.$error" ng-if="registrationForm.primarydiscipline.$touched">
                                 <div ng-message="required">Primary Discipline is Required</div>
                             </div>
                         </md-input-container>

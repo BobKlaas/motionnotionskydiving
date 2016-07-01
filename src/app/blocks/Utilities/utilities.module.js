@@ -52,9 +52,10 @@
             }
         };
 
-        HttpService.$inject = ['$http','$q','$log'];
+        HttpService.$inject = ['$http','$q','$log','logger'];
 
         function HttpService($http,$q,$log,logger){
+
             var factory = {
                 sendRequest: sendRequest,
                 post: post
@@ -94,9 +95,8 @@
             };
 
             //Error Handler
-            function handleError(response) {
-                if (!angular.isObject( response.data ) || ! response.data.message){
-                    logger.error("An unknown error occurred.");
+            function handleError(response){
+                if(!angular.isObject( response.data ) || ! response.data.message){
                     return($q.reject("An unknown error occurred."));
                 }
                 logger.error(response.data.message, {}, 'Request Error', {timeOut: 10000,positionClass:'toast-bottom-right'});

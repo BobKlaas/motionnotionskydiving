@@ -79,7 +79,7 @@
                         ,url: ""
                     }
                 })
-                .when('/events/register/step1/:eventid', {
+                .when('/events/register/step1/:eventid/:customerid?', {
                      templateUrl: 'src/app/event/register_step1.html'
                     ,controller: 'eventRegisterStep1Controller'
                     ,meta:{
@@ -88,7 +88,7 @@
                         ,url: ""
                     }
                 })
-                .when('/events/register/step2/:customerid', {
+                .when('/events/register/step2/:eventid/:customerid/', {
                      templateUrl: 'src/app/event/register_step2.html'
                     ,controller: 'eventRegisterStep2Controller'
                     ,meta:{
