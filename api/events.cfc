@@ -155,7 +155,7 @@
 	</cffunction>
 
 	<!---Add Customer Payment--->
-	<cffunction name="addCustomerPayment" access="remote" httpMethod="POST" restPath="/customer/payment/add/" returntype="any" produces="application/json">		
+	<cffunction name="addCustomerPayment" access="remote" httpMethod="POST" restPath="/customers/payment/add/" returntype="any" produces="application/json">		
 		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
 
 		<!---Setup Default ParamsList--->

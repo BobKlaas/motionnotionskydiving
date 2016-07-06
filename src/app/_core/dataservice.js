@@ -3,7 +3,6 @@
 
     angular
         .module('app.core')
-        .factory('loginservice',loginservice)
         .factory('contractorservice',contractorservice)
         .factory('eventservice',eventservice)
         .factory('dropzoneservice',dropzoneservice)
@@ -14,32 +13,12 @@
     //********************************************************
     //LOGIN Service
     //********************************************************
-    loginservice.$inject = ['utility'];
     contractorservice.$inject = ['utility'];
     eventservice.$inject = ['utility'];
     dropzoneservice.$inject = ['utility'];
     commonservice.$inject = ['utility'];
     transactionservice.$inject = ['utility'];
 
-    //LOGIN Service___________________________________________________________________>
-    function loginservice(utility) {
-        var service = {
-             userLogin: userLogin
-            ,getAlert: getAlert
-        };
-        return service;
-
-        //Get Alerts
-        function userLogin(params){
-            return utility.HttpService.sendRequest('/project/analytic/getByEmployee/'+params.employeenumber);
-        }
-
-        //Get Alert
-        function getAlert(params){
-            return utility.HttpService.sendRequest('/project/analytic/get/'+params.alertid);
-        }
-
-    }
 
     //CONTRACTOR Service___________________________________________________________________>
     function contractorservice(utility) {
@@ -106,7 +85,7 @@
 
         //Add Customer Payment Record
         function addCustomerPayment(params){
-            return utility.HttpService.sendRequest('/rest/api/customer/payment/add/',params,'post');
+            return utility.HttpService.sendRequest('/rest/api/events/customers/payment/add/',params,'post');
         }
     }
     
