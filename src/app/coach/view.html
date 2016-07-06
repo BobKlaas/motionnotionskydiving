@@ -1,4 +1,4 @@
-<!-- Page Content -->
+Page Content -->
 <div class="container">
 
    <!-- Page Heading/Breadcrumbs -->
@@ -26,7 +26,7 @@
             <blockquote>
               <p>"{{coach.details.BLURB}}"</p>            
             </blockquote>
-            <a class="btn btn-primary" href="">Request Coach</a>
+            <!-- <a class="btn btn-primary" href="">Request Coach</a> -->
             </p>
         </div>
     </div>
@@ -44,7 +44,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">Home Dropzone: <a ng-href="{{coach.details.HOMEDZWEBSITE}}" target="_blank">{{coach.details.HOMEDZ}}</a></li>
                     <li class="list-group-item">Current Location: {{coach.details.CITY}}, {{coach.details.ABV}}</li>
-                    <li class="list-group-item">Daily Rate: <strong>${{coach.details.DAYRATE}} + Slots</strong></li>
+                    <!-- <li class="list-group-item">Daily Rate: <strong>${{coach.details.DAYRATE}} + Slots</strong></li> -->
                 </ul>
                 <div class="panel-body">
                     <ul class="list-inline" style="text-align:center">
@@ -58,7 +58,7 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4><span class="glyphicon glyphicon-tasks"></span>Skills Offered</h4>
+                    <h4><span class="glyphicon glyphicon-tasks"></span>Skills Coached</h4>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="skill in coach.skills">{{skill.TITLE}} <i>({{skill.SKILL_LEVEL}})</i></li>
@@ -124,4 +124,4 @@
    <customfooter></customfooter>
 
 </div>
-<!-- /.container -->
+<!-- /.container

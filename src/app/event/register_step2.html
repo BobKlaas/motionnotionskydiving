@@ -130,7 +130,7 @@
                             </md-input-container>
                         </div>
 
-                        <!--Exiration and CVC/CVV/CID-->
+                        <!--Expiration and CVC/CVV/CID-->
                         <div layout="row">
                             <md-input-container flex>
                                 <label>Card Expiration</label>
@@ -155,8 +155,16 @@
                             </md-input-container>
                         </div>
 
+                        <div layout="row" layout-sm="column" layout-align="space-around" ng-controller="erProgressController">
+                            <md-progress-circular ng-hide="!submitbutton.disabled" ng-disabled="submitbutton.disabled" class="md-accent md-hue-1" ></md-progress-circular>
+                        </div>
+
+                        <div class="alert alert-danger" ng-show="paymentfailed">
+                            <strong>Payment Failed:</strong> We were unable to process your card. Please review your entries and try again. If you continue to have issues, please <a href="mailto:robertklaas@motionnotionskydiving.com?subject=Payment Failed - Customer: {{customer.id}}">send us an email.</a>
+                        </div>
+
                         <!--Submit Button-->
-                        <md-button class="md-raised md-primary" type="submit" ng-disabled="!paymentForm.$valid" ng-cloak>Send Payment</md-button>
+                        <md-button class="md-raised md-primary" type="submit" ng-disabled="!paymentForm.$valid" aria-label="Submit" ng-cloak ng-bind="submitbutton.text"></md-button>
                     </div>
                 </form>
             </div>
@@ -172,11 +180,36 @@
                 <li class="list-group-item"><span class="event-details">Price: {{event.details.REGISTRATIONFEE | currency}}</span></li>
                 <li class="list-group-item"><span class="event-details">Slots Remaining: {{event.details.SLOTSLEFT}}</span></li>
             </ul>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-question-sign"></span> Help</h4>
+                </div>
+                <div class="panel-body">
+                    <p>Need help? If so, please use the link below to send us an email.</p>                    
+                    <p><md-icon md-font-set="material-icons">mail</md-icon> <a href="mailto:robertklaas@motionnotionskydiving.com?subject=Registration Help - Customer: {{customer.id}}">robertklaas@motionnotionskydiving.com</a></p>
+                    <!-- <p><md-icon md-font-set="material-icons">phone</md-icon> <a href="tel:17148829214">714.882.9214</a></p> -->
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-lock"></span> Secure Checkout</h4>
+                </div>
+                <div class="panel-body">
+                    <p>We do not store credit card numbers in our database after payment processing.</p>
+                    <p>All transactions are processed via PayPal over a secure connection.</p>
+                    <!-- PayPal Logo -->
+                    <table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal"></a><div style="text-align:center"></div></td></tr></table>
+                    <!-- PayPal Logo -->
+                </div>
+            </div>
         </div>
+
 
     </div>
     <!-- /.row -->
 
+    </div> 
+    
     <hr>
 
   <!-- Footer -->

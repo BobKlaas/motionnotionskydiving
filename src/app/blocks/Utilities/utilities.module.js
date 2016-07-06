@@ -6,7 +6,6 @@
         .module('Utilities', [])
         .factory('utility', utilities)
         .factory('HttpService',HttpService)
-        .directive('httpProgress',httpProgress);
 
         utilities.$inject = ['$log','$filter','HttpService'];
 
@@ -95,18 +94,6 @@
             function handleSuccess(response){
                 return response.data;
             }
-        }
-
-        function httpProgress(){
-            return {
-                restrict: 'E',
-                controller: httpProgressController,
-                templateUrl: '/assets/js/Utilities/http-progress.html'
-            };
-        }
-
-        function httpProgressController($scope){
-            
         }
 
 })();

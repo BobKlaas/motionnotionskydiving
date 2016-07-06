@@ -26,6 +26,15 @@
             };
         });
 
+         //Header Custom Directive
+        app.directive("cancellationpolicy",function(){
+            return{
+                 restrict: 'E'
+                ,templateUrl: '/src/app/partials/cancellationpolicy.html'
+            };
+        });
+
+
         //Footer Custom Directive
         app.directive("customfooter",function(){
             return{

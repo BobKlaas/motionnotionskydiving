@@ -40,11 +40,6 @@
             ,lastname: ''
             ,emailaddress: ''
             ,phonenumber: ''
-            ,address: ''
-            ,address2: ''
-            ,city: ''
-            ,stateid: ''
-            ,zipcode: ''
             ,jumpslogged: ''
             ,uspalicense: ''
             ,primarydisciplineid: ''
@@ -63,7 +58,6 @@
             $scope.getEventByID($scope.eventid);
 
             if(common.$routeParams.customerid !== undefined){
-                common.logger.info('Load Customer');
                 $scope.loadCustomer();
             }     
     	}
@@ -139,11 +133,6 @@
                 ,lastname: customer.LASTNAME
                 ,emailaddress: customer.EMAILADDRESS
                 ,phonenumber: customer.PHONENUMBER
-                ,address: customer.ADDRESS
-                ,address2: customer.ADDRESS2
-                ,city: customer.CITY
-                ,stateid: customer.STATEID
-                ,zipcode: customer.ZIPCODE
                 ,jumpslogged: customer.JUMPSLOGGED
                 ,uspalicense: customer.USPALICENSE
                 ,primarydisciplineid: customer.PRIMARYDISCIPLINEID
@@ -158,8 +147,9 @@
         //Add Customer To Event
         function addCustomerToEvent(){
             var params = $scope.customer;
-
-            console.log(params);
+            
+            //common.logger.info('Add');
+            //console.log(params);
 
             //Save Customer to Event
             eventservice.addCustomerToEvent(params).then(
@@ -178,6 +168,9 @@
         //Add Customer To Event
         function updateCustomerToEvent(){
             var params = $scope.customer;
+
+            //common.logger.info('Update');
+            //console.log(params);
 
             //Save Customer to Event
             eventservice.updateCustomerToEvent(params).then(

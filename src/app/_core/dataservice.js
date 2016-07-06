@@ -49,7 +49,6 @@
             ,updateCustomerToEvent: updateCustomerToEvent
             ,getEventCustomers: getEventCustomers
             ,getCustomerByID: getCustomerByID
-            ,addCustomerPayment: addCustomerPayment
         };
         return service;
 
@@ -83,10 +82,6 @@
             return utility.HttpService.sendRequest('/rest/api/events/customers/get/'+params.id);
         }
 
-        //Add Customer Payment Record
-        function addCustomerPayment(params){
-            return utility.HttpService.sendRequest('/rest/api/events/customers/payment/add/',params,'post');
-        }
     }
     
 
@@ -132,13 +127,19 @@
     //Common Service___________________________________________________________________>
     function transactionservice(utility) {
         var service = {
-              paymentrequest: paymentrequest
+             paymentrequest: paymentrequest
+            ,addCustomerPayment: addCustomerPayment
         };
         return service;
 
-        //Get States
+        //Send Request for Payment
         function paymentrequest(params){
             return utility.HttpService.sendRequest('/rest/api/transaction/paymentrequest/',params,'post');
+        }
+
+        //Add Customer Payment Record
+        function addCustomerPayment(params){
+            return utility.HttpService.sendRequest('/rest/api/transaction/payment/add/',params,'post');
         }
     }
     

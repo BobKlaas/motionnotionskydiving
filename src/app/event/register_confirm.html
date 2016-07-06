@@ -1,0 +1,57 @@
+<div class="container">
+
+     <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" ng-bind="event.details.TITLE"></h1>
+            <ol class="breadcrumb">
+                <li><a ng-href="/">Home</a></li>
+                <li><a ng-href="/events/">Events</a></li>
+                <li><a ng-href="/events/view/{{eventid}}" ng-bind="event.details.TITLE"></a></li>
+                <li>Registration Confirmed</li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                <span class="confirm-message">Get Stoked! You have successfully registered for the {{event.details.TITLE}}.<span>
+            </div>
+        </div>
+    </div>    
+
+    <div class="row">
+        <div class="col-md-7">
+            <p>We have sent a confirmation email to the email you provided ({{customer.emailaddress}}).</p>
+
+            <div style="padding-top: 45px">
+            <cancellationpolicy></cancellationpolicy>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div layout-padding>
+                <img class="img-responsive" ng-src="{{common.buildfilepath(eventsImagePath,event.details.IMAGENAME)}}" alt="">
+            <div>
+            <ul class="list-group">
+                <li class="list-group-item"><span class="event-details">Dates: {{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}}</span></li>
+                <li class="list-group-item"><span class="event-details">Location: {{event.details.DROPZONENAME}}</span></li>
+                <li class="list-group-item"><span class="event-details">Price: {{event.details.REGISTRATIONFEE | currency}}</span></li>
+                <li class="list-group-item"><span class="event-details">Slots Remaining: {{event.details.SLOTSLEFT}}</span></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    </div>  
+
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

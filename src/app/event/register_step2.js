@@ -2,13 +2,30 @@
 
     'use strict';
 
-    angular
-        .module('app.event')
-        .controller('eventRegisterStep2Controller',eventRegisterStep2Controller);
 
+  //Create Module
+    var app = angular.module('app.event');
+        app.controller('eventRegisterStep2Controller',eventRegisterStep2Controller);
+        app.controller('erProgressController',erProgressController);
+        
     eventRegisterStep2Controller.$inject = ['$scope','common','eventservice','dropzoneservice','commonservice','transactionservice'];
+    erProgressController.$inject = ['$scope','$interval'];
+   
 
-    function eventRegisterStep2Controller($scope,common,eventservice,dropzoneservice,commonservice,transactionservice) {       
+    //Controller: erProgressController    
+    function erProgressController($scope,$interval){
+        $scope.mode = 'query';
+        $scope.determinateValue = 30;
+        $interval(function() {
+            $scope.determinateValue += 1;
+            if($scope.determinateValue > 100) {
+                $scope.determinateValue = 30;
+            }
+        },100,0,true);
+    }
+
+    //Controller: eventRegisterStep2Controller  
+    function eventRegisterStep2Controller($scope,common,eventservice,dropzoneservice,commonservice,transactionservice){       
         console.log('Register controller has been called');
 
         //METHODS
@@ -18,9 +35,9 @@
         $scope.getStates = getStates;
         $scope.setCustomer = setCustomer;
         $scope.processPayment = processPayment;
-        $scope.updateCustomerToEvent = updateCustomerToEvent;
         $scope.requestPayment = requestPayment;
         $scope.savePayment = savePayment;
+        $scope.toggleLoadingIndicator = toggleLoadingIndicator;
 
         //VARIABLES
         $scope.common = common;
@@ -31,6 +48,12 @@
         $scope.customerid = common.$routeParams.customerid;
         $scope.event = {details:[], contractors:[], customers:[]};
         $scope.eventsImagePath = '/assets/images/events/';
+        $scope.paymentfailed=0;
+        $scope.submitbutton = {
+             text: 'Submit Payment'
+            ,disabled: 0
+        }
+
         
         $scope.customer = {
              id: common.$routeParams.customerid
@@ -39,11 +62,6 @@
             ,lastname: ''
             ,emailaddress: ''
             ,phonenumber: ''
-            ,address: ''
-            ,address2: ''
-            ,city: ''
-            ,stateid: ''
-            ,zipcode: ''
             ,jumpslogged: ''
             ,uspalicense: ''
             ,primarydisciplineid: ''
@@ -65,7 +83,7 @@
             ,cardholderfname: ''
             ,cardholderlname: ''
             ,amount: ''
-            ,currency: 'USD'
+            ,currency: ''
             ,cardexpiration: ''
             ,cardseccode: ''
         }
@@ -134,11 +152,6 @@
                 ,lastname: customer.LASTNAME
                 ,emailaddress: customer.EMAILADDRESS
                 ,phonenumber: customer.PHONENUMBER
-                ,address: customer.ADDRESS
-                ,address2: customer.ADDRESS2
-                ,city: customer.CITY
-                ,stateid: customer.STATEID
-                ,zipcode: customer.ZIPCODE
                 ,jumpslogged: customer.JUMPSLOGGED
                 ,uspalicense: customer.USPALICENSE
                 ,primarydisciplineid: customer.PRIMARYDISCIPLINEID
@@ -150,24 +163,7 @@
             }
         }
 
-        //Add Customer To Event
-        function updateCustomerToEvent(){
-            var params = $scope.customer;
-
-            //Save Customer to Event
-            eventservice.updateCustomerToEvent(params).then(
-                function(results){
-                    if(results[0].ID > 0){
-                        common.routeTo('/events/register/step2/'+results[0].EVENTID+'/'+results[0].ID);
-                    }else{
-                        common.logger.error('There was an error trying to save your information. Please try again.','','Registration Error');    
-                    }
-                },function(error){
-                    common.logger.error('There was an error and we were unable to register you for this event. Please try again or contact us directly via our contact page.','','Registration Error');
-                }    
-            );            
-        }
-
+        //Request Payment from Paypal
         function requestPayment(){
             var params = {
                  card_type: $scope.billing.cardtype
@@ -182,8 +178,8 @@
 
             transactionservice.paymentrequest(params).then(
                 function(results){
-                    var cc = results.payer.funding_instruments[0].credit_card;
                     if(results.state == "approved"){
+                        var cc = results.payer.funding_instruments[0].credit_card;
                         //Set Payment Object
                         $scope.payment = {
                              event_customer_id: $scope.customer.id
@@ -192,17 +188,27 @@
                             ,pp_card_type: cc.type
                             ,pp_card_fname: cc.first_name
                             ,pp_card_lname: cc.last_name
-                            ,pp_card_expire_month: cc.expire_month
-                            ,pp_card_expire_year: cc.expire_year
-                            ,pp_card_number: cc.number
+                            ,pp_card_expire_month: ''
+                            ,pp_card_expire_year: ''
+                            ,pp_card_number: ''
+                            ,address: $scope.billing.address1
+                            ,address2: $scope.billing.address2
+                            ,city: $scope.billing.city
+                            ,state: $scope.billing.state
+                            ,zipcode: $scope.billing.zipcode
                         }
 
                         //Save Payment
-                        $scope.savePayment();
+                        $scope.savePayment($scope.payment);
                     }else{
+                        //Set Payment Failed
+                        $scope.paymentfailed=1;
+                        $scope.toggleLoadingIndicator(0);
                         common.logger.error('We could not process your payment. Please double check your payment information and try again.','','Payment Failed');
                     }
                 },function(error){
+                    $scope.paymentfailed=1;
+                    $scope.toggleLoadingIndicator(0);
                     common.logger.error('We could not process your payment. Please double check your payment information and try again.','','Payment Failed');
                 }   
             );
@@ -210,15 +216,37 @@
 
         //Inserts a record of the payment receipt
         function savePayment(params){
-             eventservice.addCustomerPayment(params).then(
+             transactionservice.addCustomerPayment(params).then(
                 function(results){
-                    common.logger.success('You PAID!!!!');
+                    //Turn loading indicator off
+                    $scope.toggleLoadingIndicator(0);
+
+                    //Route to confirmation page
+                    common.routeTo('/events/register/confirmation/'+results[0].EVENT_CUSTOMER_ID);                    
                 } 
             );
         }
 
+        //Toggle loading indicator and submit button
+        function toggleLoadingIndicator(flag){
+            if(flag !== null && flag==1){
+                $scope.submitbutton = {
+                     text: 'Processing Payment...'
+                    ,disabled: 1
+                }
+            }else{
+                $scope.submitbutton = {
+                     text: 'Submit Payment'
+                    ,disabled: 0
+                }
+            }
+        }
+
         //Save Registration and Proceed to Payment
         function processPayment(){
+            //Show Loading Indicator
+            $scope.toggleLoadingIndicator(1);
+
             //Update Customer Address
             $scope.customer.address = $scope.billing.address1;
             $scope.customer.address2 = $scope.billing.address2;

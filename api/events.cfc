@@ -60,11 +60,6 @@
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.lastname#" dbvarname="@lastname" null="#(len(trim(rc.lastname))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.emailaddress#" dbvarname="@emailaddress" null="#(len(trim(rc.emailaddress))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.phonenumber#" dbvarname="@phonenumber" null="#(len(trim(rc.phonenumber))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.address#" dbvarname="@address" null="#(len(trim(rc.address))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.address2#" dbvarname="@address2" null="#(len(trim(rc.address2))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.city#" dbvarname="@city" null="#(len(trim(rc.city))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.stateid#" dbvarname="@stateid" null="#(len(trim(rc.stateid))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.zipcode#" dbvarname="@zipcode" null="#(len(trim(rc.zipcode))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.jumpslogged#" dbvarname="@jumpslogged" null="#(len(trim(rc.jumpslogged))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.uspalicense#" dbvarname="@uspalicense" null="#(len(trim(rc.uspalicense))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.primarydisciplineid#" dbvarname="@primarydisciplineid" null="#(len(trim(rc.primarydisciplineid))?false:true)#"/>
@@ -113,11 +108,6 @@
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.lastname#" dbvarname="@lastname" null="#(len(trim(rc.lastname))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.emailaddress#" dbvarname="@emailaddress" null="#(len(trim(rc.emailaddress))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.phonenumber#" dbvarname="@phonenumber" null="#(len(trim(rc.phonenumber))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.address#" dbvarname="@address" null="#(len(trim(rc.address))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.address2#" dbvarname="@address2" null="#(len(trim(rc.address2))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.city#" dbvarname="@city" null="#(len(trim(rc.city))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.stateid#" dbvarname="@stateid" null="#(len(trim(rc.stateid))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.zipcode#" dbvarname="@zipcode" null="#(len(trim(rc.zipcode))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.jumpslogged#" dbvarname="@jumpslogged" null="#(len(trim(rc.jumpslogged))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.uspalicense#" dbvarname="@uspalicense" null="#(len(trim(rc.uspalicense))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.primarydisciplineid#" dbvarname="@primarydisciplineid" null="#(len(trim(rc.primarydisciplineid))?false:true)#"/>
@@ -153,42 +143,5 @@
 		<cfset ls=QueryToStruct(customer)>    
 		<cfreturn ls>
 	</cffunction>
-
-	<!---Add Customer Payment--->
-	<cffunction name="addCustomerPayment" access="remote" httpMethod="POST" restPath="/customers/payment/add/" returntype="any" produces="application/json">		
-		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
-
-		<!---Setup Default ParamsList--->
-		<cfset rc = deserializeJSON(ARGUMENTS.params)>
-		<cfset rc.event_customer_id = structKeyExists(rc,'event_customer_id')?rc.event_customer_id:''>
-		<cfset rc.pp_id = structKeyExists(rc,'pp_id')?rc.pp_id:''>
-		<cfset rc.pp_state = structKeyExists(rc,'pp_state')?rc.pp_state:''>
-		<cfset rc.pp_card_type = structKeyExists(rc,'pp_card_type')?rc.pp_card_type:''>
-		<cfset rc.pp_card_fname = structKeyExists(rc,'pp_card_fname')?rc.pp_card_fname:''>
-		<cfset rc.pp_card_lname = structKeyExists(rc,'pp_card_lname')?rc.pp_card_lname:''>
-		<cfset rc.pp_card_expire_month = structKeyExists(rc,'pp_card_expire_month')?rc.pp_card_expire_month:''>
-		<cfset rc.pp_card_expire_year = structKeyExists(rc,'pp_card_expire_year')?rc.pp_card_expire_year:''>
-		<cfset rc.pp_card_number = structKeyExists(rc,'pp_card_number')?rc.pp_card_number:''>
-
-		<!---Add Customer Payment Record--->
-		<cfstoredproc procedure="sp_add_event_customer_payment" datasource="motion">
-			<cfprocparam cfsqltype="CF_SQL_CHAR" value="#rc.event_customer_id#" dbvarname="@event_customer_id" null="#(len(trim(rc.event_customer_id))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_id#" dbvarname="@pp_id" null="#(len(trim(rc.pp_id))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_type#" dbvarname="@pp_card_type" null="#(len(trim(rc.pp_card_type))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_fname#" dbvarname="@pp_card_fname" null="#(len(trim(rc.pp_card_fname))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_fname#" dbvarname="@pp_card_fname" null="#(len(trim(rc.pp_card_fname))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_lname#" dbvarname="@pp_card_lname" null="#(len(trim(rc.pp_card_lname))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_expire_month#" dbvarname="@pp_card_expire_month" null="#(len(trim(rc.pp_card_expire_month))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_expire_year#" dbvarname="@pp_card_expire_year" null="#(len(trim(rc.pp_card_expire_year))?false:true)#"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_number#" dbvarname="@pp_card_number" null="#(len(trim(rc.pp_card_number))?false:true)#"/>
-			<cfprocresult name="customerpayment" resultset="1"/>	
-		</cfstoredproc>
-
-		<!---Create Structure From Results--->
-		<cfset ls=QueryToStruct(customerpayment)>
-		<cfreturn ls>
-	</cffunction>
-
-	
     
 </cfcomponent>

@@ -63,6 +63,22 @@ md-select{
   font-weight: 400;
 }
 
+.confirm-message{
+  font-size: 20px;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.cancel-policy span{
+  font-size: 14px;
+  font-family: Roboto,"Helvetica Neue",sans-serif; 
+  font-weight: bold;
+  color: grey;
+}
+
+.cancel-policy ul li{
+  color: grey;
+}
+
 /* mobile */
 @media (max-width: 360px) {
     

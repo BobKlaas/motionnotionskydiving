@@ -142,6 +142,7 @@
     <script src="src/app/event/view.js"></script>
     <script src="src/app/event/register_step1.js"></script>
     <script src="src/app/event/register_step2.js"></script>
+    <script src="src/app/event/register_confirm.js"></script>
     <script src="src/app/event/reserve.js"></script>
 
     <!---MEDIA--->
