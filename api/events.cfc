@@ -107,7 +107,7 @@
 
 		<!---Update Customer Registration--->
 		<cfstoredproc procedure="sp_update_event_customer" datasource="motion">
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.id#" dbvarname="@id"/>
+			<cfprocparam cfsqltype="CF_SQL_CHAR" value="#rc.id#" dbvarname="@id"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#" dbvarname="@eventid" null="#(len(trim(rc.eventid))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.firstname#" dbvarname="@firstname" null="#(len(trim(rc.firstname))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.lastname#" dbvarname="@lastname" null="#(len(trim(rc.lastname))?false:true)#"/>
@@ -145,16 +145,49 @@
 
 	<!---Get Event Customer by ID--->
 	<cffunction name="getCustomerByID" access="remote" httpMethod="GET" restPath="/customers/get/{customerid}" returntype="any" produces="application/json">		
-		<cfargument name="customerid" type="numeric" required="true" restargsource="path">
+		<cfargument name="customerid" type="string" required="true" restargsource="path">
 		<cfstoredproc procedure="sp_get_event_customers" datasource="motion">
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#customerid#" dbvarname="@customerid"/>
+			<cfprocparam cfsqltype="CF_SQL_CHAR" value="#customerid#" dbvarname="@customerid"/>
 			<cfprocresult name="customer" resultset="1">
 		</cfstoredproc>
 		<cfset ls=QueryToStruct(customer)>    
 		<cfreturn ls>
 	</cffunction>
 
+	<!---Add Customer Payment--->
+	<cffunction name="addCustomerPayment" access="remote" httpMethod="POST" restPath="/customer/payment/add/" returntype="any" produces="application/json">		
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
 
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.event_customer_id = structKeyExists(rc,'event_customer_id')?rc.event_customer_id:''>
+		<cfset rc.pp_id = structKeyExists(rc,'pp_id')?rc.pp_id:''>
+		<cfset rc.pp_state = structKeyExists(rc,'pp_state')?rc.pp_state:''>
+		<cfset rc.pp_card_type = structKeyExists(rc,'pp_card_type')?rc.pp_card_type:''>
+		<cfset rc.pp_card_fname = structKeyExists(rc,'pp_card_fname')?rc.pp_card_fname:''>
+		<cfset rc.pp_card_lname = structKeyExists(rc,'pp_card_lname')?rc.pp_card_lname:''>
+		<cfset rc.pp_card_expire_month = structKeyExists(rc,'pp_card_expire_month')?rc.pp_card_expire_month:''>
+		<cfset rc.pp_card_expire_year = structKeyExists(rc,'pp_card_expire_year')?rc.pp_card_expire_year:''>
+		<cfset rc.pp_card_number = structKeyExists(rc,'pp_card_number')?rc.pp_card_number:''>
+
+		<!---Add Customer Payment Record--->
+		<cfstoredproc procedure="sp_add_event_customer_payment" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_CHAR" value="#rc.event_customer_id#" dbvarname="@event_customer_id" null="#(len(trim(rc.event_customer_id))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_id#" dbvarname="@pp_id" null="#(len(trim(rc.pp_id))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_type#" dbvarname="@pp_card_type" null="#(len(trim(rc.pp_card_type))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_fname#" dbvarname="@pp_card_fname" null="#(len(trim(rc.pp_card_fname))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_fname#" dbvarname="@pp_card_fname" null="#(len(trim(rc.pp_card_fname))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_lname#" dbvarname="@pp_card_lname" null="#(len(trim(rc.pp_card_lname))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_expire_month#" dbvarname="@pp_card_expire_month" null="#(len(trim(rc.pp_card_expire_month))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_expire_year#" dbvarname="@pp_card_expire_year" null="#(len(trim(rc.pp_card_expire_year))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_number#" dbvarname="@pp_card_number" null="#(len(trim(rc.pp_card_number))?false:true)#"/>
+			<cfprocresult name="customerpayment" resultset="1"/>	
+		</cfstoredproc>
+
+		<!---Create Structure From Results--->
+		<cfset ls=QueryToStruct(customerpayment)>
+		<cfreturn ls>
+	</cffunction>
 
 	
     

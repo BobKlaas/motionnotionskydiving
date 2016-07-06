@@ -39,7 +39,7 @@
 		    "funding_instruments" = [
 		      {
 		        "credit_card" = {
-		          "type"= arguments.card_type,
+		          "type"= lcase(arguments.card_type),
 		          "number"= " " & arguments.card_number,
 		          "expire_month"= " " & arguments.card_exp_month,
 		          "expire_year"= " " & arguments.card_exp_year,
@@ -73,7 +73,10 @@
 		<!--- another workaround for ColdFusion serialize JSON bug that converts numeric strings to floats --->
 		<cfset req = Replace(req, '" ', '"', "ALL")>
 		
-		<cfreturn makePaymentRequest(data = req)>
+		<!---Make Payment Request --->
+		<cfset result = makePaymentRequest(data=req)>
+
+		<cfreturn result>
 	</cffunction>
 
 
@@ -102,7 +105,7 @@
 			<cfhttpparam type="body" value="#req#">
 		</cfhttp>
 		
-		<cfreturn req>
+		<cfreturn cfhttp.FileContent>
 	</cffunction>
 
 </cfcomponent>

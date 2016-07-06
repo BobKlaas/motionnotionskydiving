@@ -9,10 +9,10 @@
     eventRegisterStep2Controller.$inject = ['$scope','common','eventservice','dropzoneservice','commonservice','transactionservice'];
 
     function eventRegisterStep2Controller($scope,common,eventservice,dropzoneservice,commonservice,transactionservice) {       
-    	console.log('Register controller has been called');
+        console.log('Register controller has been called');
 
-    	//METHODS
-    	$scope.init = init;
+        //METHODS
+        $scope.init = init;
         $scope.getEventByID = getEventByID;
         $scope.getCustomerByID = getCustomerByID;
         $scope.getStates = getStates;
@@ -20,9 +20,10 @@
         $scope.processPayment = processPayment;
         $scope.updateCustomerToEvent = updateCustomerToEvent;
         $scope.requestPayment = requestPayment;
+        $scope.savePayment = savePayment;
 
-		//VARIABLES
-		$scope.common = common;
+        //VARIABLES
+        $scope.common = common;
         $scope.states = [];
         $scope.disciplines = [];
         $scope.cardtypes = [{id: 1,name:'Visa'},{id:2,name:'Mastercard'},{id:3,name:'Discover'}];
@@ -33,7 +34,7 @@
         
         $scope.customer = {
              id: common.$routeParams.customerid
-            ,eventid: common.$routeParams.eventid
+            ,eventid: ''
             ,firstname: ''
             ,lastname: ''
             ,emailaddress: ''
@@ -68,14 +69,25 @@
             ,cardexpiration: ''
             ,cardseccode: ''
         }
-		
-    	//Init Function
-    	$scope.init();
-    	function init(){
+
+        $scope.payment = {
+             event_customer_id: ''
+            ,pp_id: ''
+            ,pp_state: ''
+            ,pp_card_type: ''
+            ,pp_card_fname: ''
+            ,pp_card_lname: ''
+            ,pp_card_expire_month: ''
+            ,pp_card_expire_year: ''
+            ,pp_card_number: ''
+        }
+        
+        //Init Function
+        $scope.init();
+        function init(){
             $scope.getCustomerByID($scope.customerid);
-            $scope.getEventByID($scope.eventid);            
             $scope.getStates();
-    	}
+        }
 
          //Get States
         function getStates(){
@@ -103,7 +115,12 @@
             var params = {id: $scope.customerid}
             eventservice.getCustomerByID(params).then(
                 function(results){
+                    //Set Custom Object
                     $scope.setCustomer(results[0]);
+
+                    //Get Event Details
+                    $scope.eventid = results[0].EVENTID;
+                    $scope.getEventByID();
                 }    
             );     
         }
@@ -163,18 +180,41 @@
                 ,description: $scope.event.details.TITLE
             }
 
-            console.log(params);
-            console.log($scope.customer);
-
-            /*transactionservice.sendPayment(params).then(
+            transactionservice.paymentrequest(params).then(
                 function(results){
-                    //Save Customer Details
-                    $scope.customer.paymentreceived = 1;
-                    $scope.updateCustomerToEvent();
+                    var cc = results.payer.funding_instruments[0].credit_card;
+                    if(results.state == "approved"){
+                        //Set Payment Object
+                        $scope.payment = {
+                             event_customer_id: $scope.customer.id
+                            ,pp_id: results.id
+                            ,pp_state: results.state
+                            ,pp_card_type: cc.type
+                            ,pp_card_fname: cc.first_name
+                            ,pp_card_lname: cc.last_name
+                            ,pp_card_expire_month: cc.expire_month
+                            ,pp_card_expire_year: cc.expire_year
+                            ,pp_card_number: cc.number
+                        }
+
+                        //Save Payment
+                        $scope.savePayment();
+                    }else{
+                        common.logger.error('We could not process your payment. Please double check your payment information and try again.','','Payment Failed');
+                    }
                 },function(error){
                     common.logger.error('We could not process your payment. Please double check your payment information and try again.','','Payment Failed');
                 }   
-            );*/
+            );
+        }
+
+        //Inserts a record of the payment receipt
+        function savePayment(params){
+             eventservice.addCustomerPayment(params).then(
+                function(results){
+                    common.logger.success('You PAID!!!!');
+                } 
+            );
         }
 
         //Save Registration and Proceed to Payment

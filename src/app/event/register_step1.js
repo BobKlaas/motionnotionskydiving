@@ -62,7 +62,8 @@
             $scope.getDisciplines();
             $scope.getEventByID($scope.eventid);
 
-            if(common.$routeParams.customerid > 0){
+            if(common.$routeParams.customerid !== undefined){
+                common.logger.info('Load Customer');
                 $scope.loadCustomer();
             }     
     	}
@@ -163,8 +164,8 @@
             //Save Customer to Event
             eventservice.addCustomerToEvent(params).then(
                 function(results){
-                    if(results[0].ID > 0){
-                        common.routeTo('/events/register/step2/'+results[0].EVENTID+'/'+results[0].ID);
+                    if(results[0].ID !== undefined){
+                        common.routeTo('/events/register/step2/'+results[0].ID);
                     }else{
                         common.logger.error('There was an error trying to save your information. Please try again.','','Registration Error');    
                     }
@@ -181,8 +182,8 @@
             //Save Customer to Event
             eventservice.updateCustomerToEvent(params).then(
                 function(results){
-                    if(results[0].ID > 0){
-                        common.routeTo('/events/register/step2/'+results[0].EVENTID+'/'+results[0].ID);
+                    if(results[0].ID !== undefined){
+                        common.routeTo('/events/register/step2/'+results[0].ID);
                     }else{
                         common.logger.error('There was an error trying to save your information. Please try again.','','Registration Error');    
                     }
@@ -200,7 +201,7 @@
                 $scope.customer.homedropzonename = $scope.customer.homedropzone.name;
             }
 
-            if($scope.customer.id > 0){
+            if($scope.customer.id !== undefined){
                 $scope.updateCustomerToEvent();
             }else{
                 $scope.addCustomerToEvent();  

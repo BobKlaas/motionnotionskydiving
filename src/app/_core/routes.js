@@ -88,7 +88,7 @@
                         ,url: ""
                     }
                 })
-                .when('/events/register/step2/:eventid/:customerid/', {
+                .when('/events/register/step2/:customerid/', {
                      templateUrl: 'src/app/event/register_step2.html'
                     ,controller: 'eventRegisterStep2Controller'
                     ,meta:{

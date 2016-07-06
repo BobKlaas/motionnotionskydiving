@@ -101,8 +101,11 @@
 
     <!--- API URL --->
     <script>
-        var _hostName = "<cfoutput>#APPLICATION.HostName#</cfoutput>";
-        var _secureHostName = "<cfoutput>#APPLICATION.SecureHostName#</cfoutput>";
+        <cfif CGI.HTTPS EQ "ON">
+            var _hostName = "<cfoutput>#APPLICATION.SecureHostName#</cfoutput>";
+        <cfelse>
+            var _hostName = "<cfoutput>#APPLICATION.HostName#</cfoutput>";
+        </cfif>        
     </script>
     
     <!--- Global JS --->

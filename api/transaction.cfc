@@ -1,108 +1,41 @@
-<cfcomponent output="false">
-	
-	<cfset variables.username = "">
-	<cfset variables.password = "">
-	<cfset variables.server = "">
-	
-	<cffunction name="init" access="public" output="false">
-		<cfargument name="client_id" required="true" type="string">
-		<cfargument name="client_secret" required="true" type="string">
-		<cfargument name="sandbox" required="false" type="boolean" default="false">
-		
-		<cfset variables.username = arguments.client_id>
-		<cfset variables.password = arguments.client_secret>
-		
-		<cfif arguments.sandbox>
-			<cfset variables.server = "https://api.sandbox.paypal.com">
-		<cfelse>
-			<cfset variables.server = "https://api.paypal.com">
-		</cfif>
-		
-		<cfreturn this />
-	</cffunction>
-	
-	<cffunction name="capture" access="public" output="false">
-		<cfargument name="card_type" required="true" type="string">
-		<cfargument name="card_number" required="true" type="string">
-		<cfargument name="card_exp_month" required="true" type="string">
-		<cfargument name="card_exp_year" required="true" type="string">
-		<cfargument name="card_firstname" required="true" type="string">
-		<cfargument name="card_lastname" required="true" type="string">
-		<cfargument name="amount" required="true" type="numeric">
-		
-		<cfargument name="currency" required="false" type="string" default="USD">
-		<cfargument name="description" required="false" type="string" default="">
-		
-		<cfset data = { "intent" = "sale" }>
-		<cfset data["payer"] = {
-		    "payment_method"="credit_card",
-		    "funding_instruments" = [
-		      {
-		        "credit_card" = {
-		          "type"= arguments.card_type,
-		          "number"= " " & arguments.card_number,
-		          "expire_month"= " " & arguments.card_exp_month,
-		          "expire_year"= " " & arguments.card_exp_year,
-		          "first_name"= arguments.card_firstname,
-		          "last_name"= arguments.card_lastname
-		        }
-		      }
-		    ]
-		}>
-		<cfset data["transactions"] = [
-		    {
-		      "amount"={
-		        "total"= (NumberFormat(arguments.amount, "9.99")),
-		        "currency"= arguments.currency
-		      },
-			"description" = arguments.description
-		    }
-		]>
 
-		<cfset req = serializeJSON(data)>
+<cfcomponent rest="true" restPath="/transaction" extends="api.utility">
 
-  
-		<!--- convert string total to numeric (an unelegant workaround for CF's poor JSON serialization )) --->
-		<cfset req = Replace(req, 'total":"', 'total":')>
-		<cfset req = Replace(req, '|||"', '')>
+	<!---Send Payment Request--->
+	<cffunction name="sendPayment" access="remote" httpMethod="POST" restPath="/paymentrequest" returntype="any" produces="application/json">		
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
 
-
-		<cfset req = serializeJSON(data)>
-		 
-
-		<!--- another workaround for ColdFusion serialize JSON bug that converts numeric strings to floats --->
-		<cfset req = Replace(req, '" ', '"', "ALL")>
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.card_type = len(trim(rc.card_type))?rc.card_type:''>
+		<cfset rc.card_number = len(trim(rc.card_number))?rc.card_number:''>
+		<cfset rc.card_exp_month = len(trim(rc.card_exp_month))?rc.card_exp_month:''>
+		<cfset rc.card_exp_year = len(trim(rc.card_exp_year))?rc.card_exp_year:''>
+		<cfset rc.card_firstname = len(trim(rc.card_firstname))?rc.card_firstname:''>
+		<cfset rc.card_lastname = len(trim(rc.card_lastname))?rc.card_lastname:''>
+		<cfset rc.amount = len(trim(rc.amount))?rc.amount:''>
+		<cfset rc.description = len(trim(rc.description))?rc.description:''>
 		
-		<cfreturn makePaymentRequest(data = req)>
-	</cffunction>
+		<!---Create Connection to Paypal CFC --->
+		<cfset paypal = createObject("component","api.paypal").init(
+				 client_id = REQUEST.ClientID
+				,client_secret = REQUEST.Secret
+				,sandbox = REQUEST.UsePaypalSandbox)>
 
-
-
-	<!--- private methods --->
-	<cffunction name="getAuthToken" access="private" output="false">
-		<cfhttp url="#variables.server#/v1/oauth2/token" method="post" username="#variables.username#" password="#variables.password#">
-			<cfhttpparam type="header" name="Content-Type" value="application/x-www-form-urlencoded">
-			<cfhttpparam type="header" name="Accept-Language" value="en_US">
-			<cfhttpparam type="formfield" name="grant_type" value="client_credentials">
-		</cfhttp>
+		<!---Submit Payment Request --->
+		<cfset response = paypal.capture(
+			 card_type = trim(rc.card_type)
+			,card_number = trim(rc.card_number)
+			,card_exp_month = trim(rc.card_exp_month)
+			,card_exp_year = trim(rc.card_exp_year)
+			,card_firstname = trim(rc.card_firstname)
+			,card_lastname = trim(rc.card_lastname)
+			,amount = trim(rc.amount)
+			,description = trim(rc.description)
+		)>
 		
-		<cfset response = deserializeJSON(cfhttp.FileContent)>
-		
-		<cfreturn response.access_token>
-	</cffunction>
-
-	<cffunction name="makePaymentRequest" access="private" output="false">
-		<cfargument name="data" required="true" type="string">
-
-		<cfset var accessToken = getAuthToken()>
-		
-		<cfhttp url="#variables.server#/v1/payments/payment" method="post" timeout="120">
-			<cfhttpparam type="header" name="Content-Type" value="application/json">
-			<cfhttpparam type="header" name="Authorization" value="Bearer #accessToken#">
-			<cfhttpparam type="body" value="#req#">
-		</cfhttp>
-		
-		<cfreturn req>
+		<cfset ls=response>    
+		<cfreturn ls>
 	</cffunction>
 
 </cfcomponent>
