@@ -8,7 +8,7 @@
         app.controller('eventRegisterStep2Controller',eventRegisterStep2Controller);
         app.controller('erProgressController',erProgressController);
         
-    eventRegisterStep2Controller.$inject = ['$scope','common','eventservice','dropzoneservice','commonservice','transactionservice'];
+    eventRegisterStep2Controller.$inject = ['$scope','common','eventservice','dropzoneservice','commonservice','transactionservice','notifyservice'];
     erProgressController.$inject = ['$scope','$interval'];
    
 
@@ -25,7 +25,7 @@
     }
 
     //Controller: eventRegisterStep2Controller  
-    function eventRegisterStep2Controller($scope,common,eventservice,dropzoneservice,commonservice,transactionservice){       
+    function eventRegisterStep2Controller($scope,common,eventservice,dropzoneservice,commonservice,transactionservice,notifyservice){       
         console.log('Register controller has been called');
 
         //METHODS
@@ -38,6 +38,7 @@
         $scope.requestPayment = requestPayment;
         $scope.savePayment = savePayment;
         $scope.toggleLoadingIndicator = toggleLoadingIndicator;
+        $scope.sendRegistrationComplete = sendRegistrationComplete;
 
         //VARIABLES
         $scope.common = common;
@@ -221,8 +222,22 @@
                     //Turn loading indicator off
                     $scope.toggleLoadingIndicator(0);
 
+                    //Send Registration Complete Email
+                    $scope.sendRegistrationComplete();
+
                     //Route to confirmation page
                     common.routeTo('/events/register/confirmation/'+results[0].EVENT_CUSTOMER_ID);                    
+                } 
+            );
+        }
+
+        //Sends Registration Complete Email
+        function sendRegistrationComplete(params){
+            var params = {customerid: $scope.customer.id};
+            notifyservice.sendRegistrationComplete(params).then(
+                function(results){
+                    //Email Sent
+                    //common.logger.info('Email Sent');
                 } 
             );
         }

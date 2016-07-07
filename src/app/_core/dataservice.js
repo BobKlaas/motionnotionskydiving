@@ -7,7 +7,8 @@
         .factory('eventservice',eventservice)
         .factory('dropzoneservice',dropzoneservice)
         .factory('commonservice',commonservice)
-        .factory('transactionservice',transactionservice);
+        .factory('transactionservice',transactionservice)
+        .factory('notifyservice',notifyservice);
 
   
     //********************************************************
@@ -18,6 +19,7 @@
     dropzoneservice.$inject = ['utility'];
     commonservice.$inject = ['utility'];
     transactionservice.$inject = ['utility'];
+    notifyservice.$inject = ['utility'];
 
 
     //CONTRACTOR Service___________________________________________________________________>
@@ -143,5 +145,17 @@
         }
     }
     
+    //Notify Service___________________________________________________________________>
+    function notifyservice(utility) {
+        var service = {
+             sendRegistrationComplete: sendRegistrationComplete
+        };
+        return service;
+
+        //Send Registration Complete Notification
+        function sendRegistrationComplete(params){
+            return utility.HttpService.sendRequest('/rest/api/notify/registrationcomplete/',params,'post');
+        }
+    }
 
 })();

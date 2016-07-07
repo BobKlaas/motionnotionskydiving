@@ -67,7 +67,7 @@
                                 <th class="small-6 large-6 columns first">
                                   <table>
                                     <tr>
-                                      <th><img src="cid:motionnotionlogo"></th>
+                                      <th><cfoutput><a href="#APPLICATION.SecureHostName#"><img src="cid:motionnotionlogo"></a></cfoutput></th>
                                     </tr>
                                   </table>
                                 </th>
@@ -108,14 +108,14 @@
                             <table>
                               <tr>
                                 <th>
-                                  <h1>Hi, #customer.firstname#</h1>
-                                  <p>Thank you for registering for the #details.title#. Below are the event details along with a link to our cancellation/weather policy. Take a minute to check it out. We look forward to seeing you at the camp!</p> 
+                                  <h1>Hi, <cfoutput>#customer.firstname#</cfoutput></h1>
+                                  <p>Thank you for registering for the <cfoutput>#details.title#</cfoutput>. Below we have attached details for the event and a link to our cancellation and weather policy. Take a minute to check it out! We look forward to seeing you on DateFormat(details.enddate,'mmmm dd')!</p> 
                                   <p><i>-The Motion Notion Team</i></p>
                                   <img src="cid:eventimage" alt=""><br>                                
-                                  <p>Location: #details.dropzonename# | #details.address#, #details.city# #details.state# #details.zipcode#</p>
-                                  <p>Start Date: #DateFormat(details.enddate,'mm/dd/yyyy')#</p>                                  
-                                  <p>Start Time: #TimeFormat(details.statdate, 'h:mm tt')#</p>
-                                  <p>Cancellation/Weather Policy: <a href="https://motionnotionskydiving.com/event/policies/">Click Here</a></p>
+                                  <p><b>Location:</b> <cfoutput><a href="http://maps.google.com/?q=#details.fulladdress#">#details.dropzonename# | #details.address#, #details.city# #details.state# #details.zipcode#</a></cfoutput></p>
+                                  <p><b>Start Date:</b> <cfoutput>#DateFormat(details.enddate,'mm/dd/yyyy')#</cfoutput></p>                                  
+                                  <p><b>Start Time:</b> <cfoutput>#TimeFormat(details.startdate, 'h:mm tt')#</cfoutput></p>
+                                  <p><b>Cancellation/Weather Policy:</b> <cfoutput><a href="#APPLICATION.SecureHostName#/event/policies/">Click Here</a></cfoutput></p>
                                 </th>
                                 <th class="expander"></th>
                               </tr>
@@ -148,7 +148,7 @@
                                               <table>
                                                 <tr>
                                                   <td>
-                                                    <center data-parsed=""><a href="https://www.facebook.com/Motion-Notion-997550893655135/" align="center" class="float-center">Facebook</a></center>
+                                                    <center data-parsed=""><cfoutput><a href="#REQUEST.FacebookURL#" align="center" class="float-center">Facebook</a></cfoutput></center>
                                                   </td>
                                                 </tr>
                                               </table>
@@ -162,7 +162,7 @@
                                               <table>
                                                 <tr>
                                                   <td>
-                                                    <center data-parsed=""><a href="https://www.instagram.com/motionnotionskydiving/" align="center" class="float-center">Instagram</a></center>
+                                                    <center data-parsed=""><cfoutput><a href="#REQUEST.InstagramURL#" align="center" class="float-center">Instagram</a></cfoutput></center>
                                                   </td>
                                                 </tr>
                                               </table>
@@ -176,7 +176,7 @@
                                               <table>
                                                 <tr>
                                                   <td>
-                                                    <center data-parsed=""><a href="#APPLICATION.SecureHostName#" align="center" class="float-center">Our Website</a></center>
+                                                    <center data-parsed=""><cfoutput><a href="#APPLICATION.SecureHostName#" align="center" class="float-center">Our Website</a></cfoutput></center>
                                                   </td>
                                                 </tr>
                                               </table>
@@ -193,7 +193,7 @@
                                     <tr>
                                       <th>
                                         <h5>Contact Info:</h5>
-                                        <p>Email: <a href="mailto:#REQUEST.AdminEmail#">#REQUEST.AdminEmail#</a></p>
+                                        <p>Email: <cfoutput><a href="mailto:#REQUEST.AdminEmail#?subject=#details.title# | CID: #customer.id#">#REQUEST.AdminEmail#</a></cfoutput></p>
                                       </th>
                                     </tr>
                                   </table>
@@ -210,9 +210,9 @@
                           <td>
                             <table>
                               <tr>
-                                <th class="menu-item float-center"><a href="https://motionnotionskydiving.com/terms/">Terms</a></th>
-                                <th class="menu-item float-center"><a href="https://motionnotionskydiving.com/privacy/">Privacy</a></th>
-                                <th class="menu-item float-center"><a href="https://motionnotionskydiving.com/unsubscribe/">Unsubscribe</a></th>
+                                <th class="menu-item float-center"><cfoutput><a href="#APPLICATION.SecureHostName#/terms/">Terms</a></cfoutput></th>
+                                <th class="menu-item float-center"><cfoutput><a href="#APPLICATION.SecureHostName#/privacy/">Privacy</a></cfoutput></th>
+                                <th class="menu-item float-center"><cfoutput><a href="#APPLICATION.SecureHostName#/unsubscribe/">Unsubscribe</a></cfoutput></th>
                               </tr>
                             </table>
                           </td>

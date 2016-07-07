@@ -27,6 +27,10 @@
 
 <cfset eventImage = ExpandPath('/assets/images/events/')&details.imagename>
 
+
+
+<!--- <cfinclude template="/assets/emailtemplates/#template.templatefile#"> --->
+
 <!---Email Event Registeree--->
 <cfmail to="#customer.emailaddress#" from="#REQUEST.AdminEmail#" bcc="#REQUEST.AdminEmail#" subject="Event Registration Confirmed" type="html" server="#APPLICATION.mailServer#" username="#APPLICATION.mailUserName#" password="#APPLICATION.mailPassword#">
 	<cfmailparam file="#REQUEST.StandardLogo#" contentid="motionnotionlogo" disposition="inline"/>
