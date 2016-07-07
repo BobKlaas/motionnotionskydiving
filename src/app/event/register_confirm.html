@@ -18,18 +18,31 @@
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-success">
-                <span class="confirm-message">Get Stoked! You have successfully registered for the {{event.details.TITLE}}.<span>
+                <span class="confirm-message">You have successfully registered for the {{event.details.TITLE}}.<span>
             </div>
         </div>
     </div>    
 
     <div class="row">
-        <div class="col-md-7">
-            <p>We have sent a confirmation email to the email you provided ({{customer.emailaddress}}).</p>
+        <div class="col-md-7 big-list">
+            <h4>We have sent a confirmation email to {{customer.emailaddress}}.</h4><br>
 
-            <div style="padding-top: 45px">
-            <cancellationpolicy></cancellationpolicy>
-            </div>
+            <h4>Things you can do next</h4>
+            <ol>
+                <li>Check the confirmation email we just sent you.</li>
+                <li>Share this event with your friends on Facebook.
+                    <div class="fb-share-button" data-href="{{host}}/events/view/{{customer.eventid}}" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a>
+                    </div>
+                </li>
+                <li>Get stoked. Go skydiving.</li>
+            </ol>
+
+            <!-- <div data-href="{{host}}/events/view/{{customer.eventid}}" data-mobile-iframe="true">
+                <md-button class="md-fab md-mini md-primary" aria-label="Share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" target="_blank">
+                    <i class="fa fa-2x fa-facebook"></i>
+                </md-button>
+            </div> -->
         </div>
 
         <div class="col-md-5">
@@ -42,6 +55,11 @@
                 <li class="list-group-item"><span class="event-details">Price: {{event.details.REGISTRATIONFEE | currency}}</span></li>
                 <li class="list-group-item"><span class="event-details">Slots Remaining: {{event.details.SLOTSLEFT}}</span></li>
             </ul>
+            <hr>
+
+            <div>
+                <cancellationpolicy></cancellationpolicy>
+            </div>
         </div>
     </div>
     <!-- /.row -->

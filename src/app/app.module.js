@@ -7,15 +7,18 @@
     var app = angular.module('app',['app.core','app.home','app.coach','app.event','app.media']);
         app.controller('appController',appController);
         
-    appController.$inject = ['$scope','$log','common','logger'];
+    appController.$inject = ['$scope','$log','common','logger','$location'];
 
         app.run(function(ngMeta){
             ngMeta.init();
         });
 
-        function appController($scope,$log,common,logger){
+
+        function appController($scope,$log,common,logger,$location){
             $scope.common = common;
             $scope.navCollapsed = 1;
+            $scope.currentPath = _hostName + $location.path();
+            $scope.host = _hostName;
         }
 
         //Header Custom Directive

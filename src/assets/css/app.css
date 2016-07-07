@@ -68,15 +68,21 @@ md-select{
   font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
-.cancel-policy span{
-  font-size: 14px;
+.basic-list span{
+  font-size: 12px;
   font-family: Roboto,"Helvetica Neue",sans-serif; 
   font-weight: bold;
   color: grey;
 }
 
-.cancel-policy ul li{
+.basic-list ul li{
+  font-size: 12px;
   color: grey;
+}
+
+.big-list ol li{
+  font-family: Roboto,"Helvetica Neue",sans-serif; 
+  font-size: 16px;
 }
 
 /* mobile */

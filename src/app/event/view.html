@@ -57,7 +57,7 @@
             <p ng-bind="event.details.DESCRIPTION"></p><br>
             
 
-            <h5>This event is full. However, you can still register for the reserve list in case someone cancels.</h5>
+            <h5 ng-show="{{event.details.SLOTSLEFT}}">This event is full. However, you can still register for the reserve list in case someone cancels.</h5>
             
             <a class="btn btn-primary" ng-href="/events/register/step1/{{eventid}}" ng-show="event.details.SLOTSLEFT">Register for Event</a>      
             <a class="btn btn-primary" ng-href="/events/register/{{eventid}}" ng-hide="event.details.SLOTSLEFT">Apply for Reserve List</a>           
