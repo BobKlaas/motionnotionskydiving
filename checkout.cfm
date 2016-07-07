@@ -1,20 +1,39 @@
+<cfsetting showdebugoutput="true">
+
+<!---Setup Default ParamsList--->
+<cfset rc.event_customer_id = 'BB833623-90E5-4F97-9262-00749E850388'>
+
+<!---Get Email Template--->
+<cfstoredproc procedure="sp_get_email_templates" datasource="motion">
+	<cfprocparam cfsqltype="CF_SQL_INTEGER" value="1" dbvarname="@templateid"/>
+	<cfprocresult name="template" resultset="1">
+</cfstoredproc>
+
+<!---Get Customer Details--->
+<cfstoredproc procedure="sp_get_event_customers" datasource="motion">
+	<cfprocparam cfsqltype="CF_SQL_CHAR" value="#rc.event_customer_id#" dbvarname="@customerid"/>
+	<cfprocresult name="customer" resultset="1">
+</cfstoredproc>
+
+<!---Get Event Details--->
+<cfstoredproc procedure="sp_get_event_details" datasource="motion">
+	<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#customer.eventid#" dbvarname="@eventid"/>
+	<cfprocresult name="details" resultset="1">
+	<cfprocresult name="contractors" resultset="2">
+	<cfprocresult name="customers" resultset="3">
+</cfstoredproc>
+
+<cfoutput>
+
+<cfset eventImage = ExpandPath('/assets/images/events/')&details.imagename>
+
+<!---Email Event Registeree--->
+<cfmail to="#customer.emailaddress#" from="#REQUEST.AdminEmail#" bcc="#REQUEST.AdminEmail#" subject="Event Registration Confirmed" type="html" server="#APPLICATION.mailServer#" username="#APPLICATION.mailUserName#" password="#APPLICATION.mailPassword#">
+	<cfmailparam file="#REQUEST.StandardLogo#" contentid="motionnotionlogo" disposition="inline"/>
+	<cfmailparam file="#eventImage#" contentid="eventimage" disposition="inline"/>	
+	<cfinclude template="/assets/emailtemplates/#template.templatefile#">
+</cfmail>
 
 
+</cfoutput>
 
-<cfset ICSContent = "">
-<cfset ICSContent = ICSContent & "BEGIN:VCALENDAR#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "VERSION:2.0#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "CALSCALE:GREGORIAN#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "PRODID:Coldfusion8#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "BEGIN:VEVENT#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "UID:#eventItem.getEvent_id()#@extension.unh.edu#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "SUMMARY:#eventItem.getTitle()##chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "DESCRIPTION:http://extension.unh.edu/events/index.cfm?e=app.event&event_id=#eventItem.getEvent_id()##chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "DTSTART:#DateFormat(DateAdd('h',timeInfo.utcHourOffset,eventItem.getGmt_start()),"yyyymmdd")#T#TimeFormat(DateAdd('h',timeInfo.utcHourOffset,eventItem.getGmt_start()),"HHmmss")#Z#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "DTEND:#DateFormat(DateAdd('h',timeInfo.utcHourOffset,eventItem.getGmt_end()),"yyyymmdd")#T#TimeFormat(DateAdd('h',timeInfo.utcHourOffset,eventItem.getGmt_end()),"HHmmss")#Z#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "DTSTAMP:#DateFormat(DateAdd('h',timeInfo.utcHourOffset,Now()),"yyyymmdd")#T#TimeFormat(DateAdd('h',timeInfo.utcHourOffset,Now()),"HHmmss")#Z#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "END:VEVENT#chr(13)##chr(10)#">
-<cfset ICSContent = ICSContent & "END:VCALENDAR">
-<cfheader name="Content-Type" value="text/calendar">
-<cfheader name="Content-Disposition" value="attachment; filename=UNHCEevent#DateFormat(eventItem.getGmt_start(),"yyyymmdd")#.ics">
-<cfoutput>#ICSContent#</cfoutput>

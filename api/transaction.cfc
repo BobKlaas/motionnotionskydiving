@@ -77,4 +77,41 @@
 		<cfreturn ls>
 	</cffunction>
 
+
+	<!---Send an Email Confirmation to event registeree--->
+	<cffunction name="sendConfirmation" access="remote" httpMethod="POST" restPath="/confirmation/send/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.event_customer_id = structKeyExists(rc,'event_customer_id')?rc.event_customer_id:''>
+
+		<!---Get Email Template--->
+		<cfstoredproc procedure="sp_get_email_templates" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="1" dbvarname="@templateid"/>
+			<cfprocresult name="template" resultset="1">
+		</cfstoredproc>
+
+		<!---Get Customer Details--->
+		<cfstoredproc procedure="sp_get_event_customers" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_CHAR" value="#rc.event_customer_id#" dbvarname="@customerid"/>
+			<cfprocresult name="customer" resultset="1">
+		</cfstoredproc>
+
+		<!---Get Event Details--->
+		<cfstoredproc procedure="sp_get_event_details" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#customer.eventid#" dbvarname="@eventid"/>
+			<cfprocresult name="details" resultset="1">
+			<cfprocresult name="contractors" resultset="2">
+			<cfprocresult name="customers" resultset="3">
+		</cfstoredproc>
+
+		<!---Send Email--->
+		<cfmail from="robertklaas@motionnotionskydiving.com" to="#customer.emailaddress#" subject="Event Registration Confirmed">
+			#template.templatehtml#
+		</cfmail>
+
+		<cfreturn 'Email Send Successfully'>
+	</cffunction>
+
 </cfcomponent>

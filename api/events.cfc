@@ -143,5 +143,6 @@
 		<cfset ls=QueryToStruct(customer)>    
 		<cfreturn ls>
 	</cffunction>
+
     
 </cfcomponent>
