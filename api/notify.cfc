@@ -2,7 +2,7 @@
 <cfcomponent rest="true" restPath="/notify" extends="api.utility">
 
 	<!---Get US States--->
-	<cffunction name="sendRegistrationComplete" access="remote" httpMethod="POST" restPath="/registrationcomplete/" returntype="any" produces="application/json">
+	<cffunction name="sendRegistrationComplete" access="remote" httpMethod="POST" restPath="/registrationcomplete/" returntype="void">
 		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
 
 		<!---Setup Default ParamsList--->
@@ -40,8 +40,6 @@
 				<cfinclude template="/assets/emailtemplates/#template.templatefile#">
 			</cfmail>
 		</cfoutput>
-
-		<cfreturn 'Email Sent Successfully to '&rc.customerid>
 	</cffunction>
 
 </cfcomponent>

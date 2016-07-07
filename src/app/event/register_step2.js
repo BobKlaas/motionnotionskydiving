@@ -219,26 +219,30 @@
         function savePayment(params){
              transactionservice.addCustomerPayment(params).then(
                 function(results){
-                    //Turn loading indicator off
-                    $scope.toggleLoadingIndicator(0);
-
                     //Send Registration Complete Email
                     $scope.sendRegistrationComplete();
-
-                    //Route to confirmation page
-                    common.routeTo('/events/register/confirmation/'+results[0].EVENT_CUSTOMER_ID);                    
                 } 
             );
         }
 
         //Sends Registration Complete Email
-        function sendRegistrationComplete(params){
+        function sendRegistrationComplete(){
             var params = {customerid: $scope.customer.id};
             notifyservice.sendRegistrationComplete(params).then(
-                function(results){
+                function(){
+                    //Turn loading indicator off
+                    $scope.toggleLoadingIndicator(0);
+
                     //Email Sent
                     //common.logger.info('Email Sent');
-                } 
+                    common.routeTo('/events/register/confirmation/'+$scope.payment.event_customer_id);
+                },function(error){
+                    //Turn loading indicator off
+                    $scope.toggleLoadingIndicator(0);
+                    
+                    //Route to confirmation page
+                    common.routeTo('/events/register/confirmation/'+$scope.payment.event_customer_id);
+                }  
             );
         }
 
