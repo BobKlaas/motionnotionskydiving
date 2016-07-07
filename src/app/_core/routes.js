@@ -115,6 +115,15 @@
                         ,url: ""
                     }
                 })
+                .when('/events/policies/', {
+                     templateUrl: 'src/app/event/policy.html'
+                    ,controller: 'eventPolicyController'
+                    ,meta:{
+                         title: ""
+                        ,description: ""
+                        ,url: ""
+                    }
+                })
                 .otherwise({redirectTo:'/'});
 
                 $locationProvider.html5Mode(true);

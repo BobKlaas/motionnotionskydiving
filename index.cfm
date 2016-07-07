@@ -144,6 +144,7 @@
     <script src="src/app/event/register_step2.js"></script>
     <script src="src/app/event/register_confirm.js"></script>
     <script src="src/app/event/reserve.js"></script>
+    <script src="src/app/event/policy.js"></script>
 
     <!---MEDIA--->
     <script src="src/app/media/media.module.js"></script>
