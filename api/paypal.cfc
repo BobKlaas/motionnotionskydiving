@@ -12,7 +12,7 @@
 		<cfset variables.username = arguments.client_id>
 		<cfset variables.password = arguments.client_secret>
 		
-		<cfif arguments.sandbox>
+		<cfif REQUEST.UsePaypalSandbox>
 			<cfset variables.server = "https://api.sandbox.paypal.com">
 		<cfelse>
 			<cfset variables.server = "https://api.paypal.com">
@@ -90,7 +90,7 @@
 		</cfhttp>
 		
 		<cfset response = deserializeJSON(cfhttp.FileContent)>
-		
+
 		<cfreturn response.access_token>
 	</cffunction>
 

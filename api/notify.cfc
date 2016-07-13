@@ -42,4 +42,43 @@
 		</cfoutput>
 	</cffunction>
 
+
+	<!---Send an Email to Admin/Customer--->
+	<cffunction name="sendMail" access="remote" httpMethod="POST" restPath="/message/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.fullname = structKeyExists(rc,'fullname')?rc.fullname:''>
+		<cfset rc.emailaddress = structKeyExists(rc,'emailaddress')?rc.emailaddress:''>
+		<cfset rc.subject = structKeyExists(rc,'subject')?rc.subject:''>
+		<cfset rc.message = structKeyExists(rc,'message')?reReplace(rc.message,'\n','<br />','ALL'):''>
+
+		<!---Get Email Template for Admin--->
+		<cfstoredproc procedure="sp_get_email_templates" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="2" dbvarname="@templateid"/>
+			<cfprocresult name="template" resultset="2">
+		</cfstoredproc>
+
+		<!---Send Email to Admins--->
+		<cfmail to="#REQUEST.AdminEmail#" from="#rc.emailaddress#" bcc="#REQUEST.AdminEmail#" subject="Event Registration Confirmed" type="html" server="#APPLICATION.mailServer#" username="#APPLICATION.mailUserName#" password="#APPLICATION.mailPassword#">
+			<cfmailparam file="#REQUEST.StandardLogo#" contentid="motionnotionlogo" disposition="inline"/>
+			<cfinclude template="/assets/emailtemplates/#template.templatefile#">
+		</cfmail>
+
+		<!---Get Email Template for Customer--->
+		<cfstoredproc procedure="sp_get_email_templates" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="2" dbvarname="@templateid"/>
+			<cfprocresult name="template" resultset="3">
+		</cfstoredproc>
+
+		<!---Send Email to Customer--->
+		<cfmail to="#rc.emailaddress#" from="#REQUEST.NoReplyEmail#" bcc="#REQUEST.AdminEmail#" subject="Event Registration Confirmed" type="html" server="#APPLICATION.mailServer#" username="#APPLICATION.mailUserName#" password="#APPLICATION.mailPassword#">
+			<cfmailparam file="#REQUEST.StandardLogo#" contentid="motionnotionlogo" disposition="inline"/>
+			<cfinclude template="/assets/emailtemplates/#template.templatefile#">
+		</cfmail>		
+
+		<cfreturn rc>
+	</cffunction>
+
 </cfcomponent>

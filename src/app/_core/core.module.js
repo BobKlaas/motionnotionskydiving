@@ -11,6 +11,7 @@
             ,'ngMessages'
             ,'ngMaterial'
             ,'ngMeta'
+            ,'vcRecaptcha'
             ,'ui.bootstrap'
             ,'angular.filter'
             ,'ui.mask'

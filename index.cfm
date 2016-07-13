@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="src/lib/toastr/toastr.css">
     <link rel="stylesheet" href="src/lib/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="src/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="src/lib/lightgallery/dist/css/lightgallery.css">
     <!-- endinject -->
     <!-- endbuild -->  
 
@@ -74,6 +75,8 @@
     <div layout="column" class="app-container" layout-align="center center" flex>
         <div data-ng-view="" class="view-fade-in"></div>
     </div>
+    
+    <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecapthaApiLoaded"></script>
 
     <!-- 3rd-party libraries js -->
     <!-- inject:lib:js -->
@@ -92,12 +95,15 @@
     <script src="src/lib/toastr/toastr.js"></script>
     <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
     <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="src/lib/angular-recaptcha/release/angular-recaptcha.js"></script>
     <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="src/lib/lightgallery/dist/js/lightgallery.min.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
+
 
     <!--- API URL --->
     <script>
@@ -105,7 +111,12 @@
             var _hostName = "<cfoutput>#APPLICATION.SecureHostName#</cfoutput>";
         <cfelse>
             var _hostName = "<cfoutput>#APPLICATION.HostName#</cfoutput>";
-        </cfif>        
+        </cfif>     
+        var _FacebookURL = "<cfoutput>#REQUEST.FacebookURL#</cfoutput>";
+        var _GoogleURL = "<cfoutput>#REQUEST.GoogleURL#</cfoutput>";
+        var _YouTubeURL = "<cfoutput>#REQUEST.YouTubeURL#</cfoutput>";
+        var _InstagramURL = "<cfoutput>#REQUEST.InstagramURL#</cfoutput>";
+        var _AdminEmail = "<cfoutput>#REQUEST.AdminEmail#</cfoutput>";
     </script>
     
     <!--- Global JS --->

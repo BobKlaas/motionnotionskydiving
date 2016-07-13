@@ -18,6 +18,7 @@
             showslideshow       : showslideshow,
             formatDateRange     : formatDateRange,
             buildfilepath       : buildfilepath,
+            getSocialUrls       : getSocialUrls,
             $log                : $log,
             $http               : $http,
             $q                  : $q,
@@ -73,6 +74,17 @@
         //Build Path
         function buildfilepath(path,filename){
             return path+filename;
+        }
+
+        //Returns Social URL's
+        function getSocialUrls(){
+            var socialurls = {
+                 facebook:_FacebookURL
+                ,google:_GoogleURL
+                ,youtube:_YouTubeURL
+                ,instagram:_InstagramURL
+            }
+            return socialurls;
         }
 
     };

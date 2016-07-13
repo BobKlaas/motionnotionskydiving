@@ -1,4 +1,4 @@
-<!-- Page Content -->
+Page Content -->
 <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
@@ -16,66 +16,85 @@
 
     <!-- Content Row -->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <h3>Send us a Message</h3>
-            <form name="sentMessage" id="contactForm" novalidate>
-                <div class="control-group form-group">
-                    <div class="controls">
-                        <label>Full Name:</label>
-                        <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
-                        <p class="help-block"></p>
+            <form name="contactForm" ng-submit="contactForm.$valid && sendMail()">                
+                <div layout="column">
+                    <!---FullName-->
+                    <md-input-container>
+                        <label>Name</label>
+                        <input ng-model="contact.fullname" autofocus name="fullname" required minlength="2" maxlength="50">
+                        <div ng-messages="contactForm.fullname.$error">
+                            <div ng-message="required">Name is required.</div>
+                            <div ng-message="minlength">Your name must be greater than 2 characters.</div>
+                        </div>
+                    </md-input-container>
+
+                    <!--Email Address-->
+                    <md-input-container>
+                        <label>Email Address</label>
+                        <input required ng-model="contact.emailaddress" name="emailaddress" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                        <div ng-messages="contactForm.emailaddress.$error">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                Your email must be between 10 and 100 characters long and be valid.
+                            </div>
+                        </div>
+                    </md-input-container>  
+
+                    <!--Subject-->
+                    <md-input-container>
+                        <label>Subject</label>
+                        <input ng-model="contact.subject" name="subject" required minlength="2" maxlength="20">
+                        <div ng-messages="contactForm.subject.$error">
+                            <div ng-message="required">Subject is required.</div>
+                            <div ng-message="minlength">Subject must be at least 2 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                    <!--Phone-->
+                    <md-input-container>
+                        <label>Message</label>
+                        <textarea ng-model="contact.message" name="message" rows="5" md-select-on-focus required minlength="10" maxlength="600" md-minlength="10" md-maxlength="600"></textarea>
+                        <div ng-messages="contactForm.message.$error">
+                            <div ng-message="required">Message is required.</div>
+                            <div ng-message="minlength">Message must be at least 10 characters long.</div>
+                        </div>
+                    </md-input-container>   
+
+                    <!--ReCaptcha-->
+                    <div class="control-group form-group">
+                        <div vc-recaptcha theme="'light'" key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)"></div>
+                        <input type="hidden" class="form-control" name="grecaptcharesponse" ng-model="contactForm.grecaptcharesponse" required>
                     </div>
-                </div>
-                <div class="control-group form-group">
-                    <div class="controls">
-                        <label>Phone Number:</label>
-                        <input type="tel" class="form-control" id="phone" required data-validation-required-message="Please enter your phone number.">
-                    </div>
-                </div>
-                <div class="control-group form-group">
-                    <div class="controls">
-                        <label>Email Address:</label>
-                        <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email address.">
-                    </div>
-                </div>
-                <div class="control-group form-group">
-                    <div class="controls">
-                        <label>Message:</label>
-                        <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
-                    </div>
-                </div>
-                <div id="success"></div>
-                <!-- For success/fail messages -->
-                <button type="submit" class="btn btn-primary">Send Message</button>
+                    
+                    <!--Submit Button-->
+                    <md-button class="md-raised md-primary" type="submit" ng-disabled="!contactForm.$valid" aria-label="Submit" ng-cloak>Send Message</md-button>
+                </div>             
             </form>
+        </div>
+
+        <!--Spacer-->
+        <div class="col-md-1">
         </div>
 
         <!-- Contact Details Column -->
         <div class="col-md-4">
             <hr>
             <h3>Contact Details</h3>
-            <p>
-                3481 Melrose Place<br>Beverly Hills, CA 90210<br>
-            </p>
             <p><i class="fa fa-phone"></i> 
-                <abbr title="Phone">P</abbr>: (123) 456-7890</p>
+                <abbr title="Phone">P</abbr>: 714.882.9214</p>
             <p><i class="fa fa-envelope-o"></i> 
-                <abbr title="Email">E</abbr>: <a href="mailto:name@example.com">name@example.com</a>
+                <abbr title="Email">E</abbr>: <a href="mailto:robertklaas@motionnotionskydiving.com">{{adminemail}}</a>
             </p>
-            <p><i class="fa fa-clock-o"></i> 
-                <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM</p>
             <ul class="list-unstyled list-inline list-social-icons">
                 <li>
-                    <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-linkedin-square fa-2x"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+                    <a href="{{socialurls.facebook}}" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a>
+                </li><li>
+                    <a href="{{socialurls.google}}" target="_blank"><i class="fa fa-google-plus-square fa-2x"></i></a>
+                </li><li>
+                    <a href="{{socialurls.youtube}}" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>
+                </li><li>
+                    <a href="{{socialurls.instagram}}" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
                 </li>
             </ul>
         </div>
@@ -89,4 +108,4 @@
    <customfooter></customfooter>
 
 </div>
-<!-- /.container -->
+<!-- /.container

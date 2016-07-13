@@ -25,6 +25,7 @@
     "angular-filter": "^0.5.8",
     "angular-messages": "^1.5.7",
     "angular-ui-mask": "^1.8.6",
-    "lightgallery": "^1.2.21"
+    "lightgallery": "^1.2.21",
+    "angular-recaptcha": "^3.0.3"
   }
 }

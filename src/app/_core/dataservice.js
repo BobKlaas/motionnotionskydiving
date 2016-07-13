@@ -149,12 +149,18 @@
     function notifyservice(utility) {
         var service = {
              sendRegistrationComplete: sendRegistrationComplete
+            ,sendMail: sendMail
         };
         return service;
 
         //Send Registration Complete Notification
         function sendRegistrationComplete(params){
             return utility.HttpService.sendRequest('/rest/api/notify/registrationcomplete/',params,'post');
+        }
+
+        //Send Email to Admin | Contact Form
+        function sendMail(params){
+            return utility.HttpService.sendRequest('/rest/api/notify/message/',params,'post')
         }
     }
 

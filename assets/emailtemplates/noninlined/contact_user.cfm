@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Title</title>
+    <title>Customer Inquiry</title>
     <link rel="stylesheet" href="/assets/css/foundation-emails.css"> </head>
 
   <body>
@@ -108,14 +108,11 @@
                             <table>
                               <tr>
                                 <th>
-                                  <h1>Hi, <cfoutput>#customer.firstname#</cfoutput></h1>
-                                  <p>Thank you for registering for the <cfoutput>#details.title#</cfoutput>. Below we have attached details for the event and a link to our cancellation and weather policy. Take a minute to check it out! We look forward to seeing you on DateFormat(details.enddate,'mmmm dd')!</p> 
-                                  <p><i>-The Motion Notion Team</i></p>
-                                  <img src="cid:eventimage" alt=""><br>                                
-                                  <p><b>Location:</b> <cfoutput><a href="http://maps.google.com/?q=#details.fulladdress#">#details.dropzonename# | #details.address#, #details.city# #details.state# #details.zipcode#</a></cfoutput></p>
-                                  <p><b>Start Date:</b> <cfoutput>#DateFormat(details.enddate,'mm/dd/yyyy')#</cfoutput></p>                                  
-                                  <p><b>Start Time:</b> <cfoutput>#TimeFormat(details.startdate, 'h:mm tt')#</cfoutput></p>
-                                  <p><b>Cancellation/Weather Policy:</b> <cfoutput><a href="#APPLICATION.SecureHostName#/event/policies/">Click Here</a></cfoutput></p>
+                                  <h1>Hey <cfoutput>#rc.fullname#</cfoutput>,</h1>
+                                  <p>Thank you for contacting us. We'll be in touch with you shortly. Until then, we hope you're enjoying blue skies and epic skydives!</p><br>
+                                  <p><b>Email Address:</b> <cfoutput>#rc.emailaddress#</cfoutput></p>
+                                  <p><b>Subject:</b> <cfoutput>#rc.subject#</cfoutput></p>
+                                  <p><b>Message:</b> <cfoutput>#rc.message#</cfoutput></p>
                                 </th>
                                 <th class="expander"></th>
                               </tr>
@@ -207,7 +204,7 @@
                                     <tr>
                                       <th>
                                         <h5>Contact Info:</h5>
-                                        <p>Email: <cfoutput><a href="mailto:#REQUEST.AdminEmail#?subject=#details.title# | CID: #customer.id#">#REQUEST.AdminEmail#</a></cfoutput></p>
+                                        <p>Email: <cfoutput><a href="mailto:#REQUEST.AdminEmail#">#REQUEST.AdminEmail#</a></cfoutput></p>
                                       </th>
                                     </tr>
                                   </table>
