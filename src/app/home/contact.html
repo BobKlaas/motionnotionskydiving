@@ -18,7 +18,7 @@ Page Content -->
     <div class="row">
         <div class="col-md-7">
             <h3>Send us a Message</h3>
-            <form name="contactForm" ng-submit="contactForm.$valid && sendMail()">                
+            <form name="contactForm" ng-submit="contactForm.$valid && sendMail()" class="cssSlideUp cssFade" ng-show="!mailStatus">                
                 <div layout="column">
                     <!---FullName-->
                     <md-input-container>
@@ -71,6 +71,9 @@ Page Content -->
                     <md-button class="md-raised md-primary" type="submit" ng-disabled="!contactForm.$valid" aria-label="Submit" ng-cloak>Send Message</md-button>
                 </div>             
             </form>
+
+            <!--Success Message-->
+            <div class="alert alert-success cssFade" ng-show="mailStatus">Message Delivery Success! We will be in touch with you shortly.</div>
         </div>
 
         <!--Spacer-->
@@ -84,7 +87,7 @@ Page Content -->
             <p><i class="fa fa-phone"></i> 
                 <abbr title="Phone">P</abbr>: 714.882.9214</p>
             <p><i class="fa fa-envelope-o"></i> 
-                <abbr title="Email">E</abbr>: <a href="mailto:robertklaas@motionnotionskydiving.com">{{adminemail}}</a>
+                <abbr title="Email">E</abbr>: <a href="mailto:{{teammail}}">{{teammail}}</a>
             </p>
             <ul class="list-unstyled list-inline list-social-icons">
                 <li>

@@ -15,7 +15,7 @@
           <center data-parsed="">
             <style type="text/css" align="center" class="float-center">
               .header {
-                background: #8a8a8a;
+                background: #364156;
               }
               
               .header .columns {
@@ -56,7 +56,7 @@
               }
               
               .wrapper.secondary {
-                background: #f3f3f3;
+                background: #FCF1ED;
               }
             </style>
             <table align="center" class="wrapper header float-center">
@@ -102,7 +102,7 @@
                     <table class="spacer">
                       <tbody>
                         <tr>
-                          <td height="16px" style="font-size:16px;line-height:16px;">&#xA0;</td>
+                          <td height="16px" style="font-size:16px;line-height:16px;"></td>
                         </tr>
                       </tbody>
                     </table>
@@ -132,7 +132,7 @@
                           <table class="spacer">
                             <tbody>
                               <tr>
-                                <td height="16px" style="font-size:16px;line-height:16px;">&#xA0;</td>
+                                <td height="16px" style="font-size:16px;line-height:16px;"></td>
                               </tr>
                             </tbody>
                           </table>

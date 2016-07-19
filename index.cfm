@@ -117,6 +117,7 @@
         var _YouTubeURL = "<cfoutput>#REQUEST.YouTubeURL#</cfoutput>";
         var _InstagramURL = "<cfoutput>#REQUEST.InstagramURL#</cfoutput>";
         var _AdminEmail = "<cfoutput>#REQUEST.AdminEmail#</cfoutput>";
+        var _TeamEmail = "<cfoutput>#REQUEST.TeamEmail#</cfoutput>";
     </script>
     
     <!--- Global JS --->

@@ -15,7 +15,7 @@
           <center data-parsed="">
             <style type="text/css" align="center" class="float-center">
               .header {
-                background: #8a8a8a;
+                background: #364156;
               }
               
               .header .columns {
@@ -35,23 +35,28 @@
                 background: transparent;
               }
               
+              table.button.website table td {
+                background: #4F0136 !important;
+                border-color: #4F0136;
+              }
+
               table.button.facebook table td {
                 background: #3B5998 !important;
                 border-color: #3B5998;
               }
               
-              table.button.twitter table td {
-                background: #1daced !important;
-                border-color: #1daced;
+              table.button.instagram table td {
+                background: #003569 !important;
+                border-color: #003569;
               }
               
-              table.button.google table td {
-                background: #DB4A39 !important;
-                border-color: #DB4A39;
+              table.button.youtube table td {
+                background: #CC181E !important;
+                border-color: #CC181E;
               }
               
               .wrapper.secondary {
-                background: #f3f3f3;
+                background: #FCF1ED;
               }
             </style>
             <table align="center" class="wrapper header float-center">
@@ -97,7 +102,7 @@
                     <table class="spacer">
                       <tbody>
                         <tr>
-                          <td height="16px" style="font-size:16px;line-height:16px;">&#xA0;</td>
+                          <td height="16px" style="font-size:16px;line-height:16px;"></td>
                         </tr>
                       </tbody>
                     </table>
@@ -127,7 +132,7 @@
                           <table class="spacer">
                             <tbody>
                               <tr>
-                                <td height="16px" style="font-size:16px;line-height:16px;">&#xA0;</td>
+                                <td height="16px" style="font-size:16px;line-height:16px;"></td>
                               </tr>
                             </tbody>
                           </table>

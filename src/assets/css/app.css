@@ -85,6 +85,11 @@ md-select{
   font-size: 16px;
 }
 
+
+.navbar-inverse {
+  background-color: #011638;
+}
+
 /* mobile */
 @media (max-width: 360px) {
     
@@ -93,3 +98,8 @@ md-select{
 @media (max-width: 800px) {
   
 }
+
+.cssFade{transition:1s linear all;opacity:1}
+.cssFade.ng-hide{transition:3s linear all;opacity:0}
+.cssSlideUp{transition:1.3s linear all;height:625px;overflow:hidden}
+.cssSlideUp.ng-hide{transition:1.3s linear all;height:0}

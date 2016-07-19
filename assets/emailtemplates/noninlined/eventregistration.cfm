@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Title</title>
+    <title>Registration Confirmed</title>
     <link rel="stylesheet" href="/assets/css/foundation-emails.css"> </head>
 
   <body>
@@ -15,7 +15,7 @@
           <center data-parsed="">
             <style type="text/css" align="center" class="float-center">
               .header {
-                background: #8a8a8a;
+                background: #364156;
               }
               
               .header .columns {
@@ -35,23 +35,28 @@
                 background: transparent;
               }
               
+              table.button.website table td {
+                background: #4F0136 !important;
+                border-color: #4F0136;
+              }
+
               table.button.facebook table td {
                 background: #3B5998 !important;
                 border-color: #3B5998;
               }
               
-              table.button.twitter table td {
-                background: #1daced !important;
-                border-color: #1daced;
+              table.button.instagram table td {
+                background: #003569 !important;
+                border-color: #003569;
               }
               
-              table.button.google table td {
-                background: #DB4A39 !important;
-                border-color: #DB4A39;
+              table.button.youtube table td {
+                background: #CC181E !important;
+                border-color: #CC181E;
               }
               
               .wrapper.secondary {
-                background: #f3f3f3;
+                background: #FCF1ED;
               }
             </style>
             <table align="center" class="wrapper header float-center">
@@ -97,7 +102,7 @@
                     <table class="spacer">
                       <tbody>
                         <tr>
-                          <td height="16px" style="font-size:16px;line-height:16px;">&#xA0;</td>
+                          <td height="16px" style="font-size:16px;line-height:16px;"></td>
                         </tr>
                       </tbody>
                     </table>
@@ -108,8 +113,8 @@
                             <table>
                               <tr>
                                 <th>
-                                  <h1>Hi, <cfoutput>#customer.firstname#</cfoutput></h1>
-                                  <p>Thank you for registering for the <cfoutput>#details.title#</cfoutput>. Below we have attached details for the event and a link to our cancellation and weather policy. Take a minute to check it out! We look forward to seeing you on DateFormat(details.enddate,'mmmm dd')!</p> 
+                                  <h1>Hey <cfoutput>#customer.firstname#</cfoutput>,</h1>
+                                  <p>We're stoked you registered for the <cfoutput>#details.title#</cfoutput>! This email contains details regarding the event. Take a minute to check it out. If you have any questions, feel free to contact us at the email address provided below. We look forward to seeing you on <cfoutput>#DateFormat(details.enddate,'mmmm dd')#</cfoutput>!</p> 
                                   <p><i>-The Motion Notion Team</i></p>
                                   <img src="cid:eventimage" alt=""><br>                                
                                   <p><b>Location:</b> <cfoutput><a href="http://maps.google.com/?q=#details.fulladdress#">#details.dropzonename# | #details.address#, #details.city# #details.state# #details.zipcode#</a></cfoutput></p>
@@ -130,7 +135,7 @@
                           <table class="spacer">
                             <tbody>
                               <tr>
-                                <td height="16px" style="font-size:16px;line-height:16px;">&#xA0;</td>
+                                <td height="16px" style="font-size:16px;line-height:16px;"></td>
                               </tr>
                             </tbody>
                           </table>
