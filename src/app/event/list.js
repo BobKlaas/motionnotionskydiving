@@ -14,6 +14,7 @@
     	//METHODS
     	$scope.init = init;
         $scope.getEvents = getEvents;
+        $scope.showToastFull = showToastFull;
     	
 		//VARIABLES
 		$scope.common = common;
@@ -35,6 +36,11 @@
                 }    
             );            
         }
+
+        //Show Camp is full
+        function showToastFull(title){
+            common.logger.info('The '+title+' is currently full. You can still register on our reserve list.','','Event Full');
+        };
 
         
 

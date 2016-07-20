@@ -122,3 +122,11 @@ md-card md-card-header .md-title{
   right: 3px; 
   margin-right: 10px !important;
 }
+
+
+.btn-card-float-l1{
+  position: absolute;
+  top: -28px;
+  right: 48px; 
+  margin-right: 10px !important;
+}
