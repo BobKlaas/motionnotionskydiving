@@ -35,28 +35,40 @@ Page Content -->
     <!--Events List-->
     <div layout="column" layout-gt-sm="row">
         <md-card ng-repeat="event in events" style="padding-bottom:25px;" flex>
+            <!--Event Image-->
             <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
+
+            <!--Card Title-->
             <md-card-title style="position:relative;" flex="none">
+                <!--Card Title-->
                 <md-card-title-text>
                     <span class="md-headline" ng-bind="event.TITLE"></span>
                 </md-card-title-text>
+                
+                <!--FAB: View Details -->
                 <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="/events/view/{{event.ID}}">
                     <md-tooltip md-direction="bottom">
                         View Details
                     </md-tooltip>
                     <md-icon class="material-icons icon-edit" md-font-set="material-icons">description</md-icon>
                 </md-button>
-                 <md-button class="md-fab md-mini md-warn btn-card-float-l1" aria-label="Full" ng-click="showToastFull(event.TITLE)">
+
+                <!--FAB: Event Full-->
+                <md-button class="md-fab md-mini md-warn btn-card-float-l1" aria-label="Full" ng-click="showToastFull(event.TITLE)" ng-hide="event.SLOTSLEFT">
                     <md-tooltip md-direction="bottom">
                         Event is Full
                     </md-tooltip>
                     <md-icon class="material-icons icon-edit" md-font-set="material-icons">people</md-icon>
                 </md-button>
             </md-card-title>
+
+            <!--Card Body-->
             <md-card-content flex>
                 <h4 ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></h4>
                 <p ng-bind="event.DESCRIPTION"></p><br>
             </md-card-content>
+
+            <!--Card Actions-->
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">View Event Details</md-button>
             </md-card-actions>
