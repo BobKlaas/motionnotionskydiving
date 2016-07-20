@@ -2,48 +2,83 @@
 <!-- Page Content -->
 <div class="container">
 
-    <!-- Marketing Icons Section -->
+  <!-- Marketing Icons Section -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
                 <!-- Welcome to Modern Business -->
             </h1>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i layout-align="center center" class="material-icons">event_note</i>Hire a Coach or Videographer</h4>
-                </div>
-                <div class="panel-body">
-                    <p>Are you in need of a coach or videographer? Check out all of our coaches and videographers for hire!</p>
-                    <a href="/coaches/" class="btn btn-default">View All</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><span class="glyphicon glyphicon-calendar"></span> Events and Camps</h4>
-                </div>
-                <div class="panel-body">
-                    <p>Check out our skydiving events page for a list of Motion Notions upcoming events and camps.</p>
-                    <a href="/events/" class="btn btn-default">View Events</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span><i class="material-icons">videocam</i> Media</span>
-                </div>
-                <div class="panel-body">
-                    <p>Check out our media section for training videos and epic video cuts from some our recent skydiving events.</p>
-                    <a href="/media/" class="btn btn-default">Watch Now</a>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- /.row -->
+
+<div layout="column" layout-gt-sm="row">
+    <!--Our Story________________________________________-->
+    <md-card flex>
+        <md-card-header class="card-header">                    
+            <md-card-header-text>
+                <span class="md-title">Motion Notion</span>
+            </md-card-header-text>
+        </md-card-header>
+        <a href="/events/"><img ng-src="/assets/images/slider/sliderphoto1.jpg" class="md-card-image" alt="Events"></a>
+        <md-card-title style="position:relative;" flex="none">
+            <md-button class="md-fab md-mini btn-card-float" aria-label="Watch" ng-href="/about/">
+                <md-icon class="material-icons icon-edit" md-font-set="material-icons">tag_faces</md-icon>
+            </md-button>
+        </md-card-title>
+        <md-card-content flex>
+            <p>We're stoked you're here. If you want to read about what Motion Notion is about, checkout our mission, vision, and about us statement.</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised md-primary" flex ng-href="/about/">ABOUT US</md-button>                    
+        </md-card-actions>
+    </md-card>   
+
+    <!--Events and Camps________________________________________-->
+    <md-card flex>
+        <md-card-header class="card-header">                    
+            <md-card-header-text>
+                <span class="md-title">Events and Camps</span>
+            </md-card-header-text>
+        </md-card-header>
+        <a href="/events/"><img ng-src="/assets/images/slider/sliderphoto2.jpg" class="md-card-image" alt="Events"></a>
+        <md-card-title style="position:relative;" flex="none">
+            <md-button class="md-fab md-mini btn-card-float" aria-label="Watch" ng-href="/events/">
+                <md-icon class="material-icons icon-edit" md-font-set="material-icons">event</md-icon>
+            </md-button>
+        </md-card-title>
+        <md-card-content flex>
+            <p>Check out our skydiving events page for a list of Motion Notions upcoming events and camps.</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised md-primary" flex ng-href="/events/">EVENT CALENDAR</md-button>                    
+        </md-card-actions>
+    </md-card>
+
+
+    <!--Media________________________________________-->
+    <md-card flex>
+        <md-card-header class="card-header">                    
+            <md-card-header-text>
+                <span class="md-title">Media</span>
+            </md-card-header-text>
+        </md-card-header>
+        <a href="/events/"><img ng-src="/assets/images/slider/sliderphoto3.jpg" class="md-card-image" alt="Events"></a>
+        <md-card-title style="position:relative;" flex="none">
+            <md-button class="md-fab md-mini btn-card-float" aria-label="Media" ng-href="/media/">
+                <md-icon class="material-icons icon-edit" md-font-set="material-icons">videocam</md-icon>
+            </md-button>
+        </md-card-title>
+        <md-card-content flex>
+            <p>Check out our media section for training videos and epic video cuts from some our recent skydiving events.</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised md-primary" flex ng-href="/media/">MEDIA GALLERY</md-button>                    
+        </md-card-actions>
+    </md-card>
+
+</div>
+  
 
     <!-- Portfolio Section -->
     <!-- <div class="row">

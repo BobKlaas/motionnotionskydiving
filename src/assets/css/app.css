@@ -103,3 +103,22 @@ md-select{
 .cssFade.ng-hide{transition:3s linear all;opacity:0}
 .cssSlideUp{transition:1.3s linear all;height:625px;overflow:hidden}
 .cssSlideUp.ng-hide{transition:1.3s linear all;height:0}
+
+
+/*Custom MD Card Styles*/
+md-card md-card-header{
+  background-color:#364156; 
+  height:60px; 
+  color:#FCF1ED;
+}
+
+md-card md-card-header .md-title{
+  font-size:1.6em;
+}
+
+.btn-card-float{
+  position: absolute;
+  top: -28px;
+  right: 3px; 
+  margin-right: 10px !important;
+}
