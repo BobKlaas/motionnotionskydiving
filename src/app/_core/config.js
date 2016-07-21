@@ -34,20 +34,20 @@
 
     core.config(function($mdThemingProvider){
     var customPrimary = {
-        '50': '#78ccc8',
-        '100': '#66c5c1',
-        '200': '#53beb9',
-        '300': '#44b4af',
-        '400': '#3da19d',
-        '500': '#368F8B',
-        '600': '#2f7c79',
-        '700': '#286a67',
-        '800': '#215755',
-        '900': '#1a4543',
-        'A100': '#8bd3d0',
-        'A200': '#9ddad7',
-        'A400': '#b0e1df',
-        'A700': '#133231',
+        '50': '#66c5c1',
+        '100': '#53beba',
+        '200': '#44b3af',
+        '300': '#3da19d',
+        '400': '#368e8b',
+        '500': '#2F7C79',
+        '600': '#286967',
+        '700': '#215755',
+        '800': '#1a4443',
+        '900': '#133231',
+        'A100': '#78ccc9',
+        'A200': '#8bd3d0',
+        'A400': '#9ddad8',
+        'A700': '#0c201f',
         'contrastDefaultColor': 'light'
     };
     $mdThemingProvider.definePalette('customPrimary',customPrimary);
@@ -90,20 +90,20 @@
     $mdThemingProvider.definePalette('customWarn',customWarn);
 
     var customBackground = {
-        '50': '#F3DFC1',
-        '100': '#F3DFC1',
-        '200': '#F3DFC1',
-        '300': '#fbf5ec',
-        '400': '#f7ead6',
-        '500': '#F3DFC1',
-        '600': '#efd4ac',
-        '700': '#ebc996',
-        '800': '#e7be81',
-        '900': '#e2b36c',
-        'A100': '#ffffff',
-        'A200': '#ffffff',
-        'A400': '#ffffff',
-        'A700': '#dea856'
+        '50': '#e2d2c6',
+        '100': '#efe4dc',
+        '200': '#efe4dc',
+        '300': '#c8aa93',
+        '400': '#c09d82',
+        '500': '#b79071',
+        '600': '#ae8360',
+        '700': '#a37652',
+        '800': '#926a4a',
+        '900': '#815d41',
+        'A100': '#FFFFFF',
+        'A200': '#efe4dc',
+        'A400': '#fcfaf8',
+        'A700': '#705139'
     };
     $mdThemingProvider.definePalette('customBackground',customBackground);
 
@@ -111,7 +111,7 @@
        .primaryPalette('customPrimary')
        .accentPalette('customAccent')
        //.warnPalette('customWarn')
-       .backgroundPalette('customBackground')
+       //.backgroundPalette('customBackground')
     })
     
     

@@ -44,6 +44,7 @@
         $scope.common = common;
         $scope.states = [];
         $scope.disciplines = [];
+        $scope.teamemail = _TeamEmail;
         $scope.cardtypes = [{id: 1,name:'Visa'},{id:2,name:'Mastercard'},{id:3,name:'Discover'}];
         $scope.eventid = common.$routeParams.eventid;
         $scope.customerid = common.$routeParams.customerid;

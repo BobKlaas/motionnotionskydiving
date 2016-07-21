@@ -112,6 +112,12 @@ md-card md-card-header{
   color:#FCF1ED;
 }
 
+md-card .pop{
+  background-color:#368F8B; 
+  height:60px; 
+  color:#FCF1ED;
+}
+
 md-card md-card-header .md-title{
   font-size:1.6em;
 }
@@ -129,4 +135,9 @@ md-card md-card-header .md-title{
   top: -28px;
   right: 48px; 
   margin-right: 10px !important;
+}
+
+md-card md-card-header md-card-header-text i{
+  padding-top: 3px;
+  padding-right:10px;
 }

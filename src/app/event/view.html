@@ -54,14 +54,12 @@
             <h4>Location: <a ng-href="{{event.details.DROPZONEWEBSITE}}" target="_blank">{{event.details.DROPZONENAME}}</a></h4>
             <h4>Registration: {{event.details.REGISTRATIONFEE | currency}}</h4>
             <h4 ng-bind="buildSlotsString(event.details.SLOTSLEFT,event.details.SLOTS)"></h4>
-            <p ng-bind="event.details.DESCRIPTION"></p><br>
-            
+            <p ng-bind="event.details.DESCRIPTION"></p><br>           
+            <h5 ng-hide="event.details.SLOTSLEFT">This event is full. However, you can still register for the reserve list in case someone cancels.</h5>            
 
-            <h5 ng-show="{{event.details.SLOTSLEFT}}">This event is full. However, you can still register for the reserve list in case someone cancels.</h5>
-            
-            <a class="btn btn-primary" ng-href="/events/register/step1/{{eventid}}" ng-show="event.details.SLOTSLEFT">Register for Event</a>      
-            <a class="btn btn-primary" ng-href="/events/register/{{eventid}}" ng-hide="event.details.SLOTSLEFT">Apply for Reserve List</a>           
-        </div>    
+            <md-button class="md-raised md-primary" flex ng-href="/events/register/step1/{{eventid}}" ng-show="event.details.SLOTSLEFT">Register for Event</md-button>
+            <md-button class="md-raised md-primary" flex ng-href="/events/register/{{eventid}}" ng-hide="event.details.SLOTSLEFT">Apply for Reserve List</md-button>
+        </div>
 
     </div>
     <!-- /.row -->
@@ -73,7 +71,7 @@
             <h3 class="page-header">Coaches / Videographers</h3>
         </div>
 
-        <div class="col-sm-3 col-xs-6" ng-repeat="contractor in event.contractors">
+       <div class="col-sm-3 col-xs-6" ng-repeat="contractor in event.contractors">
             <a href="/coaches/{{contractor.UNIQUENAME}}">
                 <img class="img-responsive img-hover img-related" ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" alt="">
             </a>
@@ -82,6 +80,28 @@
 
     </div>
     <!-- /.row -->
+
+<!--     <div layout="column" layout-gt-sm="row">
+        <md-card flex ng-repeat="contractor in event.contractors">
+            <md-card-header class="card-header">                    
+                <md-card-header-text>
+                    <span class="md-title">{{contractor.FULLNAME}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <a ng-href="/coaches/{{contractor.UNIQUENAME}}"><img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-card-image  img-hover" alt="Coach"></a>            
+            <md-card-title style="position:relative;" flex="none">
+                <md-button class="md-fab md-mini btn-card-float" aria-label="Watch" ng-href="/coaches/{{contractor.UNIQUENAME}}">
+                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">person</md-icon>
+                </md-button>
+            </md-card-title>
+             <md-card-title-media>
+            <div class="md-media-sm card-media"></div>
+          </md-card-title-media>
+            <md-card-content flex>
+                <p>{{contractor.SKILL_TITLE}}</p>
+            </md-card-content>
+        </md-card>   
+    </div> -->
 
     <hr>
 

@@ -39,7 +39,7 @@
 
         //Show Camp is full
         function showToastFull(title){
-            common.logger.info('The '+title+' is currently full. However, you can still register on our reserve list.','','Event Full');
+            common.logger.warn('The '+title+' is currently full. However, you can still register for a reserve slot.','','Event Full');
         };
 
         

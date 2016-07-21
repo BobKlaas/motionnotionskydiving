@@ -41,9 +41,9 @@ Page Content -->
             <!--Card Title-->
             <md-card-title style="position:relative;" flex="none">
                 <!--Card Title-->
-                <md-card-title-text>
+                <md-card-title-text layout="row">
                     <span class="md-headline" ng-bind="event.TITLE"></span>
-                </md-card-title-text>
+                 </md-card-title-text>
                 
                 <!--FAB: View Details -->
                 <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="/events/view/{{event.ID}}">
@@ -65,12 +65,22 @@ Page Content -->
             <!--Card Body-->
             <md-card-content flex>
                 <h4 ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></h4>
+                <span class="event-details" ng-if="event.SLOTSLEFT">Slots Available: {{event.SLOTSLEFT}}</span>
+                <span class="event-details" ng-if="!event.SLOTSLEFT" style="color:#FF5722">Slots Available: {{event.SLOTSLEFT}}</span>
                 <p ng-bind="event.DESCRIPTION"></p><br>
             </md-card-content>
 
             <!--Card Actions-->
             <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">View Event Details</md-button>
+                <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">
+                    <md-icon md-font-set="material-icons" ng-href="/home/comment">description</md-icon> VIEW DETAILS
+                    </md-button>
+                <md-button class="md-raised md-primary" flex ng-href="/events/register/step1/{{event.ID}}" ng-show="event.SLOTSLEFT">
+                    <md-icon md-font-set="material-icons" ng-href="/home/comment">person_add</md-icon> REGISTER
+                </md-button>
+                <md-button class="md-raised md-primary" flex ng-href="/events/register/{{event.ID}}" ng-hide="event.SLOTSLEFT">
+                    <md-icon md-font-set="material-icons" ng-href="/home/comment">person_add</md-icon> RESERVE LIST
+                </md-button>
             </md-card-actions>
         </md-card>
     </div>
