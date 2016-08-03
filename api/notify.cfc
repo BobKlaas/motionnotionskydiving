@@ -57,27 +57,27 @@
 		<!---Get Email Template for Admin--->
 		<cfstoredproc procedure="sp_get_email_templates" datasource="motion">
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="2" dbvarname="@templateid"/>
-			<cfprocresult name="template" resultset="1">
+			<cfprocresult name="templateone" resultset="1">
 		</cfstoredproc>
 
 		<!---Send Email to Admins--->
-		<cfmail to="#REQUEST.TeamEmail#" from="#REQUEST.TeamEmail#" subject="Customer Inquiry" type="html" server="#APPLICATION.mailServer#" username="#APPLICATION.mailUserName#" password="#APPLICATION.mailPassword#">
+		<cfmail to="#REQUEST.TeamEmail#" from="#REQUEST.TeamEmail#" bcc="#REQUEST.AdminEmail#" subject="Customer Inquiry" type="html" server="#APPLICATION.mailServer#" username="#APPLICATION.mailUserName#" password="#APPLICATION.mailPassword#">
 			<cfmailparam file="#REQUEST.StandardLogo#" contentid="motionnotionlogo" disposition="inline"/>
-			<cfinclude template="/assets/emailtemplates/#template.templatefile#">
-		</cfmail>
+			<cfinclude template="/assets/emailtemplates/#templateone.templatefile#">
+		</cfmail>	
 
 		<!---Get Email Template for Customer--->
 		<cfstoredproc procedure="sp_get_email_templates" datasource="motion">
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="3" dbvarname="@templateid"/>
-			<cfprocresult name="template" resultset="1">
+			<cfprocresult name="templatetwo" resultset="1">
 		</cfstoredproc>
 
 		<!---Send Email to Customer--->
 		<cfmail to="#rc.emailaddress#" from="#REQUEST.TeamEmail#" bcc="#REQUEST.AdminEmail#" subject="Customer Inquiry" type="html" server="#APPLICATION.mailServer#" username="#APPLICATION.mailUserName#" password="#APPLICATION.mailPassword#">
 			<cfmailparam file="#REQUEST.StandardLogo#" contentid="motionnotionlogo" disposition="inline"/>
-			<cfinclude template="/assets/emailtemplates/#template.templatefile#">
+			<cfinclude template="/assets/emailtemplates/#templatetwo.templatefile#">
 		</cfmail>		
-
+ 
 		<cfreturn rc>
 	</cffunction>
 
