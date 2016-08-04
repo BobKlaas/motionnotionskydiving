@@ -77,7 +77,8 @@
     </div>
     
     <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecapthaApiLoaded"></script>
-
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
     <!-- 3rd-party libraries js -->
     <!-- inject:lib:js -->
     <script src="src/lib/jquery/dist/jquery.js"></script>
@@ -97,13 +98,14 @@
     <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
     <script src="src/lib/angular-recaptcha/release/angular-recaptcha.js"></script>
     <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
+    <script src="src/lib/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script>
+    <script src="src/lib/angular-youtube-mb/src/angular-youtube-embed.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="src/lib/lightgallery/dist/js/lightgallery.min.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
-
 
     <!--- API URL --->
     <script>

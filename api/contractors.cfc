@@ -27,5 +27,21 @@
 		<cfset JSONReturn = SerializeJSON(contractor)>
 		<cfreturn JSONReturn>
 	</cffunction>
+
+
+	<!---Get Contractor Media --->
+	<cffunction name="getContractorMedia" access="remote" httpMethod="GET" restPath="/media/{contractorid}" returntype="any" produces="application/json">
+		<cfargument name="contractorid" type="string" required="true" restargsource="path">
+		
+		<cfstoredproc procedure="sp_get_media_by_contractor" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#arguments.contractorid#" dbvarname="@contractorid"/>
+			<cfprocresult name="media" resultset="1">
+		</cfstoredproc>
+
+		<!---Create Structure From Results--->
+		<cfset ls = QueryToStruct(media)>
+		<cfreturn ls>
+	</cffunction>
+	    
 	    
 </cfcomponent>

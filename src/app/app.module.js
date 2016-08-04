@@ -37,7 +37,6 @@
             };
         });
 
-
         //Footer Custom Directive
         app.directive("customfooter",function(){
             return{
@@ -53,4 +52,5 @@
                 ,templateUrl: '/src/app/partials/slideshow.html'
             };
         });
+
 })();

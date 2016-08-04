@@ -27,6 +27,7 @@
         var service = {
              getContractors: getContractors
             ,getContractorByUniqueName: getContractorByUniqueName
+            ,getContractorMedia: getContractorMedia
         };
         return service;
 
@@ -39,6 +40,12 @@
         function getContractorByUniqueName(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/get/'+params.uniquename);
         }
+
+        //Get Media by Contractor
+        function getContractorMedia(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/media/'+params.contractorid);
+        }
+        
 
     }
 

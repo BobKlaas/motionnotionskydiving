@@ -8,7 +8,7 @@ Page Content -->
             </h1>
             <ol class="breadcrumb">
                 <li><a ng-href="/">Home</a></li>
-                <li><a ng-href="/coaches/">Coaches</a></li>
+                <li><a ng-href="/coaches/">Our Team</a></li>
                 <li class="active" ng-bind="coach.details.FULLNAME"></li>
             </ol>
         </div>
@@ -84,13 +84,30 @@ Page Content -->
 
     <hr>
 
-    <!-- Related Projects Row -->
+    <!--Media-->
     <div class="row">
 
         <div class="col-lg-12">
             <h3 class="page-header">Media</h3>
         </div>
 
+
+        <div class="col-sm-6 col-md-4 col-xs-12" layout-padding ng-repeat="item in contractorMedia">
+            <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='YouTube'" style="border:5px solid blue">
+                <youtube-video class="embed-responsive-item" video-url="item.URL"></youtube-video>
+            </div>
+
+            <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='Vimeo'">
+                <vimeo-video class="embed-responsive-item" player-id="video$index" video-url="item.URL"></vimeo-video>
+            </div>
+            
+            <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='Photo'">
+                <img class="img-responsive img-hover img-related" ng-src="{{item.URL}}" alt="">
+            </div>            
+        </div>
+
+       
+<!-- 
         <div class="col-sm-3 col-xs-6">
             <a href="#">
                 <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
@@ -113,7 +130,7 @@ Page Content -->
             <a href="#">
                 <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
             </a>
-        </div>
+        </div> -->
 
     </div>
     <!-- /.row -->

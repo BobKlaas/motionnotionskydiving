@@ -15,6 +15,8 @@
             ,'ui.bootstrap'
             ,'angular.filter'
             ,'ui.mask'
+            ,'youtube-embed'
+            ,'vimeoEmbed'
       
             //Other 3rd-Party
             ,'Logger'
