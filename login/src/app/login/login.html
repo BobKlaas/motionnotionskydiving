@@ -1,0 +1,77 @@
+
+<div class="container">
+
+     <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <br><br><br>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <!--Login Form________________________________________-->
+        <form layout="column" layout-align="center center" ng-submit="login()" autocomplete="off" name="loginForm" id="loginForm">
+            <div layout="column" class="col-md-6">
+                <md-card flex>
+                    <md-card-header class="card-header">                    
+                        <md-card-header-text>
+                            <span class="md-title">Login</span>
+                        </md-card-header-text>
+                    </md-card-header>
+
+                    <img ng-src="/assets/images/slider/sliderphoto1.jpg" class="md-card-image" alt="Login">
+
+                    <md-card-content flex>
+                        <!--Username-->
+                        <md-input-container class="md-block">
+                            <label>Username</label>
+                            <input required ng-model="user.username" name="username" minlength="7" maxlength="25" placeholder="Enter your username">
+                            <div ng-messages="loginForm.username.$error">
+                                <div ng-message-exp="['required']">
+                                    Username is required.
+                                </div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Password-->
+                        <md-input-container class="md-block">
+                            <label>Password</label>
+                            <input ng-model="user.password" name="password" type="password" required minlength="5" maxlength="25" placeholder="Enter your password">
+                            <div ng-messages="loginForm.password.$error">
+                                <div ng-message-exp="['required']">
+                                    Password is required.
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </md-card-content>
+
+                    <div layout="row" layout-sm="column" layout-align="space-around" ng-controller="loginProgressController">
+                        <md-progress-circular ng-hide="!loginbutton.disabled" ng-disabled="loginbutton.disabled" class="md-accent md-hue-1" ></md-progress-circular>
+                    </div>
+                    
+                    <div class="alert alert-danger" ng-show="loginfailed">
+                        <strong>Login Failed:</strong> Your username and/or password did not pass authentication. Please try again.</a>
+                    </div>
+
+                    <!--Login Button-->
+                    <md-card-actions layout="row" layout-align="start center">
+                        <md-button type="submit" flex class="md-raised md-primary" ng-disabled="!loginForm.$valid" aria-label="Login">Log In</md-button>
+                        <md-progress-linear md-mode="indeterminate" hide-gt-sm ng-show="progress"></md-progress-linear>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </form>
+    </div>
+    <!-- /.row -->
+
+
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

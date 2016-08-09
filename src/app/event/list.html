@@ -36,7 +36,9 @@ Page Content -->
     <div layout="column" layout-gt-sm="row">
         <md-card ng-repeat="event in events" style="padding-bottom:25px;" flex>
             <!--Event Image-->
-            <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
+            <a ng-href="/events/view/{{event.ID}}">
+                <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
+            </a>
 
             <!--Card Title-->
             <md-card-title style="position:relative;" flex="none">

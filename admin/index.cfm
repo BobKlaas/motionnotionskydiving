@@ -28,7 +28,8 @@
     
     <!-- Custom CSS -->
     <link href="/assets/css/modern-business.css" rel="stylesheet">
-    <link href="src/assets/css/admin.css" rel="stylesheet">    
+    <link href="/src/assets/css/app.css" rel="stylesheet">    
+    <link href="src/assets/css/admin.css" rel="stylesheet"> 
 </head>
 
 <body ng-controller="appController">
@@ -36,14 +37,14 @@
     <!---Header--->
     <customheader></customheader>
 
-    <div layout="row" flex layout-fill>
+    <div layout="row" flex layout-fill>           
         <!---Sidenav--->        
         <customsidenav></customsidenav>
-        
+
         <!---Content --->
         <md-content md-scroll-y layout="column" flex>
             <div data-ng-view="" class="view-fade-in" flex></div>       
-        </md-content> 
+        </md-content>
     </div>
 
     <!-- 3rd-party libraries js -->
@@ -70,8 +71,17 @@
     <!-- endinject -->
     <!-- endbuild -->
 
+    <!--- API URL --->
+    <script>
+        <cfif CGI.HTTPS EQ "ON">
+            var _hostName = "<cfoutput>#APPLICATION.SecureHostName#</cfoutput>";
+        <cfelse>
+            var _hostName = "<cfoutput>#APPLICATION.HostName#</cfoutput>";
+        </cfif>     
+    </script>
+
     <!--- Global JS --->
-    <script src="src/app/blocks/Utilities/utilities.module.js"></script>
+    <script src="/src/app/blocks/Utilities/utilities.module.js"></script>
     <script src="src/app/blocks/Logger/logger.module.js"></script>
     <script src="src/app/blocks/Logger/logger.js"></script>
 
@@ -86,17 +96,13 @@
     <script src="src/app/_core/routes.js"></script>
     <script src="src/app/_core/config.js"></script>
 
-    <!---LOGIN--->    
-    <script src="src/app/login/login.module.js"></script>
-    <script src="src/app/login/login.js"></script>
-
     <!---HOME--->    
     <script src="src/app/home/home.module.js"></script>
     <script src="src/app/home/home.js"></script>
 
     <!---EVENTS--->    
     <script src="src/app/events/events.module.js"></script>
-    <script src="src/app/events/events.js"></script>
+    <script src="src/app/events/list.js"></script>
 
     <!---CONTRACTORS--->    
     <script src="src/app/contractors/contractors.module.js"></script>

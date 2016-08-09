@@ -3,7 +3,7 @@
     'use strict';
 
     //Create Module
-    var app = angular.module('app',['app.core','app.home','app.login','app.contractors','app.events']);
+    var app = angular.module('app',['app.core','app.home','app.contractors','app.events']);
         app.controller('appController',appController);
         
     appController.$inject = ['$scope','$log','common','logger','$mdSidenav','$mdMedia'];

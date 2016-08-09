@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.home',[
+        .module('app.events',[
             
         ])
         
