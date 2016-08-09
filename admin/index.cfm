@@ -30,6 +30,7 @@
     <link href="/assets/css/modern-business.css" rel="stylesheet">
     <link href="/src/assets/css/app.css" rel="stylesheet">    
     <link href="src/assets/css/admin.css" rel="stylesheet"> 
+    <link href="src/assets/css/sidenav.css" rel="stylesheet"> 
 </head>
 
 <body ng-controller="appController">
@@ -37,13 +38,16 @@
     <!---Header--->
     <customheader></customheader>
 
-    <div layout="row" flex layout-fill>           
-        <!---Sidenav--->        
-        <customsidenav></customsidenav>
-
+    <div layout="row" flex>           
         <!---Content --->
-        <md-content md-scroll-y layout="column" flex>
-            <div data-ng-view="" class="view-fade-in" flex></div>       
+        <md-content md-scroll-y id="main" layout="row" flex> 
+            <!---Sidenav--->        
+            <customsidenav  md-scroll-y></customsidenav>
+
+            <!--- App Content --->
+            <div layout="column" class="app-container" flex>
+                <div data-ng-view="" flex layout="column" class="view-fade-in"></div>
+            </div>
         </md-content>
     </div>
 

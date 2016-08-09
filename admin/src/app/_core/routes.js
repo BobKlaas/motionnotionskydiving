@@ -7,10 +7,6 @@
         .config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider) {
 
             $routeProvider
-                .when('/', {
-                    templateUrl: 'src/app/home/home.html',
-                    controller: 'homeController'
-                })
                 .when('/contractors', {
                     templateUrl: 'src/app/contractors/contractors.html',
                     controller: 'contractorsController'
@@ -19,7 +15,7 @@
                     templateUrl: 'src/app/events/list.html',
                     controller: 'eventListController'
                 })
-                .otherwise({redirectTo:'/'});
+                .otherwise({redirectTo:'/events'});
 
                 $locationProvider.html5Mode(true);
         }]);
