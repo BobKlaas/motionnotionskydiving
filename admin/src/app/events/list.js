@@ -15,6 +15,7 @@
         $scope.init = init;
         $scope.getEvents = getEvents;
         $scope.showToastFull = showToastFull;
+        $scope.changeStatus = changeStatus;
         
         //VARIABLES
         $scope.common = common;
@@ -33,6 +34,21 @@
                 function(results){
                     $scope.events = results; 
                     console.log($scope.events);
+                }    
+            );            
+        }
+
+        //Change Status
+        function changeStatus(event){
+            var params = {eventid: event.ID, status: event.ACTIVE};
+            console.log(params);
+            eventservice.updateEventStatus(params).then(
+                function(results){
+                    if(results[0].ACTIVE){
+                        common.logger.success('The '+ event.TITLE + ' event has been activated.');
+                    }else{
+                        common.logger.info('The '+ event.TITLE + ' event has been disabled.');
+                    }                    
                 }    
             );            
         }

@@ -8,12 +8,20 @@
 
             $routeProvider
                 .when('/contractors', {
-                    templateUrl: 'src/app/contractors/contractors.html',
-                    controller: 'contractorsController'
+                     templateUrl: 'src/app/contractors/contractors.html'
+                    ,controller: 'contractorsController'
                 })
                 .when('/events', {
-                    templateUrl: 'src/app/events/list.html',
-                    controller: 'eventListController'
+                     templateUrl: 'src/app/events/list.html'
+                    ,controller: 'eventListController'
+                })
+                .when('/events/registered/:eventid/', {
+                     templateUrl: 'src/app/events/registered.html'
+                    ,controller: 'eventRegisteredController'
+                })
+                .when('/events/edit/:eventid/', {
+                     templateUrl: 'src/app/events/edit.html'
+                    ,controller: 'eventEditController'
                 })
                 .otherwise({redirectTo:'/events'});
 

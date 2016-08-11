@@ -9,6 +9,37 @@
 		<cfreturn ls>
 	</cffunction>
 
+	<!---Get Events By Status--->
+	<cffunction name="getEventsByStatus" access="remote" httpMethod="GET" restPath="/get/status/{active}" returntype="any" produces="application/json">		
+		<cfargument name="active" type="numeric" required="true" restargsource="path">
+		<cfstoredproc procedure="sp_get_events" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_BIT" value="#active#" dbvarname="@active"/>
+			<cfprocresult name="events" resultset="1">
+		</cfstoredproc>
+		<cfset ls=QueryToStruct(events)>    
+		<cfreturn ls>
+	</cffunction>
+
+	<!---Update Event Status--->
+	<cffunction name="updateEventStatus" access="remote" httpMethod="POST" restPath="/update/status/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.eventid = structKeyExists(rc,'eventid')?rc.eventid:''>
+		<cfset rc.status = structKeyExists(rc,'status')?rc.status:''>
+
+		<!---Update Event Status --->
+		<cfstoredproc procedure="sp_update_event_status" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#" dbvarname="@eventid"/>
+			<cfprocparam cfsqltype="CF_SQL_BIT" value="#rc.status#" dbvarname="@status"/>
+			<cfprocresult name="event" resultset="1">
+		</cfstoredproc>
+
+		<cfset ls=QueryToStruct(event)>    
+		<cfreturn ls>
+	</cffunction>
+
 	<!---Get Event By ID--->
 	<cffunction name="getEventByID" access="remote" httpMethod="GET" restPath="/get/{eventid}" returntype="any" produces="application/json">		
 		<cfargument name="eventid" type="numeric" required="true" restargsource="path">
@@ -124,9 +155,20 @@
 	</cffunction>
 
 
-	<!---Get Event Customers--->
+	<!---Get Customers--->
 	<cffunction name="getEventCustomers" access="remote" httpMethod="GET" restPath="/customers/get/" returntype="any" produces="application/json">		
 		<cfstoredproc procedure="sp_get_event_customers" datasource="motion">
+			<cfprocresult name="customers" resultset="1">
+		</cfstoredproc>
+		<cfset ls=QueryToStruct(customers)>    
+		<cfreturn ls>
+	</cffunction>
+
+	<!---Get Customers by Event--->
+	<cffunction name="getEventCustomersByEvent" access="remote" httpMethod="GET" restPath="/customers/event/{eventid}" returntype="any" produces="application/json">
+		<cfargument name="eventid" type="string" required="true" restargsource="path">
+		<cfstoredproc procedure="sp_get_event_customers" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#eventid#" dbvarname="@eventid" />
 			<cfprocresult name="customers" resultset="1">
 		</cfstoredproc>
 		<cfset ls=QueryToStruct(customers)>    

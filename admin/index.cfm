@@ -107,6 +107,8 @@
     <!---EVENTS--->    
     <script src="src/app/events/events.module.js"></script>
     <script src="src/app/events/list.js"></script>
+    <script src="src/app/events/registered.js"></script>
+    <script src="src/app/events/edit.js"></script>
 
     <!---CONTRACTORS--->    
     <script src="src/app/contractors/contractors.module.js"></script>

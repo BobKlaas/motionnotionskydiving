@@ -53,6 +53,7 @@
     function eventservice(utility) {
         var service = {
              getEvents: getEvents
+            ,getEventsByStatus: getEventsByStatus
             ,getEventByID: getEventByID
             ,addCustomerToEvent: addCustomerToEvent
             ,updateCustomerToEvent: updateCustomerToEvent
@@ -64,6 +65,11 @@
         //Get All Events
         function getEvents(params){
             return utility.HttpService.sendRequest('/rest/api/events/get/');
+        }
+
+        //Get Events By Active Status
+        function getEventsByStatus(params){
+            return utility.HttpService.sendRequest('/rest/api/events/get/status/'+params.active);
         }
         
         //Get Event By ID
@@ -133,7 +139,7 @@
 
     }
 
-    //Common Service___________________________________________________________________>
+    //Transaction Service___________________________________________________________________>
     function transactionservice(utility) {
         var service = {
              paymentrequest: paymentrequest

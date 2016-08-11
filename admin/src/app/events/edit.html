@@ -5,8 +5,7 @@
         <div class="col-lg-12">
             <h1 class="page-header">Events</h1>
             <ol class="breadcrumb">
-                <li><a href="index.cfm">Home</a>
-                </li>
+                <li><a href="index.cfm">Home</a></li>
                 <li class="active">Events</li>
             </ol>
         </div>
@@ -37,17 +36,17 @@
             <!--Card Title-->
             <md-card-title style="position:relative;" flex="none">                
                 <!--FAB: View Details -->
-                <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./events/edit/{{event.ID}}">
+                <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="/events/view/{{event.ID}}">
                     <md-tooltip md-direction="bottom">
                         Edit Event
                     </md-tooltip>
                     <md-icon class="material-icons icon-edit" md-font-set="material-icons">edit</md-icon>
                 </md-button>
 
-                <!--FAB: Registered List-->
-                <md-button class="md-fab md-mini btn-card-float-l1" aria-label="Event Manifest" ng-href="./events/registered/{{event.ID}}">
+                <!--FAB: Event Full-->
+                <md-button class="md-fab md-mini btn-card-float-l1" aria-label="Registered List">
                     <md-tooltip md-direction="bottom">
-                        Event Manifest
+                        Registered List
                     </md-tooltip>
                     <md-icon class="material-icons icon-edit" md-font-set="material-icons">people</md-icon>
                 </md-button>
@@ -63,11 +62,11 @@
 
             <!--Card Actions-->
             <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-raised md-primary" flex ng-href="./events/edit/{{event.ID}}">
-                    <md-icon md-font-set="material-icons">edit</md-icon> EDIT EVENT
+                <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">
+                    <md-icon md-font-set="material-icons" ng-href="/home/comment">edit</md-icon> EDIT EVENT
                 </md-button>
-                <md-button class="md-raised md-primary" flex ng-href="./events/registered/{{event.ID}}">
-                    <md-icon md-font-set="material-icons">people</md-icon> EVENT MANIFEST
+                <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">
+                    <md-icon md-font-set="material-icons" ng-href="/home/comment">people</md-icon> REGISTERED LIST
                 </md-button>
             </md-card-actions>
         </md-card>

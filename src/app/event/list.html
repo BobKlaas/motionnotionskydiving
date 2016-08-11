@@ -34,7 +34,8 @@ Page Content -->
 
     <!--Events List-->
     <div layout="column" layout-gt-sm="row">
-        <md-card ng-repeat="event in events" style="padding-bottom:25px;" flex>
+        <div layout="column" class="col-md-5" ng-repeat="event in events">
+        <md-card style="padding-bottom:25px;" flex>
             <!--Event Image-->
             <a ng-href="/events/view/{{event.ID}}">
                 <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
@@ -67,8 +68,8 @@ Page Content -->
             <!--Card Body-->
             <md-card-content flex>
                 <h4 ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></h4>
-                <span class="event-details" ng-if="event.SLOTSLEFT">Slots Available: {{event.SLOTSLEFT}}</span>
-                <span class="event-details" ng-if="!event.SLOTSLEFT" style="color:#FF5722">Slots Available: {{event.SLOTSLEFT}}</span>
+                <p class="event-details" ng-if="event.SLOTSLEFT">Slots Available: {{event.SLOTSLEFT}}</p>
+                <p class="event-details" ng-if="!event.SLOTSLEFT" style="color:#FF5722">Slots Available: {{event.SLOTSLEFT}}</p>
                 <p ng-bind="event.DESCRIPTION"></p><br>
             </md-card-content>
 
@@ -85,6 +86,7 @@ Page Content -->
                 </md-button>
             </md-card-actions>
         </md-card>
+        </div>
     </div>
 
   

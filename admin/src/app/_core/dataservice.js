@@ -36,6 +36,8 @@
         var service = {
              getEvents: getEvents
             ,getEventByID: getEventByID
+            ,updateEventStatus: updateEventStatus
+            ,getEventCustomers: getEventCustomers
         };
         return service;
 
@@ -48,6 +50,17 @@
         function getEventByID(params){
             return utility.HttpService.sendRequest('/rest/api/events/get/'+params.id);
         }
+
+        //Update Event Status
+        function updateEventStatus(params){
+            return utility.HttpService.sendRequest('/rest/api/events/update/status/',params,'post');
+        }
+
+        //Get All Customers for an Event
+        function getEventCustomers(params){
+            return utility.HttpService.sendRequest('/rest/api/events/customers/event/'+params.eventid);
+        }
+
     }
     
 

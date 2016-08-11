@@ -65,9 +65,13 @@
         function formatDateRange(startdate,enddate){
             var sdate = Date.parse(startdate);
             var edate = Date.parse(enddate);
-            var fdate = $filter('date')(sdate,'LLLL dd');
-            fdate = fdate + ' to '+ $filter('date')(edate,'dd yyyy');
 
+            if($filter('date')(sdate,'ddyyyy') == $filter('date')(edate,'ddyyyy')){
+                var fdate = $filter('date')(sdate,'LLLL dd, yyyy');
+            }else{
+                var fdate = $filter('date')(sdate,'LLLL dd');
+                fdate = fdate + ' - '+ $filter('date')(edate,'dd, yyyy');    
+            }
             return fdate;
         }
 

@@ -29,7 +29,7 @@
             $scope.getEventByID($scope.eventid);
     	}
 
-        //Get Coach by ID
+        //Get Event by ID
         function getEventByID(){
             var params = {id: $scope.eventid}
             eventservice.getEventByID(params).then(

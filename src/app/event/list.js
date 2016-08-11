@@ -29,7 +29,8 @@
 
         //Get Events
         function getEvents(){
-            eventservice.getEvents().then(
+            var params = {active: 1};
+            eventservice.getEventsByStatus(params).then(
                 function(results){
                     $scope.events = results; 
                     console.log($scope.events);
