@@ -86,8 +86,8 @@
 
     <!--- Global JS --->
     <script src="/src/app/blocks/Utilities/utilities.module.js"></script>
-    <script src="src/app/blocks/Logger/logger.module.js"></script>
-    <script src="src/app/blocks/Logger/logger.js"></script>
+    <script src="/src/app/blocks/Logger/logger.module.js"></script>
+    <script src="/src/app/blocks/Logger/logger.js"></script>
 
     <!--- App JS--->
     <!-- build:js dist/js/app.js -->

@@ -26,6 +26,8 @@
                             <div layout="row" flex>
                                 <i class="material-icons">people</i>
                                 <span class="md-title">Registered</span>
+                            </div><div layout="column" layout-align="start start">
+                                <span ng-bind="registered.length" style="font-size:24px;"></span>
                             </div>
                         </md-card-header-text>                        
                     </md-card-header>
@@ -40,6 +42,7 @@
                                 </div><div class="md-list-item-text" layout="column" layout-align="center end">
                                     <h4>{{person.USPALICENSE}} license | {{person.JUMPSLOGGED}} jumps</h4>
                                     <h4 style="color:green">PAID: {{person.AMOUNTPAID | currency}}</h4>
+                                    <p>{{common.utility.odbcToNGDate(person.PAYMENTDATE)}}</p>
                                 </div>
                             </md-list-item>
                         </md-list>
@@ -61,12 +64,14 @@
                             <div layout="row" flex>
                                 <i class="material-icons">people</i>
                                 <span class="md-title">Reserve List</span>
+                            </div><div layout="column" layout-align="start start">
+                                <span ng-bind="reserve.length" style="font-size:24px;"></span>
                             </div>
                         </md-card-header-text>                        
                     </md-card-header>
                     <md-card-content flex>
                         <md-list ng-if="reserve.length" flex>
-                            <md-list-item class="md-3-line" ng-repeat="person in reserve | orderBy:'DOE'" ng-click="null">
+                            <md-list-item class="md-3-line" ng-repeat="person in reserve | orderBy:'DOE':true" ng-click="null">
                                 <md-icon class="material-icons icon-edit" md-font-set="material-icons">person</md-icon>
                                 <div class="md-list-item-text" layout="column">
                                     <h3>{{ person.FULLNAME }}</h3>
@@ -75,6 +80,7 @@
                                 </div><div class="md-list-item-text" layout="column" layout-align="center end">
                                     <h4>{{person.USPALICENSE}} license | {{person.JUMPSLOGGED}} jumps</h4>
                                     <h4 style="color:red">PAID: {{person.AMOUNTPAID | currency}}</h4>
+                                    <p>{{common.utility.odbcToNGDate(person.REGISTERDATE)}}</p>
                                 </div>
                             </md-list-item>
                         </md-list>
