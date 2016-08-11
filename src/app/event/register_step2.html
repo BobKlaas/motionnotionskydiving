@@ -159,7 +159,7 @@
                     </div>
 
                     <div layout="row" layout-sm="column" layout-align="space-around" ng-controller="erProgressController">
-                        <md-progress-circular ng-hide="!submitbutton.disabled" ng-disabled="submitbutton.disabled" class="md-accent md-hue-1" ></md-progress-circular>
+                        <md-progress-circular md-mode="indeterminate" ng-hide="!submitbutton.disabled" ng-disabled="submitbutton.disabled" class="md-accent md-hue-1" ></md-progress-circular>
                     </div>
 
                     <div class="alert alert-danger" ng-show="paymentfailed">

@@ -182,6 +182,8 @@
                 function(results){
                     if(results.state == "approved"){
                         var cc = results.payer.funding_instruments[0].credit_card;
+                        var amount = results.transactions[0].amount.total;
+
                         //Set Payment Object
                         $scope.payment = {
                              event_customer_id: $scope.customer.id
@@ -193,6 +195,7 @@
                             ,pp_card_expire_month: ''
                             ,pp_card_expire_year: ''
                             ,pp_card_number: ''
+                            ,amountpaid: amount
                             ,address: $scope.billing.address1
                             ,address2: $scope.billing.address2
                             ,city: $scope.billing.city

@@ -17,7 +17,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
          <div class="collapse navbar-collapse" uib-collapse="navCollapsed">
             <ul class="nav navbar-nav navbar-right">                
-                <!-- <li><a class="navlink" ng-href="/login" ng-click="navCollapsed=true;">Login</a></li> -->
+                <li ng-if="adminID!==undefined"><a class="navlink" ng-click="common.navigateToLink('/admin')" style="cursor: pointer;">Admin</a></li>
                 <li><a class="navlink" ng-href="/about" ng-click="navCollapsed=true;">The Notion</a></li>
                 <li><a class="navlink" ng-href="/coaches" ng-click="navCollapsed=true;">Our Team</a></li>
                 <li><a class="navlink" ng-href="/events" ng-click="navCollapsed=true;">Events</a></li>

@@ -71,7 +71,7 @@
                     </md-card-header>
                     <md-card-content flex>
                         <md-list ng-if="reserve.length" flex>
-                            <md-list-item class="md-3-line" ng-repeat="person in reserve | orderBy:'DOE':true" ng-click="null">
+                            <md-list-item class="md-3-line" ng-repeat="person in reserve | orderBy:'DOE'" ng-click="null">
                                 <md-icon class="material-icons icon-edit" md-font-set="material-icons">person</md-icon>
                                 <div class="md-list-item-text" layout="column">
                                     <h3>{{ person.FULLNAME }}</h3>

@@ -8,7 +8,7 @@
                 <li><a ng-href="/">Home</a></li>
                 <li><a ng-href="/events/">Events</a></li>
                 <li><a ng-href="/events/view/{{eventid}}" ng-bind="event.details.TITLE"></a></li>
-                <li class="active">Step 1: Registration</li>
+                <li class="active" ng-bind="regtitle"></li>
             </ol>
         </div>
     </div>
@@ -21,10 +21,17 @@
                 <md-card-header class="card-header pop">                    
                     <md-card-header-text layout="row">
                         <i class="material-icons">person_add</i>
-                        <span class="md-title">Event Registration</span>
+                        <span class="md-title" ng-bind="regtitle"></span>
                     </md-card-header-text>
                 </md-card-header>
+                
                 <md-card-content layout="column" flex>
+                
+                <div layout="column" ng-if="action=='reserve'">
+                    <p><b>Please Read:</b>You are registering for this events reserve list. In the event that someone cancels and/or more slots are added, we will send you an email notification which will give you the opportunity to secure the open slot. All instructions will be provided via email. Slots are guaranteed once full payment is received. <b>No payment is needed at this time.</b></p>
+                    <md-divider></md-divider><br>
+                </div>
+
                 <!--First Name-->
                 <md-input-container>
                     <label>First Name</label>
@@ -123,7 +130,7 @@
                 </md-input-container>
 
                 <!--Submit Button-->
-                <md-button class="md-raised md-primary" type="submit" ng-disabled="!registrationForm.$valid" aria-label="Submit" ng-cloak>Proceed To Payment</md-button>
+                <md-button class="md-raised md-primary" type="submit" ng-disabled="!registrationForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button>
                 </md-card-content>
             </md-card>
             </form>

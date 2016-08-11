@@ -50,6 +50,7 @@
 		<cfset rc.pp_card_type = structKeyExists(rc,'pp_card_type')?rc.pp_card_type:''>
 		<cfset rc.pp_card_fname = structKeyExists(rc,'pp_card_fname')?rc.pp_card_fname:''>
 		<cfset rc.pp_card_lname = structKeyExists(rc,'pp_card_lname')?rc.pp_card_lname:''>
+		<cfset rc.amountpaid = structKeyExists(rc,'amountpaid')?rc.amountpaid:''>
 		<cfset rc.address = structKeyExists(rc,'address')?rc.address:''>
 		<cfset rc.address2 = structKeyExists(rc,'address2')?rc.address2:''>
 		<cfset rc.city = structKeyExists(rc,'city')?rc.city:''>
@@ -61,6 +62,7 @@
 			<cfprocparam cfsqltype="CF_SQL_CHAR" value="#rc.event_customer_id#" dbvarname="@event_customer_id" null="#(len(trim(rc.event_customer_id))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_id#" dbvarname="@pp_id" null="#(len(trim(rc.pp_id))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_state#" dbvarname="@pp_state" null="#(len(trim(rc.pp_state))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_MONEY" value="#rc.amountpaid#" dbvarname="@amountpaid" null="#(len(trim(rc.amountpaid))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_type#" dbvarname="@pp_card_type" null="#(len(trim(rc.pp_card_type))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_fname#" dbvarname="@pp_card_fname" null="#(len(trim(rc.pp_card_fname))?false:true)#"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pp_card_lname#" dbvarname="@pp_card_lname" null="#(len(trim(rc.pp_card_lname))?false:true)#"/>

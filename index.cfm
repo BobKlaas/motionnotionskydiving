@@ -107,6 +107,8 @@
     <!-- endinject -->
     <!-- endbuild -->
 
+    <cfset adminAuthenticated = (isDefined('SESSION.ADMIN.ID')?SESSION.ADMIN.ID:'')>
+
     <!--- API URL --->
     <script>
         <cfif CGI.HTTPS EQ "ON">
@@ -120,6 +122,7 @@
         var _InstagramURL = "<cfoutput>#REQUEST.InstagramURL#</cfoutput>";
         var _AdminEmail = "<cfoutput>#REQUEST.AdminEmail#</cfoutput>";
         var _TeamEmail = "<cfoutput>#REQUEST.TeamEmail#</cfoutput>";
+        var _AdminID = "<cfoutput>#adminAuthenticated#</cfoutput>";
     </script>
     
     <!--- Global JS --->
@@ -156,8 +159,8 @@
     <script src="src/app/event/view.js"></script>
     <script src="src/app/event/register_step1.js"></script>
     <script src="src/app/event/register_step2.js"></script>
+    <script src="src/app/event/register_reservelist.js"></script>
     <script src="src/app/event/register_confirm.js"></script>
-    <script src="src/app/event/reserve.js"></script>
     <script src="src/app/event/policy.js"></script>
 
     <!---MEDIA--->

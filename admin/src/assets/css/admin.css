@@ -30,30 +30,7 @@ body, .app-container {
 }
 
 
-/* Psomas Sidenav */
-md-sidenav, 
-md-sidenav.md-locked-open, 
-md-sidenav.md-closed.md-locked-open-add-active {
-    min-width: 270px !important;
-    width: 270px !important;
-    max-width: 270px !important;
-    background-color: #efefef;
-}
-.container{
-  margin-left: 10px;
-}
 
-#sidebarContainer{
-  color: white;
-  margin-top: 40px;
-}
-
-.sidenavheader{
-  background-color: red;
-  color: white;
-  min-height: 50px;
-  height: 50px;
-}
 
 /* mobile */
 @media (max-width: 360px) {
@@ -77,40 +54,10 @@ md-sidenav.md-closed.md-locked-open-add-active {
   border-bottom: 5px solid #EC8C23;
   margin-left: 38px;
 }
-.app-title {
-  font-size: 16px;
-  color: #245398;
-  font-weight: bold;
-}
 .app-section-tab {
   padding: 14px 0 0 0;
   margin-left: 38px;
   color: #245398;
   font-weight: bold;
   font-size: 14px;
-}
-.app-tools {
-  padding: 0px 40px;
-}
-.app-bar .app-tools #export {
-  font-size: 14px;
-}
-
-/* Warning Bar */
-.app-warning {
-  max-height:48px; 
-  min-height: 48px;
-  background-color: #F6C691;
-}
-
-/* App Menu */
-.app-warning-title {  
-  color: #666;
-  background-color: #F6C691;
-  padding: 14px 0 0 38px;
-  font-size: 12px;
-}
-
-.app-warning-image{
-  margin: 0 10px 5px 10px;
 }

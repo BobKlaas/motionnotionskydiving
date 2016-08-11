@@ -56,18 +56,19 @@
             <!--Card Body-->
             <md-card-content flex>
                 <p class="event-details" ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></p>
-                <p class="event-details">Slots: {{event.SLOTSFILLED}} of {{event.SLOTS}} slots filled - {{event.SLOTSLEFT}} slots remaining</p>
-                <p class="event-details">Reserve Slots: {{event.RESERVESLOTS}} registered</p>
+                <p class="event-details">Slots Filled: {{event.SLOTSFILLED}} of {{event.SLOTS}}</p>
+                <p class="event-details">Slots Remaining: {{event.SLOTSLEFT}}</p>
+                <p class="event-details">Reserve List: {{event.RESERVELISTCOUNT}} registered</p>
                 <!-- <p ng-bind="event.DESCRIPTION"></p><br> -->
             </md-card-content>
 
             <!--Card Actions-->
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-raised md-primary" flex ng-href="./events/edit/{{event.ID}}">
-                    <md-icon md-font-set="material-icons">edit</md-icon> EDIT EVENT
+                    <md-icon md-font-set="material-icons">edit</md-icon> EDIT
                 </md-button>
                 <md-button class="md-raised md-primary" flex ng-href="./events/registered/{{event.ID}}">
-                    <md-icon md-font-set="material-icons">people</md-icon> EVENT MANIFEST
+                    <md-icon md-font-set="material-icons">people</md-icon> MANIFEST
                 </md-button>
             </md-card-actions>
         </md-card>

@@ -3,15 +3,24 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="view-logo navlink" ng-href="/">
                 <img src="/assets/images/logos/motionnotion.png">
             </a>
-        </div>
+        </div>    
+    </div>
+</nav>
+
+
+<!--Admin Toolbar--> 
+<nav class="navbar" role="navbar-fixed-top" style="margin:40px 0px 0px 0px">   
+    <div class="container" flex>            
+        <md-tabs flex class="md-background" flex ng-cloak>
+            <md-tab label="Events" ng-click="common.routeTo('/events')"></md-tab>
+            <md-tab label="Contractors" ng-click="common.routeTo('/contractors')"></md-tab>
+            <md-tab label="Media" ng-click="common.routeTo('/media')"></md-tab>
+            <md-tab label="Logout" ng-click="common.navigateToLink('/logout.cfm')"></md-tab>
+            <md-tab ng-disabled="true"></md-tab>                    
+            <span flex></span>
+        </md-tabs>            
     </div>
 </nav>

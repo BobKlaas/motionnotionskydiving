@@ -58,7 +58,7 @@
             <h5 ng-hide="event.details.SLOTSLEFT">This event is full. However, you can still register for the reserve list in case someone cancels.</h5>            
 
             <md-button class="md-raised md-primary" flex ng-href="/events/register/step1/{{eventid}}" ng-show="event.details.SLOTSLEFT">Register for Event</md-button>
-            <md-button class="md-raised md-primary" flex ng-href="/events/register/{{eventid}}" ng-hide="event.details.SLOTSLEFT">Apply for Reserve List</md-button>
+            <md-button class="md-raised md-primary" flex ng-href="/events/register/reservelist/{{eventid}}" ng-hide="event.details.SLOTSLEFT">Apply for Reserve List</md-button>
         </div>
 
     </div>

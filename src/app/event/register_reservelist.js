@@ -4,27 +4,25 @@
 
     angular
         .module('app.event')
-        .controller('eventRegisterStep1Controller',eventRegisterStep1Controller);
+        .controller('eventReserveListController',eventReserveListController);
 
-    eventRegisterStep1Controller.$inject = ['$scope','common','eventservice','dropzoneservice','commonservice'];
+    eventReserveListController.$inject = ['$scope','common','eventservice','dropzoneservice','commonservice'];
 
-    function eventRegisterStep1Controller($scope,common,eventservice,dropzoneservice,commonservice) {       
-    	console.log('Register controller has been called');
+    function eventReserveListController($scope,common,eventservice,dropzoneservice,commonservice) {       
+        console.log('Register controller has been called');
 
-    	//METHODS
-    	$scope.init = init;
+        //METHODS
+        $scope.init = init;
         $scope.getEventByID = getEventByID;
         $scope.proceedToPayment = proceedToPayment;
         $scope.getStates = getStates;
         $scope.getDisciplines = getDisciplines;
         $scope.dropzoneSearch = dropzoneSearch;
-        $scope.addCustomerToEvent = addCustomerToEvent;
-        $scope.loadCustomer = loadCustomer;
         $scope.setCustomer = setCustomer;
-        $scope.updateCustomerToEvent = updateCustomerToEvent;
-            	
-		//VARIABLES
-		$scope.common = common;
+        $scope.addCustomerToEvent = addCustomerToEvent;
+                
+        //VARIABLES
+        $scope.common = common;
         $scope.states = [];
         $scope.disciplines = [];
         $scope.uspaLicenses = [{id: 1, name: 'A'},{id: 2, name: 'B'},{id: 3, name: 'C'},{id: 3, name: 'D'}];
@@ -32,9 +30,9 @@
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[]};
         $scope.eventsImagePath = '/assets/images/events/';
-        $scope.regtitle = 'Step 1: Event Registration';       
-        $scope.action='registration';
-        $scope.btnSubmitTitle = 'PROCEED TO PAYMENT';        
+        $scope.regtitle = 'Reserve List Registration';
+        $scope.action = 'reserve';
+        $scope.btnSubmitTitle = 'SUBMIT';
 
         $scope.customer = {
              id: common.$routeParams.customerid
@@ -50,20 +48,16 @@
             ,homedropzonename: ''
             ,homedropzone: {id:'',name:' '}
             ,paymentreceived: 0
-            ,type: 1
+            ,type: 2
         }
-		
-    	//Init Function
-    	$scope.init();
-    	function init(){
+        
+        //Init Function
+        $scope.init();
+        function init(){
             $scope.getStates();
             $scope.getDisciplines();
-            $scope.getEventByID($scope.eventid);
-
-            if(common.$routeParams.customerid !== undefined){
-                $scope.loadCustomer();
-            }     
-    	}
+            $scope.getEventByID($scope.eventid);   
+        }
 
         //Get Event by ID
         function getEventByID(){
@@ -117,15 +111,6 @@
             );
         };
 
-        //Load Existing Customer
-        function loadCustomer(){
-            var params = {id: common.$routeParams.customerid};
-            eventservice.getCustomerByID(params).then(
-                function(results){
-                    $scope.setCustomer(results[0]);
-                }    
-            );     
-        }
 
         //Setter for Customer Object
         function setCustomer(customer){
@@ -151,57 +136,30 @@
         function addCustomerToEvent(){
             var params = $scope.customer;
             
-            //common.logger.info('Add');
-            //console.log(params);
-
             //Save Customer to Event
             eventservice.addCustomerToEvent(params).then(
                 function(results){
                     if(results[0].ID !== undefined){
-                        common.routeTo('/events/register/step2/'+results[0].ID);
+                        common.routeTo('/events/register/confirmation/'+results[0].ID);
                     }else{
                         common.logger.error('There was an error trying to save your information. Please try again.','','Registration Error');    
                     }
                 },function(error){
-                    common.logger.error('There was an error and we were unable to register you for this event. Please try again or contact us directly via our contact page.','','Registration Error');
-                }    
-            );            
-        }
-
-        //Add Customer To Event
-        function updateCustomerToEvent(){
-            var params = $scope.customer;
-
-            //common.logger.info('Update');
-            //console.log(params);
-
-            //Save Customer to Event
-            eventservice.updateCustomerToEvent(params).then(
-                function(results){
-                    if(results[0].ID !== undefined){
-                        common.routeTo('/events/register/step2/'+results[0].ID);
-                    }else{
-                        common.logger.error('There was an error trying to save your information. Please try again.','','Registration Error');    
-                    }
-                },function(error){
-                    common.logger.error('There was an error and we were unable to register you for this event. Please try again or contact us directly via our contact page.','','Registration Error');
+                    common.logger.error('There was an error and we were unable to register you on the reserve list. Please try again or contact us directly via our contact page.','','Registration Error');
                 }    
             );            
         }
 
         //Save Registration and Proceed to Payment
         function proceedToPayment(){
-            console.log($scope.customer.homedropzone);
+            //Set Home Dropzone
             if($scope.customer.homedropzone !== null){
                 $scope.customer.homedropzoneid = $scope.customer.homedropzone.id;
                 $scope.customer.homedropzonename = $scope.customer.homedropzone.name;
             }
 
-            if($scope.customer.id !== undefined){
-                $scope.updateCustomerToEvent();
-            }else{
-                $scope.addCustomerToEvent();  
-            }           
+            //Add Customer to Reserve List
+            $scope.addCustomerToEvent();
         }
 
     };

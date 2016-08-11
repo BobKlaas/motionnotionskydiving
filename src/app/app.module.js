@@ -19,6 +19,7 @@
             $scope.navCollapsed = 1;
             $scope.currentPath = _hostName + $location.path();
             $scope.host = _hostName;
+            $scope.adminID = ((_AdminID == '')?undefined:_AdminID);
         }
 
         //Header Custom Directive

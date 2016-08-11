@@ -88,6 +88,15 @@
                         ,url: ""
                     }
                 })
+                .when('/events/register/reservelist/:eventid/', {
+                     templateUrl: 'src/app/event/register_step1.html'
+                    ,controller: 'eventReserveListController'
+                    ,meta:{
+                         title: ""
+                        ,description: ""
+                        ,url: ""
+                    }
+                })
                 .when('/events/register/step2/:customerid/', {
                      templateUrl: 'src/app/event/register_step2.html'
                     ,controller: 'eventRegisterStep2Controller'
@@ -100,15 +109,6 @@
                 .when('/events/register/confirmation/:customerid/', {
                      templateUrl: 'src/app/event/register_confirm.html'
                     ,controller: 'eventRegisterConfirmController'
-                    ,meta:{
-                         title: ""
-                        ,description: ""
-                        ,url: ""
-                    }
-                })
-                .when('/events/reservelist/:eventid', {
-                     templateUrl: 'src/app/event/reserve.html'
-                    ,controller: 'eventReserveListController'
                     ,meta:{
                          title: ""
                         ,description: ""
