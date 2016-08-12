@@ -1,11 +1,10 @@
-<!-- Page Content -->
+<!--Page Content -->
 <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
     <div class="row">
         <div class="col-lg-12">
-          <h1 class="page-header">Contractors
-          </h1>
+          <br>
           <ol class="breadcrumb">
               <li><a ng-href="/admin/">Admin</a></li>
               <li class="active">Contractors</li>
@@ -14,10 +13,62 @@
     </div>
     <!-- /.row -->
 
+    <!--Events List-->
+    <div layout="column" layout-gt-sm="row" ng-repeat="chunk in contractors.chunked">
+        <div layout="column" class="col-md-4" ng-repeat="contractor in chunk">
+        <md-card style="padding-bottom:25px;">
+            <md-card-header class="card-header">                    
+                <md-card-header-text layout="row">
+                    <div layout="row" flex>
+                        <i class="material-icons">person</i>
+                        <span class="md-title" ng-bind="contractor.FULLNAME"></span>
+                    </div><div layout="column" layout-align="start start">
+                        <md-switch ng-model="contractor.ACTIVE" aria-label="Active" ng-true-value="1" ng-false-value="0" ng-change="changeStatus(event)"></md-switch>
+                    </div>
+                </md-card-header-text>                
+            </md-card-header>
+
+            <!--Event Image-->
+            <a ng-href="/events/view/{{contractor.ID}}">
+                <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-card-image img-hover" alt="Event">
+            </a>
+
+            <!--Card Title-->
+            <md-card-title style="position:relative;" flex="none">                
+                <!--FAB: View Details -->
+                <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./contractor/edit/{{contractor.ID}}">
+                    <md-tooltip md-direction="bottom">
+                        Edit Contractor
+                    </md-tooltip>
+                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">edit</md-icon>
+                </md-button>
+            </md-card-title>
+
+            <!--Card Body-->
+            <div>
+                <div layout-margin>
+                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">mail</md-icon>
+                    <a class="md-subhead" href="mailto:{{contractor.EMAILADDRESS}}" ng-bind="contractor.EMAILADDRESS"></a>
+                </div><div layout-margin>
+                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">phone_android</md-icon>
+                    <a class="md-subhead" href="tel:{{contractor.PHONENUMBER}}" ng-bind="contractor.PHONENUMBER"></a>
+                </div>
+            </div>
+
+            <!--Card Actions-->
+            <!-- <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-raised md-primary" flex ng-href="./contractors/edit/{{contractor.ID}}">
+                    <md-icon md-font-set="material-icons">edit</md-icon> EDIT
+                </md-button>
+            </md-card-actions> -->
+        </md-card>
+        </div>
+    </div>
+
     <hr>
 
     <!-- Footer -->
     <customfooter></customfooter>
 
 </div>
-<!-- /.container -->
+<!-- /.container

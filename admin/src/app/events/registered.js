@@ -48,10 +48,12 @@
             eventservice.getEventCustomers(params).then(
                 function(results){
                     for(var i=0; i < results.length; i++){
-                        if(results[i].TYPE == 1)
+                        if(results[i].TYPE == 1){
+                            if(results[i].AMOUNTPAID > 0)
                             $scope.registered.push(results[i]);
-                        else
+                        }else{
                             $scope.reserve.push(results[i]);
+                        }
                     }
                 }    
             );       
