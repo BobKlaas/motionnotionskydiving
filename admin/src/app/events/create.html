@@ -41,7 +41,7 @@
                 <!--Event Description-->
                 <md-input-container>
                     <label>Event Description</label>
-                    <input ng-model="event.description" name="description" required minlength="10" maxlength="1000">
+                    <textarea ng-model="event.description" name="description" minlength="50" maxlength="1000" md-maxlength="1000" rows="3" md-select-on-focus></textarea>
                     <div ng-messages="eventForm.description.$error">
                         <div ng-message="required">Event description is required.</div>
                         <div ng-message="minlength">Event description must be at least 10 characters long.</div>

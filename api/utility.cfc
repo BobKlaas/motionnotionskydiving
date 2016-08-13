@@ -161,4 +161,27 @@ returns the attributes for each XML node.
     </cfscript>
 </cffunction>
 
+
+<cffunction
+    name="ISOToDateTime"
+    access="public"
+    returntype="string"
+    output="false"
+    hint="Converts an ISO 8601 date/time stamp with optional dashes to a ColdFusion date/time stamp.">
+
+    <!--- Define arguments. --->
+    <cfargument
+        name="Date"
+        type="string"
+        required="true"
+        hint="ISO 8601 date/time stamp."
+        />
+
+    <!---
+        When returning the converted date/time stamp,
+        allow for optional dashes.
+    --->
+    <cfreturn CreateODBCDateTime(ARGUMENTS.Date.ReplaceFirst("^.*?(\d{4})-?(\d{2})-?(\d{2})T([\d:]+).*$","$1-$2-$3 $4")) />
+</cffunction>
+
 </cfcomponent>

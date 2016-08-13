@@ -1,0 +1,49 @@
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="./events">Home</a></li>
+                <li><a href="./events">Events</a></li>
+                <li><a href="index.cfm" ng-bind="event.details.TITLE"></a></li>
+                <li class="active" ng-bind="etitle"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!--Events List-->
+    
+    <div layout="column" layout-gt-sm="row">
+        <div layout="column" flex="60">
+            <form name="eventForm" ng-submit="eventForm.$valid && saveEvent()">
+            <md-card>
+                <md-card-header class="card-header pop">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">event</i>
+                        <span class="md-title" ng-bind="etitle"></span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column" flex>
+                
+                            
+
+                    <!--Submit Button-->
+                    <md-button class="md-raised md-primary" type="submit" ng-disabled="!eventForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button>
+                </md-card-content>
+            </md-card>
+            </form>
+        </div>
+         </div>
+
+  
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

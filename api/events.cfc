@@ -196,14 +196,14 @@
 		<cfset rc = deserializeJSON(ARGUMENTS.params)>
 		<cfset rc.title = structKeyExists(rc,'title')?rc.title:''>
 		<cfset rc.description = structKeyExists(rc,'description')?rc.description:''>
-		<cfset rc.startdate = structKeyExists(rc,'startdate')?rc.startdate:''>
-		<cfset rc.enddate = structKeyExists(rc,'enddate')?rc.enddate:''>
+		<cfset rc.startdate = structKeyExists(rc,'startdate')?ISOToDateTime(rc.startdate):''>
+		<cfset rc.enddate = structKeyExists(rc,'enddate')?ISOToDateTime(rc.enddate):''>
 		<cfset rc.slots = structKeyExists(rc,'slots')?rc.slots:''>
 		<cfset rc.reserveslots = structKeyExists(rc,'reserveslots')?rc.reserveslots:''>
 		<cfset rc.registrationfee = structKeyExists(rc,'registrationfee')?rc.registrationfee:''>
 		<cfset rc.dropzoneid = structKeyExists(rc,'dropzoneid')?rc.dropzoneid:''>
 		<cfset rc.image = structKeyExists(rc,'image')?rc.image:''>
-		<cfset rc.active = structKeyExists(rc,'active')?rc.active:''>
+		<cfset rc.active = structKeyExists(rc,'active')?rc.active:0>
 
 		<!---Create Image Name--->
 		<cfset imagename = REReplace(rc.title,"[^0-9A-Za-z ]","","all")>
@@ -224,14 +224,14 @@
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.reserveslots#" dbvarname="@reserveslots"/>
 			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.registrationfee#" dbvarname="@registrationfee"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.dropzoneid#" dbvarname="@dropzoneid"/>
-			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.image#" dbvarname="@imagename"/>
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.active#" dbvarname="@active"/>
-			<cfprocresult name="event" resultset="1"/>	
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#imagename#" dbvarname="@imagename"/>
+			<cfprocparam cfsqltype="CF_SQL_BIT" value="#rc.active#" dbvarname="@active"/>
+			<cfprocresult name="event" resultset="1"/>
 		</cfstoredproc>
 
 		<!---Create Structure From Results--->
 		<cfset ls=QueryToStruct(event)>
-		<cfreturn rc>
+		<cfreturn ls>
 	</cffunction>
 
     

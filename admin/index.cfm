@@ -111,6 +111,7 @@
     <script src="src/app/events/list.js"></script>
     <script src="src/app/events/registered.js"></script>
     <script src="src/app/events/create.js"></script>
+    <script src="src/app/events/addteam.js"></script>
 
     <!---CONTRACTORS--->    
     <script src="src/app/contractors/contractors.module.js"></script>

@@ -39,8 +39,8 @@
 
         //Event Model
         $scope.event = {
-             title: 'Title'
-            ,description: 'Description'
+             title: ''
+            ,description: ''
             ,startdate: ''
             ,enddate: ''
             ,slots: ''
@@ -85,14 +85,19 @@
             }
 
             if(readyForSave){
+                //Set Params
                 var params = $scope.event;
-                    params.startdate = params.startdate.toISOString().slice(0, 19).replace('T', ' ');
-                    params.enddate = params.startdate.toISOString().slice(0, 19).replace('T', ' ');
-                console.log(params);
+                    params.startdate = $scope.event.startdate.toISOString();
+                    params.enddate = $scope.event.enddate.toISOString();
+                
+                //Save Event
                 eventservice.createEvent(params).then(
                     function(results){
-                        common.logger.success('Saved');
-                        console.log(results);
+                        //Show Success
+                        common.logger.success('Success','',results[0].TITLE +' was saved successfully.');
+
+                        //Navigate to Step 2
+                        common.routeTo('/events/team/'+results[0].ID);                        
                     }    
                 );
             }
