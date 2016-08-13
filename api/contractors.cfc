@@ -9,6 +9,16 @@
 		<cfreturn ls>
 	</cffunction>
 
+	<!---Get All Active Contractors --->
+	<cffunction name="getActiveContractors" access="remote" httpMethod="GET" restPath="/get/active" returntype="any" produces="application/json">		
+		<cfstoredproc procedure="sp_get_contractors" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_BIT" value="1" dbvarname="@active"/>
+			<cfprocresult name="contractors" resultset="1">
+		</cfstoredproc>
+		<cfset ls=QueryToStruct(contractors)>    
+		<cfreturn ls>
+	</cffunction>
+
 	<!---Get Contractor Details --->
 	<cffunction name="getContractorByUniqueName" access="remote" httpMethod="GET" restPath="/get/{uniquename}" returntype="any" produces="application/json">
 		<cfargument name="uniquename" type="string" required="true" restargsource="path">
@@ -27,6 +37,28 @@
 		<cfset JSONReturn = SerializeJSON(contractor)>
 		<cfreturn JSONReturn>
 	</cffunction>
+
+
+	<!---Update Event Status--->
+	<cffunction name="updateContractorStatus" access="remote" httpMethod="POST" restPath="/update/status/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.contractorid = structKeyExists(rc,'contractorid')?rc.contractorid:''>
+		<cfset rc.status = structKeyExists(rc,'status')?rc.status:''>
+
+		<!---Update Event Status --->
+		<cfstoredproc procedure="sp_update_contractor_status" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#" dbvarname="@contractorid"/>
+			<cfprocparam cfsqltype="CF_SQL_BIT" value="#rc.status#" dbvarname="@status"/>
+			<cfprocresult name="contractor" resultset="1">
+		</cfstoredproc>
+
+		<cfset ls=QueryToStruct(contractor)>    
+		<cfreturn ls>
+	</cffunction>
+
 
 
 	<!---Get Contractor Media --->

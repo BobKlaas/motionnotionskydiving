@@ -6,17 +6,20 @@
         .module('app.contractors')
         .controller('contractorsController', contractorsController);
 
-    contractorsController.$inject = ['$scope','common','contractorservice'];
+    contractorsController.$inject = ['$scope','common','contractorservice','$filter'];
 
-    function contractorsController($scope,common,contractorservice) {       
+    function contractorsController($scope,common,contractorservice,$filter) {       
         //METHODS
         $scope.init = init;
         $scope.getContractors = getContractors;
         $scope.changeStatus = changeStatus;
+        $scope.filterdata = filterdata;
 
         //VARIABLES
+        $scope.common = common;
         $scope.contractors = {all:[],chunked:[]};
         $scope.peopleImagePath = '/assets/images/people/';
+        $scope.searchtext;
 
         $scope.init();
         function init(){
@@ -27,27 +30,31 @@
         function getContractors(){
             contractorservice.getContractors().then(
                 function(results){
+                    //All Contractors
                     $scope.contractors.all = results; 
 
-                    //Chunk Out Array
-                    for(var i=0; i<results.length; i+=3) {
-                        $scope.contractors.chunked.push(results.slice(i,i+3));
-                    }
-
-                    console.log($scope.contractors);
+                    //Chunk The Array
+                    $scope.contractors.chunked = common.chunkdata(results,3);
                 }    
             );            
+        }
+
+        //Filter Data
+        function filterdata(){
+            var filtered = $filter('filter')($scope.contractors.all,$scope.searchtext);
+            $scope.contractors.chunked = common.chunkdata(filtered,3);
         }
 
         //Change Contractor Status
         function changeStatus(contractor){
             var params = {contractorid: contractor.ID, status: contractor.ACTIVE};
-            contractorservice.updateEventStatus(params).then(
+            contractorservice.updateContractorStatus(params).then(
                 function(results){
+                    console.log(results);
                     if(results[0].ACTIVE){
-                        common.logger.success(contractor.FIRSTNAME + ' event has been activated.');
+                        common.logger.success(contractor.FIRSTNAME + ' has been activated.');
                     }else{
-                        common.logger.info(contractor.LASTNAME + ' event has been disabled.');
+                        common.logger.info(contractor.LASTNAME + ' has been disabled.');
                     }                    
                 }    
             );            

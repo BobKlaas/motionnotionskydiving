@@ -1,0 +1,135 @@
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="index.cfm">Home</a></li>
+                <li><a href="index.cfm">Events</a></li>
+                <li class="active" ng-bind="etitle"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!--Events List-->
+    
+    <div layout="column" layout-gt-sm="row">
+        <div layout="column" flex="60">
+            <form name="eventForm" ng-submit="eventForm.$valid && saveEvent()">
+            <md-card>
+                <md-card-header class="card-header pop">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">event</i>
+                        <span class="md-title" ng-bind="etitle"></span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column" flex>
+                
+                <!--Event Title-->
+                <md-input-container>
+                    <label>Event Title</label>
+                    <input ng-model="event.title" autofocus name="title" required minlength="5" maxlength="50">
+                    <div ng-messages="eventForm.title.$error">
+                        <div ng-message="required">Title is required.</div>
+                        <div ng-message="minlength">Title must be at least 5 characters long.</div>
+                    </div>
+                </md-input-container>
+
+                <!--Event Description-->
+                <md-input-container>
+                    <label>Event Description</label>
+                    <input ng-model="event.description" name="description" required minlength="10" maxlength="1000">
+                    <div ng-messages="eventForm.description.$error">
+                        <div ng-message="required">Event description is required.</div>
+                        <div ng-message="minlength">Event description must be at least 10 characters long.</div>
+                    </div>
+                </md-input-container>
+
+                <!--Start Date | End Date-->
+                <div layout="row">
+                    <div flex>
+                        <md-input-container>
+                            <label>Start Date/Time</label>
+                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="startdatetime" placeholder="Start Date" min-date="minDate" max-date="maxDate" ng-model="event.startdate" class="md-input">
+                            <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.primarydiscipline.$touched">
+                                <div ng-message="required">Start date is Required</div>
+                            </div>
+                        </md-input-container>
+                    </div><div flex>
+                        <!--End Date-->
+                        <md-input-container>
+                            <label>End Date/Time</label>
+                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="enddatetime" placeholder="End Date" min-date="minDate" max-date="maxDate" ng-model="event.enddate" class="md-input">
+                            <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.primarydiscipline.$touched">
+                                <div ng-message="required">End date is Required</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>                  
+
+                <!--Dropzone-->
+                <md-input-container>
+                    <label>Dropzone</label>
+                    <md-select required ng-model="event.dropzone" name="dropzone">
+                        <md-option ng-repeat="dropzone in dropzones" value="{{dropzone.ID}}">{{dropzone.NAME}}</md-option>
+                    </md-select>
+                    <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.primarydiscipline.$touched">
+                        <div ng-message="required">Dropzone is Required</div>
+                    </div>
+                </md-input-container>
+
+                <!--Slots-->
+                <div layout="row">
+                    <!--Slots-->
+                    <md-input-container flex>
+                        <label>Available Slots</label>
+                        <input required type="number" step="1" id="slots" ng-model="event.slots" min="1" max="25" />
+                        <div ng-messages="eventForm.slots.$error">
+                            <div ng-message="required">Slots is required.</div>
+                            <div ng-message="minlength">Slots must be at least 1.</div>
+                        </div>
+                    </md-input-container>
+
+                    <!--Reserve Slots-->
+                    <md-input-container flex>
+                        <label>Reserve Slots</label>
+                        <input required type="number" step="1" id="reserveslots" ng-model="event.reserveslots" min="1" max="25" />
+                        <div ng-messages="eventForm.reserveslots.$error">
+                            <div ng-message="required">Reserve slots is required.</div>
+                            <div ng-message="minlength">Reserve slots must be at least 1.</div>
+                        </div>
+                    </md-input-container>
+                </div>  
+
+                <!--Event Image-->                
+                <img id="previewimage" src="">
+                <img id="resultimage" src="">
+                <div class="actions" style="padding-left:40px;">                     
+                    <md-button class="md-raised md-primary">
+                        <label for="upload">
+                            <md-icon md-font-set="material-icons">search</md-icon> BROWSE FOR IMAGE
+                        </label>
+                    </md-button>
+                    <input type="file" name="upload" id="upload" value="Choose an image to upload" accept="image/*" style="display:none;">                    
+                </div>
+                
+
+                <!--Submit Button-->
+                <md-button class="md-raised md-primary" type="submit" ng-disabled="!eventForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button>
+                </md-card-content>
+            </md-card>
+            </form>
+        </div>
+         </div>
+
+  
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

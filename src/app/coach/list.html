@@ -1,4 +1,4 @@
-<!-- Page Content -->
+<!--Page Content -->
 <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
@@ -37,10 +37,17 @@
         </div>
     </div>
 
+    <!--No Active Team Members Message-->
+    <div class="row" ng-if="!contractors.all.length">
+        <div class="col-md-12">
+            <p class="event-details" ng-bind="message"></p>
+        </div>
+    </div>
+
     <hr>
 
     <!-- Footer -->
     <customfooter></customfooter>
 
 </div>
-<!-- /.container -->
+<!-- /.container

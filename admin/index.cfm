@@ -19,7 +19,10 @@
     <link rel="stylesheet" href="src/lib/angular-material/angular-material.css">
     <link rel="stylesheet" href="src/lib/toastr/toastr.css">
     <link rel="stylesheet" href="src/lib/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="src/lib/angular-material-datetimepicker/css/material-datetimepicker.min.css">
+    <link rel="stylesheet" href="src/lib/cropperjs/dist/cropper.css">
     <link rel="stylesheet" href="src/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="src/lib/lightgallery/dist/css/lightgallery.css">
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -55,14 +58,22 @@
     <script src="src/lib/angular-messages/angular-messages.js"></script>
     <script src="src/lib/angular-route/angular-route.js"></script>
     <script src="src/lib/angular-touch/angular-touch.js"></script>
+    <script src="src/lib/momentjs/moment.js"></script>
     <script src="src/lib/ng-device-detector/ng-device-detector.js"></script>
     <script src="src/lib/re-tree/re-tree.js"></script>
     <script src="src/lib/toastr/toastr.js"></script>
-    <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
     <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
+    <script src="src/lib/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
+    <script src="src/lib/angular-recaptcha/release/angular-recaptcha.js"></script>
+    <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
+    <script src="src/lib/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script>
+    <script src="src/lib/angular-youtube-mb/src/angular-youtube-embed.js"></script>
+    <script src="src/lib/cropperjs/dist/cropper.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="src/lib/lightgallery/dist/js/lightgallery.min.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -99,7 +110,7 @@
     <script src="src/app/events/events.module.js"></script>
     <script src="src/app/events/list.js"></script>
     <script src="src/app/events/registered.js"></script>
-    <script src="src/app/events/edit.js"></script>
+    <script src="src/app/events/create.js"></script>
 
     <!---CONTRACTORS--->    
     <script src="src/app/contractors/contractors.module.js"></script>

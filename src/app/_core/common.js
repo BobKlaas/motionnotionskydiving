@@ -19,6 +19,7 @@
             formatDateRange     : formatDateRange,
             buildfilepath       : buildfilepath,
             getSocialUrls       : getSocialUrls,
+            chunkdata           : chunkdata,
             $log                : $log,
             $http               : $http,
             $q                  : $q,
@@ -51,6 +52,15 @@
             }else{
                 $location.path(path);
             }
+        };
+
+        //Chunk Data
+        function chunkdata(ary,num){
+            var newarray = [];
+            for(var i=0; i<ary.length; i+=num) {
+               newarray.push(ary.slice(i,i+num));
+            }
+            return newarray;
         };
 
         //Show Slideshow on Homepage Only

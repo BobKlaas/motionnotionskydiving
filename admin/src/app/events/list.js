@@ -6,21 +6,22 @@
         .module('app.events')
         .controller('eventListController',eventListController);
 
-    eventListController.$inject = ['$scope','common','eventservice'];
+    eventListController.$inject = ['$scope','common','eventservice','$filter'];
 
-    function eventListController($scope,common,eventservice){       
+    function eventListController($scope,common,eventservice,$filter){       
         console.log('Event list controller has been called');
 
         //METHODS
         $scope.init = init;
         $scope.getEvents = getEvents;
-        $scope.showToastFull = showToastFull;
         $scope.changeStatus = changeStatus;
+        $scope.filterdata = filterdata;
         
         //VARIABLES
         $scope.common = common;
         $scope.eventsImagePath = '/assets/images/events/';
-        $scope.events = [];
+        $scope.events = {all:[],chunked:[]};
+        $scope.searchtext;
         
         //Init Function
         $scope.init();
@@ -32,10 +33,19 @@
         function getEvents(){
             eventservice.getEvents().then(
                 function(results){
-                    $scope.events = results; 
-                    console.log($scope.events);
+                    //All Contractors
+                    $scope.events.all = results; 
+
+                    //Chunk The Array
+                    $scope.events.chunked = common.chunkdata(results,3);
                 }    
             );            
+        }
+
+        //Filter Data
+        function filterdata(){
+            var filtered = $filter('filter')($scope.events.all,$scope.searchtext);
+            $scope.events.chunked = common.chunkdata(filtered,2);
         }
 
         //Change Status
@@ -52,13 +62,6 @@
                 }    
             );            
         }
-
-        //Show Camp is full
-        function showToastFull(title){
-            common.logger.warn('The '+title+' is currently full. However, you can still register for a reserve slot.','','Event Full');
-        };
-
-        
 
     };
 

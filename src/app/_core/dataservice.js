@@ -33,7 +33,7 @@
 
         //Get All Active Contractors
         function getContractors(params){
-            return utility.HttpService.sendRequest('/rest/api/contractors/get/');
+            return utility.HttpService.sendRequest('/rest/api/contractors/get/active/');
         }
 
         //Get Contractors by ID

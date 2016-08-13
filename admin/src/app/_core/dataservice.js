@@ -22,12 +22,18 @@
     function contractorservice(utility) {
         var service = {
              getContractors: getContractors
+            ,updateContractorStatus:updateContractorStatus
         };
         return service;
 
         //Get All Active Contractors
         function getContractors(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/get/');
+        }
+
+        //Toggles the status of a contractor
+        function updateContractorStatus(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/update/status',params,'post');
         }
     }
 
@@ -38,6 +44,7 @@
             ,getEventByID: getEventByID
             ,updateEventStatus: updateEventStatus
             ,getEventCustomers: getEventCustomers
+            ,createEvent: createEvent
         };
         return service;
 
@@ -59,6 +66,11 @@
         //Get All Customers for an Event
         function getEventCustomers(params){
             return utility.HttpService.sendRequest('/rest/api/events/customers/event/'+params.eventid);
+        }
+
+        //Create Event
+        function createEvent(params){
+            return utility.HttpService.sendRequest('/rest/api/events/create/',params,'post');
         }
 
     }

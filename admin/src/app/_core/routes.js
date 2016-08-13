@@ -19,9 +19,9 @@
                      templateUrl: 'src/app/events/registered.html'
                     ,controller: 'eventRegisteredController'
                 })
-                .when('/events/edit/:eventid/', {
-                     templateUrl: 'src/app/events/edit.html'
-                    ,controller: 'eventEditController'
+                .when('/events/create/', {
+                     templateUrl: 'src/app/events/create.html'
+                    ,controller: 'eventCreateController'
                 })
                 .otherwise({redirectTo:'/events'});
 

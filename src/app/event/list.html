@@ -1,4 +1,3 @@
-Page Content -->
 <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
@@ -14,113 +13,69 @@ Page Content -->
     </div>
     <!-- /.row -->
 
-    <!-- Project One -->
-    <!--<div class="row" ng-repeat="event in events" style="padding-bottom:25px;">
-        <div class="col-md-7">
-            <a ng-href="/events/view/{{event.ID}}">
-                <img class="img-responsive img-hover" ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" alt="">
-            </a>
-        </div>
-        <div class="col-md-5">
-            <h3 ng-bind="event.TITLE"></h3>
-            <h4 ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></h4>
-            <p ng-bind="event.DESCRIPTION"></p><br>
-            <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">View Event Details</md-button>
-            <a class="btn btn-primary" ng-href="/events/view/{{event.ID}}">View Event Details</i></a>
-        </div>
-        <hr>
-    </div> -->
-    <!-- /.row -->
-
     <!--Events List-->
-    <div layout="column" layout-gt-sm="row">
-        <div layout="column" class="col-md-5" ng-repeat="event in events">
-        <md-card style="padding-bottom:25px;" flex>
-            <!--Event Image-->
-            <a ng-href="/events/view/{{event.ID}}">
-                <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
-            </a>
+    <div class="row" ng-repeat="chunk in events.chunked" layout-padding>
+        <div class="col-md-6" ng-repeat="event in chunk">
+            <md-card>
+                <!--Event Image-->
+                <a ng-href="/events/view/{{event.ID}}" flex="none">
+                    <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
+                </a>
 
-            <!--Card Title-->
-            <md-card-title style="position:relative;" flex="none">
                 <!--Card Title-->
-                <md-card-title-text layout="row">
-                    <span class="md-headline" ng-bind="event.TITLE"></span>
-                 </md-card-title-text>
-                
-                <!--FAB: View Details -->
-                <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="/events/view/{{event.ID}}">
-                    <md-tooltip md-direction="bottom">
-                        View Details
-                    </md-tooltip>
-                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">description</md-icon>
-                </md-button>
-
-                <!--FAB: Event Full-->
-                <md-button class="md-fab md-mini md-warn btn-card-float-l1" aria-label="Full" ng-click="showToastFull(event.TITLE)" ng-hide="event.SLOTSLEFT">
-                    <md-tooltip md-direction="bottom">
-                        Event is Full
-                    </md-tooltip>
-                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">people</md-icon>
-                </md-button>
-            </md-card-title>
-
-            <!--Card Body-->
-            <md-card-content flex>
-                <h4 ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></h4>
-                <p class="event-details" ng-if="event.SLOTSLEFT">Slots Available: {{event.SLOTSLEFT}}</p>
-                <p class="event-details" ng-if="!event.SLOTSLEFT" style="color:#FF5722">Slots Available: {{event.SLOTSLEFT}}</p>
-                <p ng-bind="event.DESCRIPTION"></p><br>
-            </md-card-content>
-
-            <!--Card Actions-->
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">
-                    <md-icon md-font-set="material-icons" ng-href="/home/comment">description</md-icon> VIEW DETAILS
+                <md-card-title style="position:relative;" flex="none">
+                    <!--Card Title-->
+                    <md-card-title-text layout="row">
+                        <span class="md-headline" ng-bind="event.TITLE"></span>
+                     </md-card-title-text>
+                    
+                    <!--FAB: View Details -->
+                    <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="/events/view/{{event.ID}}">
+                        <md-tooltip md-direction="bottom">
+                            View Details
+                        </md-tooltip>
+                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">description</md-icon>
                     </md-button>
-                <md-button class="md-raised md-primary" flex ng-href="/events/register/step1/{{event.ID}}" ng-show="event.SLOTSLEFT">
-                    <md-icon md-font-set="material-icons" ng-href="/home/comment">person_add</md-icon> REGISTER
-                </md-button>
-                <md-button class="md-raised md-primary" flex ng-href="/events/register/reservelist/{{event.ID}}" ng-hide="event.SLOTSLEFT">
-                    <md-icon md-font-set="material-icons" ng-href="/home/comment">person_add</md-icon> RESERVE LIST
-                </md-button>
-            </md-card-actions>
-        </md-card>
+
+                    <!--FAB: Event Full-->
+                    <md-button class="md-fab md-mini md-warn btn-card-float-l1" aria-label="Full" ng-click="showToastFull(event.TITLE)" ng-hide="event.SLOTSLEFT">
+                        <md-tooltip md-direction="bottom">
+                            Event is Full
+                        </md-tooltip>
+                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">people</md-icon>
+                    </md-button>
+                </md-card-title>
+
+                <!--Card Body-->
+                <md-card-content class="min-height-300">
+                    <h4 ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></h4>
+                    <p class="event-details" ng-if="event.SLOTSLEFT">Slots Available: {{event.SLOTSLEFT}}</p>
+                    <p class="event-details" ng-if="!event.SLOTSLEFT" style="color:#FF5722">Slots Available: {{event.SLOTSLEFT}}</p>
+                    <p ng-bind="event.DESCRIPTION"></p><br>
+                </md-card-content>
+
+                <!--Card Actions-->
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-raised md-primary" flex ng-href="/events/view/{{event.ID}}">
+                        <md-icon md-font-set="material-icons" ng-href="/home/comment">description</md-icon> VIEW DETAILS
+                        </md-button>
+                    <md-button class="md-raised md-primary" flex ng-href="/events/register/step1/{{event.ID}}" ng-show="event.SLOTSLEFT">
+                        <md-icon md-font-set="material-icons" ng-href="/home/comment">person_add</md-icon> REGISTER
+                    </md-button>
+                    <md-button class="md-raised md-primary" flex ng-href="/events/register/reservelist/{{event.ID}}" ng-hide="event.SLOTSLEFT">
+                        <md-icon md-font-set="material-icons" ng-href="/home/comment">person_add</md-icon> RESERVE LIST
+                    </md-button>
+                </md-card-actions>
+            </md-card>
         </div>
     </div>
 
-  
-    <hr>
-
-    <!-- Pagination -->
-    <!-- <div class="row text-center">
-        <div class="col-lg-12">
-            <ul class="pagination">
-                <li>
-                    <a href="#">&laquo;</a>
-                </li>
-                <li class="active">
-                    <a href="#">1</a>
-                </li>
-                <li>
-                    <a href="#">2</a>
-                </li>
-                <li>
-                    <a href="#">3</a>
-                </li>
-                <li>
-                    <a href="#">4</a>
-                </li>
-                <li>
-                    <a href="#">5</a>
-                </li>
-                <li>
-                    <a href="#">&raquo;</a>
-                </li>
-            </ul>
+    <!--No Active Team Members Message-->
+    <div class="row" ng-if="!events.all.length">
+        <div class="col-md-12">
+            <p class="event-details" ng-bind="message"></p>
         </div>
-    </div> -->
-    <!-- /.row -->
+    </div>
 
     <hr>
 

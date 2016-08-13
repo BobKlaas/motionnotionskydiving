@@ -19,7 +19,8 @@
 		//VARIABLES
 		$scope.common = common;
         $scope.eventsImagePath = '/assets/images/events/';
-        $scope.events = [];
+         $scope.events = {all:[],chunked:[]};
+        $scope.message ="";
 		
     	//Init Function
         $scope.init();
@@ -29,20 +30,34 @@
 
         //Get Events
         function getEvents(){
-            var params = {active: 1};
+            var params = {active:1}
             eventservice.getEventsByStatus(params).then(
                 function(results){
-                    $scope.events = results; 
-                    console.log($scope.events);
+                    //All Contractors
+                    $scope.events.all = results; 
+
+                    //Chunk The Array
+                    $scope.events.chunked = common.chunkdata(results,2);
+
+                    if(!results.length)
+                        $scope.message ="We currently don't have any events scheduled. However, we are working on the next awesome event, so check back soon!";
+                },function(error){
+                    $scope.message ="Error loading events. Please reload the page.";
                 }    
             );            
         }
+
+        //Filter Data
+        function filterdata(){
+            var filtered = $filter('filter')($scope.events.all,$scope.searchtext);
+            $scope.events.chunked = common.chunkdata(filtered,3);
+        }
+
 
         //Show Camp is full
         function showToastFull(title){
             common.logger.warn('The '+title+' is currently full. However, you can still register on our reserve list.','','Event Full');
         };
-
         
 
     };

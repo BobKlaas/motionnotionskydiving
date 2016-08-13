@@ -12,64 +12,88 @@
     </div>
     <!-- /.row -->
 
+    <!--Search Toolbar____________________________________________-->
+    <div layout="row" layout-padding>
+        <md-toolbar style="background-color:#EEE">
+            <div class="md-toolbar-tools">
+                <div layout="row" flex="50">
+                    <form name="searchForm" class="md-primary" flex>
+                        <md-input-container class="md-block" layout-align="center center">
+                            <md-icon md-font-set="material-icons">search</md-icon>
+                            <input name="searchtext" ng-model="searchtext" maxlength="30" ng-change="filterdata()" placeholder="Search" autofocus>
+                        </md-input-container>
+                    </form>
+                </div>
+                <div layout="row" layout-align="end center" flex>
+                    <md-button class="md-raised md-primary" ng-href="./events/create/">
+                        <md-icon md-font-set="material-icons">event</md-icon> Create Event
+                    </md-button>
+                    <!-- <md-button class="md-fab md-mini" aria-label="Favorite">
+                        <md-icon md-font-set="material-icons">search</md-icon>
+                    </md-button> -->
+                </div>
+            </div>
+        </md-toolbar>
+    </div>
+
     <!--Events List-->
-    <div layout="column" layout-gt-sm="row">
-        <div layout="column" class="col-md-4" ng-repeat="event in events" flex>
-        <md-card style="padding-bottom:25px;" flex>
-            <md-card-header class="card-header">                    
-                <md-card-header-text layout="row">
-                    <div layout="row" flex>
-                        <i class="material-icons">event_note</i>
-                        <span class="md-title" ng-bind="event.TITLE"></span>
-                    </div><div layout="column" layout-align="start start">
-                        <md-switch ng-model="event.ACTIVE" aria-label="Active" ng-true-value="1" ng-false-value="0" ng-change="changeStatus(event)"></md-switch>
-                    </div>
-                </md-card-header-text>                
-            </md-card-header>
+    <div class="row" ng-repeat="chunk in events.chunked">
+        <div class="col-md-6" ng-repeat="event in chunk">   
+            <md-card style="padding-bottom:25px;" flex>
+                <md-card-header class="card-header">                    
+                    <md-card-header-text layout="row">
+                        <div layout="row" flex>
+                            <i class="material-icons">event_note</i>
+                            <span class="md-title" ng-bind="event.TITLE"></span>
+                        </div><div layout="column" layout-align="start start">
+                            <md-switch ng-model="event.ACTIVE" aria-label="Active" ng-true-value="1" ng-false-value="0" ng-change="changeStatus(event)"></md-switch>
+                        </div>
+                    </md-card-header-text>                
+                </md-card-header>
 
-            <!--Event Image-->
-            <a ng-href="/events/view/{{event.ID}}">
-                <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
-            </a>
+                <!--Event Image-->
+                <a ng-href="/events/view/{{event.ID}}">
+                    <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
+                </a>
 
-            <!--Card Title-->
-            <md-card-title style="position:relative;" flex="none">                
-                <!--FAB: View Details -->
-                <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./events/edit/{{event.ID}}">
-                    <md-tooltip md-direction="bottom">
-                        Edit Event
-                    </md-tooltip>
-                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">edit</md-icon>
-                </md-button>
+                <!--Card Title-->
+                <md-card-title style="position:relative;" flex="none">                
+                    <!--FAB: View Details -->
+                    <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./events/edit/{{event.ID}}">
+                        <md-tooltip md-direction="bottom">
+                            Edit Event
+                        </md-tooltip>
+                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">edit</md-icon>
+                    </md-button>
 
-                <!--FAB: Registered List-->
-                <md-button class="md-fab md-mini btn-card-float-l1" aria-label="Event Manifest" ng-href="./events/registered/{{event.ID}}">
-                    <md-tooltip md-direction="bottom">
-                        Event Manifest
-                    </md-tooltip>
-                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">people</md-icon>
-                </md-button>
-            </md-card-title>
+                    <!--FAB: Registered List-->
+                    <md-button class="md-fab md-mini btn-card-float-l1" aria-label="Event Manifest" ng-href="./events/registered/{{event.ID}}">
+                        <md-tooltip md-direction="bottom">
+                            Event Manifest
+                        </md-tooltip>
+                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">people</md-icon>
+                    </md-button>
+                </md-card-title>
 
-            <!--Card Body-->
-            <md-card-content flex>
-                <p class="event-details" ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></p>
-                <p class="event-details">Slots Filled: {{event.SLOTSFILLED}} of {{event.SLOTS}}</p>
-                <p class="event-details">Slots Remaining: {{event.SLOTSLEFT}}</p>
-                <p class="event-details">Reserve List: {{event.RESERVELISTCOUNT}} registered</p>
-                <!-- <p ng-bind="event.DESCRIPTION"></p><br> -->
-            </md-card-content>
+                <!--Card Body-->
+                <md-card-content flex>
+                    <p class="event-details" ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></p>
+                    <p class="event-details">Slots Filled: {{event.SLOTSFILLED}} of {{event.SLOTS}}</p>
+                    <p class="event-details">Slots Remaining: {{event.SLOTSLEFT}}</p>
+                    <p class="event-details">Reserve List: {{event.RESERVELISTCOUNT}} registered</p>
+                    <!-- <p ng-bind="event.DESCRIPTION"></p><br> -->
+                </md-card-content>
 
-            <!--Card Actions-->
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-raised md-primary" flex ng-href="./events/edit/{{event.ID}}">
-                    <md-icon md-font-set="material-icons">edit</md-icon> EDIT
-                </md-button>
-                <md-button class="md-raised md-primary" flex ng-href="./events/registered/{{event.ID}}">
-                    <md-icon md-font-set="material-icons">people</md-icon> MANIFEST
-                </md-button>
-            </md-card-actions>
-        </md-card>
+                <!--Card Actions-->
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-raised md-primary" flex ng-href="./events/edit/{{event.ID}}">
+                        <md-icon md-font-set="material-icons">edit</md-icon> EDIT
+                    </md-button>
+                    <md-button class="md-raised md-primary" flex ng-href="./events/registered/{{event.ID}}">
+                        <md-icon md-font-set="material-icons">people</md-icon> MANIFEST
+                    </md-button>
+                </md-card-actions>
+            </md-card>
         </div>
     </div>
 
