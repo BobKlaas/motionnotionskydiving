@@ -37,7 +37,7 @@
                     $scope.events.all = results; 
 
                     //Chunk The Array
-                    $scope.events.chunked = common.chunkdata(results,3);
+                    $scope.events.chunked = common.chunkdata(results,2);
                 }    
             );            
         }
