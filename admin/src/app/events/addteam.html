@@ -18,7 +18,7 @@
     
     <div layout="column" layout-gt-sm="row">
         <div layout="column" flex="60">
-            <form name="eventForm" ng-submit="eventForm.$valid && saveEvent()">
+            
             <md-card>
                 <md-card-header class="card-header pop">                    
                     <md-card-header-text layout="row">
@@ -27,15 +27,73 @@
                     </md-card-header-text>
                 </md-card-header>
                 
-                <md-card-content layout="column" flex>
-                
+                <md-card-content layout="column">
+                    <form name="addForm" ng-submit="addForm.$valid && addContractorToArray()">
+                        <div layout="column" layout-gt-md="row">
+                            <!--Contractor-->
+                            <md-input-container flex>
+                                <label>Contractor</label>
+                                <md-select required ng-model="contractor.contractorid" name="contractor" ng-change="setDailyRate()">
+                                    <md-option ng-repeat="contractor in contractors" value="{{contractor.ID}}">{{contractor.FULLNAME}}</md-option>
+                                </md-select>
+                                <div class="errors" ng-messages="addForm.contractor.$error" ng-if="addForm.contractor.$touched">
+                                    <div ng-message="required">Contractor is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <!--Role-->
+                            <md-input-container flex>
+                                <label>Role</label>
+                                <md-select required ng-model="contractor.roleid" name="role">
+                                    <md-option ng-repeat="role in roles" value="{{role.ID}}">{{role.TITLE}}</md-option>
+                                </md-select>
+                                <div class="errors" ng-messages="addForm.role.$error" ng-if="addForm.role.$touched">
+                                    <div ng-message="required">Role is required</div>
+                                </div>
+                            </md-input-container>
+
+                            <!--Day Rate -->
+                            <md-input-container flex>
+                                <label>Daily Rate (USD)</label>
+                                <input required id="rate" name="rate" ng-model="contractor.dayrate" required ng-pattern="/^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$/"/>
+                                <div ng-messages="addForm.rate.$error">
+                                    <div ng-message-exp="['required', 'pattern']">                              
+                                        Please enter a valid daily pay rate.
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+                            <!--Add Contractor-->
+                            <div>
+                                <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" flex>
+                                    <md-icon md-font-set="material-icons">add</md-icon> ADD
+                                </md-button>
+                            </div>
+                    </div>
+
+                    
+                    <!--Team List-->
+                    <md-list ng-if="contractorlist.length" flex>
+                        <md-list-item class="md-3-line" ng-repeat="contractor in contractorlist" ng-click="null">
+                            <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-avatar" alt="{{contractorlist.FULLNAME}}" />
+                            <div class="md-list-item-text" layout="column">
+                                <h3>{{ contractor.FULLNAME }}</h3>
+                                <!-- <h4><a href="mailto:{{person.EMAILADDRESS}}?subject={{event.details.TITLE}}" ng-bind="person.EMAILADDRESS"></a></h4>
+                                <p><a href="tel:1{{person.PHONENUMBER}}" ng-bind="person.PHONENUMBER"></a></p> -->
+                            </div><div class="md-list-item-text" layout="column" layout-align="center end">
+                                <h4>{{contractor.DAYRATE | currency}}</h4>
+                                <!-- <h4 style="color:red">PAID: {{person.AMOUNTPAID | currency}}</h4>
+                                <p>{{common.utility.odbcToNGDate(person.REGISTERDATE)}}</p> -->
+                            </div>
+                        </md-list-item>
+                    </md-list>
                             
 
                     <!--Submit Button-->
-                    <md-button class="md-raised md-primary" type="submit" ng-disabled="!eventForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button>
+                    <!-- <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button> -->
                 </md-card-content>
             </md-card>
-            </form>
+            
         </div>
          </div>
 

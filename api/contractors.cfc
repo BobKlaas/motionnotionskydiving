@@ -19,6 +19,15 @@
 		<cfreturn ls>
 	</cffunction>
 
+	<!---Get Contractor Roles--->
+	<cffunction name="getContractorRoles" access="remote" httpMethod="GET" restPath="/roles/get" returntype="any" produces="application/json">		
+		<cfstoredproc procedure="sp_get_contractor_roles" datasource="motion">
+			<cfprocresult name="contractors" resultset="1">
+		</cfstoredproc>
+		<cfset ls=QueryToStruct(contractors)>    
+		<cfreturn ls>
+	</cffunction>
+
 	<!---Get Contractor Details --->
 	<cffunction name="getContractorByUniqueName" access="remote" httpMethod="GET" restPath="/get/{uniquename}" returntype="any" produces="application/json">
 		<cfargument name="uniquename" type="string" required="true" restargsource="path">

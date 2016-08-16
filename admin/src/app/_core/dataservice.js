@@ -23,12 +23,18 @@
         var service = {
              getContractors: getContractors
             ,updateContractorStatus:updateContractorStatus
+            ,getContractorRoles: getContractorRoles
         };
         return service;
 
         //Get All Active Contractors
         function getContractors(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/get/');
+        }
+
+        //Get All Active Contractors
+        function getContractorRoles(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/roles/get/');
         }
 
         //Toggles the status of a contractor
