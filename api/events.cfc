@@ -198,6 +198,7 @@
 		<cfset rc.description = structKeyExists(rc,'description')?rc.description:''>
 		<cfset rc.startdate = structKeyExists(rc,'startdate')?ISOToDateTime(rc.startdate):''>
 		<cfset rc.enddate = structKeyExists(rc,'enddate')?ISOToDateTime(rc.enddate):''>
+		<cfset rc.jumpsperday = structKeyExists(rc,'jumpsperday')?rc.jumpsperday:''>
 		<cfset rc.slots = structKeyExists(rc,'slots')?rc.slots:''>
 		<cfset rc.reserveslots = structKeyExists(rc,'reserveslots')?rc.reserveslots:''>
 		<cfset rc.registrationfee = structKeyExists(rc,'registrationfee')?rc.registrationfee:''>
@@ -220,6 +221,7 @@
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.description#" dbvarname="@description"/>
 			<cfprocparam cfsqltype="CF_SQL_TIMESTAMP" value="#rc.startdate#" dbvarname="@startdate"/>
 			<cfprocparam cfsqltype="CF_SQL_TIMESTAMP" value="#rc.enddate#" dbvarname="@enddate"/>
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.jumpsperday#" dbvarname="@jumpsperday"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.slots#" dbvarname="@slots"/>
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.reserveslots#" dbvarname="@reserveslots"/>
 			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.registrationfee#" dbvarname="@registrationfee"/>

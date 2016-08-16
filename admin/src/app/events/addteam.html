@@ -29,11 +29,11 @@
                 
                 <md-card-content layout="column">
                     <form name="addForm" ng-submit="addForm.$valid && addContractorToArray()">
-                        <div layout="column" layout-gt-md="row">
+                        <div layout="column" layout-gt-sm="row">
                             <!--Contractor-->
                             <md-input-container flex>
                                 <label>Contractor</label>
-                                <md-select required ng-model="contractor.contractorid" name="contractor" ng-change="setDailyRate()">
+                                <md-select required ng-model="eventcontractor.id" name="contractor" ng-change="setDailyRate()">
                                     <md-option ng-repeat="contractor in contractors" value="{{contractor.ID}}">{{contractor.FULLNAME}}</md-option>
                                 </md-select>
                                 <div class="errors" ng-messages="addForm.contractor.$error" ng-if="addForm.contractor.$touched">
@@ -44,7 +44,7 @@
                             <!--Role-->
                             <md-input-container flex>
                                 <label>Role</label>
-                                <md-select required ng-model="contractor.roleid" name="role">
+                                <md-select required ng-model="eventcontractor.roleid" name="role">
                                     <md-option ng-repeat="role in roles" value="{{role.ID}}">{{role.TITLE}}</md-option>
                                 </md-select>
                                 <div class="errors" ng-messages="addForm.role.$error" ng-if="addForm.role.$touched">
@@ -55,7 +55,7 @@
                             <!--Day Rate -->
                             <md-input-container flex>
                                 <label>Daily Rate (USD)</label>
-                                <input required id="rate" name="rate" ng-model="contractor.dayrate" required ng-pattern="/^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$/"/>
+                                <input required id="rate" name="rate" ng-model="eventcontractor.dayrate" required ng-pattern="/^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$/"/>
                                 <div ng-messages="addForm.rate.$error">
                                     <div ng-message-exp="['required', 'pattern']">                              
                                         Please enter a valid daily pay rate.
@@ -63,31 +63,50 @@
                                 </div>
                             </md-input-container>
 
-                            <!--Add Contractor-->
-                            <div>
-                                <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" flex>
-                                    <md-icon md-font-set="material-icons">add</md-icon> ADD
-                                </md-button>
+                            <!--Slots Paid-->
+                            <div layout="column" layout-align="center center">
+                                <md-checkbox ng-model="eventcontractor.slotcompensation" name="slotcompensation" ng-true-value="1" ng-false-value="0" aria-label="Slots Paid">
+                                    Slots Paid
+                                </md-checkbox>
                             </div>
-                    </div>
+
+                            <!--Add Contractor-->
+                            <div layout="row" style="padding-top:5px;">
+                                <div>
+                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" flex>
+                                        <md-icon md-font-set="material-icons">add</md-icon> ADD
+                                    </md-button>
+                                </div>
+                            </div>                            
+                        </div>
 
                     
-                    <!--Team List-->
-                    <md-list ng-if="contractorlist.length" flex>
-                        <md-list-item class="md-3-line" ng-repeat="contractor in contractorlist" ng-click="null">
-                            <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-avatar" alt="{{contractorlist.FULLNAME}}" />
-                            <div class="md-list-item-text" layout="column">
-                                <h3>{{ contractor.FULLNAME }}</h3>
-                                <!-- <h4><a href="mailto:{{person.EMAILADDRESS}}?subject={{event.details.TITLE}}" ng-bind="person.EMAILADDRESS"></a></h4>
-                                <p><a href="tel:1{{person.PHONENUMBER}}" ng-bind="person.PHONENUMBER"></a></p> -->
-                            </div><div class="md-list-item-text" layout="column" layout-align="center end">
-                                <h4>{{contractor.DAYRATE | currency}}</h4>
-                                <!-- <h4 style="color:red">PAID: {{person.AMOUNTPAID | currency}}</h4>
-                                <p>{{common.utility.odbcToNGDate(person.REGISTERDATE)}}</p> -->
-                            </div>
-                        </md-list-item>
-                    </md-list>
-                            
+                        <!--Team List-->
+                        <md-list ng-if="contractorlist.length" flex>
+                            <md-list-item class="md-3-line" ng-repeat="contractor in contractorlist" ng-click="null">
+                                <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.imagename)}}" class="md-avatar" alt="{{contractorlist.fullname}}" />
+                                <div layout="column" layout-gt-sm="row" flex>
+                                    <div class="md-list-item-text" layout="column">
+                                        <h3>{{ contractor.fullname }} - {{ contractor.roletitle }}</h3>
+                                        <h4>Day Rate: {{contractor.dayrate | currency}}</h4>
+                                        <h4>Slots Compensated: {{ contractor.slotcompensation ? "Yes" : "No" }}</h4>
+                                    </div>
+
+                                </div>
+                                <div class="md-list-item-text" layout="column" layout-align="center end">                                
+                                     <!--FAB: Remove Contractor -->
+                                    <md-button class="md-fab md-mini" aria-label="Remove Contractor" ng-click="removeContractor(contractor)">
+                                        <md-tooltip md-direction="bottom">
+                                            Remove Contractor
+                                        </md-tooltip>
+                                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">remove</md-icon>
+                                    </md-button>
+
+                                    <!-- <h4 style="color:red">PAID: {{person.AMOUNTPAID | currency}}</h4>
+                                    <p>{{common.utility.odbcToNGDate(person.REGISTERDATE)}}</p> -->
+                                </div>
+                            </md-list-item>
+                        </md-list>                           
 
                     <!--Submit Button-->
                     <!-- <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button> -->

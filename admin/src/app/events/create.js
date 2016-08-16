@@ -44,6 +44,7 @@
             ,startdate: ''
             ,enddate: ''
             ,slots: ''
+            ,jumpsperday: ''
             ,reserveslots: 10
             ,suggestedregistrationfee: 50.00
             ,registrationfee: 0

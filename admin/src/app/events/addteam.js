@@ -17,20 +17,24 @@
         $scope.getContractors = getContractors;
         $scope.getContractorRoles = getContractorRoles;
         $scope.setDailyRate = setDailyRate;
-        $scope.newContractor = newContractor;
+        $scope.newEventContractor = newEventContractor;
         $scope.addContractorToArray = addContractorToArray;
         $scope.resetForm = resetForm;
+        $scope.removeContractor = removeContractor;
+        $scope.getRole = getRole;
         
         //VARIABLES        
         $scope.eventsImagePath = '/assets/images/events/';
         $scope.peopleImagePath = '/assets/images/people/';
         $scope.etitle = 'Add Team';
         $scope.eventid = common.$routeParams.eventid;
-        $scope.contractor = $scope.newContractor();
         $scope.event = {details:[], contractors:[], customers:[]};   
         $scope.contractors = [];
         $scope.contractorlist = [];
         $scope.roles = [];
+
+        //Event Contractor
+        $scope.eventcontractor = $scope.newEventContractor();
         
         //Init Function
         $scope.init();
@@ -71,9 +75,9 @@
         //Get Daily Rate
         function setDailyRate(){
             for(var i=0; i < $scope.contractors.length; i++){
-                if($scope.contractors[i].ID == $scope.contractor.contractorid){
+                if($scope.contractors[i].ID == $scope.eventcontractor.id){
                     var rate = $scope.contractors[i].DAYRATE;
-                    $scope.contractor.dayrate =  rate.toFixed(2);
+                    $scope.eventcontractor.dayrate =  rate.toFixed(2);
                 }
             }           
         }
@@ -81,39 +85,66 @@
         //Add Contractor To Array
         function addContractorToArray(){
             for(var i=0; i < $scope.contractors.length; i++){
-                if($scope.contractors[i].ID == $scope.contractor.contractorid){
+                if($scope.contractors[i].ID == $scope.eventcontractor.id){
 
-                    //Add Contractor to List
-                    var contractor = $scope.contractors[i];
-                    $scope.contractors[i].DAYRATE = $scope.contractor.dayrate;
-                    $scope.contractorlist.push($scope.contractors[i]);
+                    //Create Event Contractor
+                    var contractor = $scope.contractors[i]; 
+                    var role = getRole($scope.eventcontractor.roleid);
+                    console.log(role);
+                    var econtractor = newEventContractor(contractor.ID,contractor.FULLNAME,contractor.IMAGENAME,role.ID,role.TITLE,$scope.eventcontractor.dayrate,$scope.eventcontractor.slotcompensation);
+                    
+                    //Add Event Contractor to List
+                    $scope.contractorlist.push(econtractor);
 
-                    //Remove Item From Contractors
+                    //Remove Item From Dropdown Selection
                     $scope.contractors.splice(i,1);                 
 
+                    //Reset Form
                     $scope.resetForm();
-                    console.log($scope.contractorlist);
                 }
             }            
         }
 
+        //Returns a Populated Event Contractor Object
+        function newEventContractor(id,fullname,imagename,roleid,roletitle,dayrate,slotcompensation){
+            var eventcontractor = {
+                 id: id
+                ,fullname: fullname
+                ,imagename: imagename
+                ,roleid: roleid
+                ,roletitle: roletitle
+                ,dayrate: dayrate
+                ,slotcompensation: (slotcompensation!==undefined)?slotcompensation:1                
+            }
+            return eventcontractor;
+        }
+
         //Reset Contractor Add Form
         function resetForm(){
+            $scope.eventcontractor = $scope.newEventContractor();
             $scope.addForm.$setPristine();
-            $scope.addForm.$setUntouched();
-            $scope.contractor = $scope.newContractor();
+            $scope.addForm.$setUntouched();            
         }
 
-        //Return Contractor Object
-        function newContractor(){
-            var ncontractor = {
-                 contractorid: ''
-                ,roleid: ''
-                ,dayrate: 0
+        //Remove Contractor from List
+        function removeContractor(contractor){
+            for(var i=0; i < $scope.contractorlist.length; i++){
+                if($scope.contractorlist[i].id == contractor.id){
+                    $scope.contractorlist.splice(i,1);
+                }
             }
-            return ncontractor;
         }
 
+        //Get Role
+        function getRole(roleid){
+            var role = {}
+            for(var i=0; i < $scope.roles.length; i++){
+                if($scope.roles[i].ID == roleid){
+                    role = $scope.roles[i];
+                }
+            }
+            return role;
+        }
 
     };
 

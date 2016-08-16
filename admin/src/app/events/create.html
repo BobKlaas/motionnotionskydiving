@@ -31,8 +31,8 @@
                 <!--Event Title-->
                 <md-input-container>
                     <label>Event Title</label>
-                    <input ng-model="event.title" autofocus name="title" required minlength="5" maxlength="50">
-                    <div ng-messages="eventForm.title.$error">
+                    <input ng-model="event.title" name="title" required minlength="5" maxlength="50" autofocus>
+                    <div ng-messages="eventForm.title.$error" ng-if="eventForm.title.$touched">
                         <div ng-message="required">Title is required.</div>
                         <div ng-message="minlength">Title must be at least 5 characters long.</div>
                     </div>
@@ -41,33 +41,31 @@
                 <!--Event Description-->
                 <md-input-container>
                     <label>Event Description</label>
-                    <textarea ng-model="event.description" name="description" minlength="50" maxlength="1000" md-maxlength="1000" rows="3" md-select-on-focus></textarea>
-                    <div ng-messages="eventForm.description.$error">
+                    <textarea ng-model="event.description" name="description" minlength="50" maxlength="1000" md-maxlength="1000" rows="3" required md-select-on-focus></textarea>
+                    <div ng-messages="eventForm.description.$error" ng-if="eventForm.description.$touched">
                         <div ng-message="required">Event description is required.</div>
                         <div ng-message="minlength">Event description must be at least 10 characters long.</div>
                     </div>
                 </md-input-container>
 
                 <!--Start Date | End Date-->
-                <div layout="row">
-                    <div flex>
-                        <md-input-container>
-                            <label>Start Date/Time</label>
-                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="startdatetime" placeholder="Start Date" min-date="minDate" max-date="maxDate" ng-model="event.startdate" class="md-input">
-                            <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.primarydiscipline.$touched">
-                                <div ng-message="required">Start date is Required</div>
-                            </div>
-                        </md-input-container>
-                    </div><div flex>
-                        <!--End Date-->
-                        <md-input-container>
-                            <label>End Date/Time</label>
-                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="enddatetime" placeholder="End Date" min-date="minDate" max-date="maxDate" ng-model="event.enddate" class="md-input">
-                            <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.primarydiscipline.$touched">
-                                <div ng-message="required">End date is Required</div>
-                            </div>
-                        </md-input-container>
-                    </div>
+                <div layout="column" layout-gt-xs="row">
+                    <md-input-container flex>
+                        <label>Start Date/Time</label>
+                        <input mdc-datetime-picker="" date="true" time="true" type="text" name="startdatetime" placeholder="Start Date" min-date="minDate" max-date="maxDate" ng-model="event.startdate" class="md-input" required>
+                        <div class="errors" ng-messages="eventForm.startdatetime.$error" ng-if="eventForm.startdatetime.$touched">
+                            <div ng-message="required">Start date is Required</div>
+                        </div>
+                    </md-input-container>
+                
+                    <!--End Date-->
+                    <md-input-container flex>
+                        <label>End Date/Time</label>
+                        <input mdc-datetime-picker="" date="true" time="true" type="text" name="enddatetime" placeholder="End Date" min-date="minDate" max-date="maxDate" ng-model="event.enddate" class="md-input" required>
+                        <div class="errors" ng-messages="eventForm.enddatetime.$error" ng-if="eventForm.enddatetime.$touched">
+                            <div ng-message="required">End date is Required</div>
+                        </div>
+                    </md-input-container>
                 </div>                  
 
                 <!--Dropzone-->
@@ -76,18 +74,27 @@
                     <md-select required ng-model="event.dropzone" name="dropzone">
                         <md-option ng-repeat="dropzone in dropzones" value="{{dropzone.ID}}">{{dropzone.NAME}}</md-option>
                     </md-select>
-                    <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.primarydiscipline.$touched">
+                    <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.dropzone.$touched">
                         <div ng-message="required">Dropzone is Required</div>
                     </div>
                 </md-input-container>
 
                 <!--Slots-->
-                <div layout="row">
+                <div layout="column" layout-gt-md="row">
+                    <!--Slots-->
+                    <md-input-container flex>
+                        <label>Jumps Per Day</label>
+                        <input required type="number" step="1" name="jumpsperday" ng-model="event.jumpsperday" max="25" />
+                        <div ng-messages="eventForm.jumpsperday.$error" ng-if="eventForm.jumpsperday.$touched">
+                            <div ng-message="required">Jumps per day is required.</div>
+                        </div>
+                    </md-input-container>
+
                     <!--Slots-->
                     <md-input-container flex>
                         <label>Available Slots</label>
-                        <input required type="number" step="1" id="slots" ng-model="event.slots" min="1" max="25" />
-                        <div ng-messages="eventForm.slots.$error">
+                        <input required type="number" step="1" name="slots" ng-model="event.slots" min="1" max="25" />
+                        <div ng-messages="eventForm.slots.$error" ng-if="eventForm.slots.$touched">
                             <div ng-message="required">Slots is required.</div>
                             <div ng-message="minlength">Slots must be at least 1.</div>
                         </div>
@@ -96,8 +103,8 @@
                     <!--Reserve Slots-->
                     <md-input-container flex>
                         <label>Reserve Slots</label>
-                        <input required type="number" step="1" id="reserveslots" ng-model="event.reserveslots" min="1" max="25" />
-                        <div ng-messages="eventForm.reserveslots.$error">
+                        <input required type="number" step="1" name="reserveslots" ng-model="event.reserveslots" min="1" max="25" />
+                        <div ng-messages="eventForm.reserveslots.$error" ng-if="eventForm.reserveslots.$touched">
                             <div ng-message="required">Reserve slots is required.</div>
                             <div ng-message="minlength">Reserve slots must be at least 1.</div>
                         </div>
