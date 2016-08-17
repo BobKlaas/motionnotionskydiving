@@ -50,6 +50,7 @@
             ,getEventByID: getEventByID
             ,updateEventStatus: updateEventStatus
             ,getEventCustomers: getEventCustomers
+            ,updateEventContractors: updateEventContractors
             ,createEvent: createEvent
         };
         return service;
@@ -67,6 +68,11 @@
         //Update Event Status
         function updateEventStatus(params){
             return utility.HttpService.sendRequest('/rest/api/events/update/status/',params,'post');
+        }
+
+        //Save Event Contractors
+        function updateEventContractors(params){
+            return utility.HttpService.sendRequest('/rest/api/events/contractors/update/',params,'post');
         }
 
         //Get All Customers for an Event

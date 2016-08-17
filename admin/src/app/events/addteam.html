@@ -64,23 +64,18 @@
                             </md-input-container>
 
                             <!--Slots Paid-->
-                            <div layout="column" layout-align="center center">
-                                <md-checkbox ng-model="eventcontractor.slotcompensation" name="slotcompensation" ng-true-value="1" ng-false-value="0" aria-label="Slots Paid">
+                            <div layout="row" layout-align="center center">
+                                <md-checkbox ng-model="eventcontractor.slotcompensation" name="slotcompensation" ng-true-value="1" ng-false-value="0" aria-label="Slots Paid" flex>
                                     Slots Paid
-                                </md-checkbox>
-                            </div>
+                                </md-checkbox>                           
 
-                            <!--Add Contractor-->
-                            <div layout="row" style="padding-top:5px;">
-                                <div>
-                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" flex>
-                                        <md-icon md-font-set="material-icons">add</md-icon> ADD
-                                    </md-button>
-                                </div>
-                            </div>                            
+                                <!--Add Contractor-->                            
+                                <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" flex>
+                                    <md-icon md-font-set="material-icons">add</md-icon> ADD
+                                </md-button>                                
+                            </div>
                         </div>
 
-                    
                         <!--Team List-->
                         <md-list ng-if="contractorlist.length" flex>
                             <md-list-item class="md-3-line" ng-repeat="contractor in contractorlist" ng-click="null">
@@ -91,7 +86,6 @@
                                         <h4>Day Rate: {{contractor.dayrate | currency}}</h4>
                                         <h4>Slots Compensated: {{ contractor.slotcompensation ? "Yes" : "No" }}</h4>
                                     </div>
-
                                 </div>
                                 <div class="md-list-item-text" layout="column" layout-align="center end">                                
                                      <!--FAB: Remove Contractor -->
@@ -101,15 +95,16 @@
                                         </md-tooltip>
                                         <md-icon class="material-icons icon-edit" md-font-set="material-icons">remove</md-icon>
                                     </md-button>
-
-                                    <!-- <h4 style="color:red">PAID: {{person.AMOUNTPAID | currency}}</h4>
-                                    <p>{{common.utility.odbcToNGDate(person.REGISTERDATE)}}</p> -->
                                 </div>
                             </md-list-item>
                         </md-list>                           
 
-                    <!--Submit Button-->
-                    <!-- <md-button class="md-raised md-primary" type="submit" ng-disabled="!addForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button> -->
+                        <!--Save Contractors-->
+                        <div layout="row" flex>
+                            <md-button class="md-raised md-primary" ng-disabled="!contractorlist.length" ng-click="saveContractors()" aria-label="Save" flex>
+                                SAVE CONTRACTORS
+                            </md-button>
+                        </div>
                 </md-card-content>
             </md-card>
             

@@ -236,5 +236,33 @@
 		<cfreturn ls>
 	</cffunction>
 
+
+	<!---Add Customer to Event--->
+	<cffunction name="saveEventContractors" access="remote" httpMethod="POST" restPath="/contractors/update/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+			
+		<cfset rc1 = deserializeJSON(ARGUMENTS.params)>
+
+		<cfloop array="#rc1#" index="i">
+			<cfset rc2 = i>
+			<cfset rc.eventcontractorid = len(trim(rc2.eventcontractorid))?rc2.eventcontractorid:''>	
+			<cfset rc.eventid = len(trim(rc2.eventid))?rc2.eventid:''>
+			<cfset rc.contractorid = len(trim(rc2.contractorid))?rc2.contractorid:''>
+			<cfset rc.roleid = len(trim(rc2.roleid))?rc2.roleid:''>
+			<cfset rc.dayrate = len(trim(rc2.dayrate))?rc2.dayrate:''>		
+			<cfset rc.slotcompensation = len(trim(rc2.slotcompensation))?rc2.slotcompensation:1>
+
+			<!---Update Customer Registration--->
+			<cfstoredproc procedure="sp_update_event_contractor" datasource="motion">
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventcontractorid#" dbvarname="@eventcontractorid" null="#(len(trim(rc.eventcontractorid))?false:true)#"/>
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#" dbvarname="@eventid" null="#(len(trim(rc.eventid))?false:true)#"/>
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#" dbvarname="@contractorid" null="#(len(trim(rc.contractorid))?false:true)#"/>
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.roleid#" dbvarname="@roleid" null="#(len(trim(rc.roleid))?false:true)#"/>
+				<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.dayrate#" dbvarname="@dayrate" null="#(len(trim(rc.dayrate))?false:true)#" scale="2"/>
+				<cfprocparam cfsqltype="CF_SQL_BIT" value="#rc.slotcompensation#" dbvarname="@slotcompensation" />
+			</cfstoredproc>
+		</cfloop>
+	</cffunction>
+
     
 </cfcomponent>

@@ -13,7 +13,7 @@
         $scope.common = common;
         $scope.init = init;
         $scope.getEventByID = getEventByID;
-        //$scope.saveEvent = saveEvent;
+        $scope.saveContractors = saveContractors;
         $scope.getContractors = getContractors;
         $scope.getContractorRoles = getContractorRoles;
         $scope.setDailyRate = setDailyRate;
@@ -30,6 +30,7 @@
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[]};   
         $scope.contractors = [];
+        $scope.allcontractors = [];
         $scope.contractorlist = [];
         $scope.roles = [];
 
@@ -59,6 +60,7 @@
             contractorservice.getContractors().then(
                 function(results){
                     $scope.contractors = results;
+                    $scope.allcontractors = angular.copy(results);
                 }    
             );            
         }
@@ -90,8 +92,17 @@
                     //Create Event Contractor
                     var contractor = $scope.contractors[i]; 
                     var role = getRole($scope.eventcontractor.roleid);
-                    console.log(role);
-                    var econtractor = newEventContractor(contractor.ID,contractor.FULLNAME,contractor.IMAGENAME,role.ID,role.TITLE,$scope.eventcontractor.dayrate,$scope.eventcontractor.slotcompensation);
+                    var econtractor = newEventContractor(
+                         ''
+                        ,contractor.ID
+                        ,$scope.eventid
+                        ,contractor.FULLNAME
+                        ,contractor.IMAGENAME
+                        ,role.ID
+                        ,role.TITLE
+                        ,$scope.eventcontractor.dayrate
+                        ,$scope.eventcontractor.slotcompensation
+                    );
                     
                     //Add Event Contractor to List
                     $scope.contractorlist.push(econtractor);
@@ -106,9 +117,11 @@
         }
 
         //Returns a Populated Event Contractor Object
-        function newEventContractor(id,fullname,imagename,roleid,roletitle,dayrate,slotcompensation){
+        function newEventContractor(eventcontractorid,contractorid,eventid,fullname,imagename,roleid,roletitle,dayrate,slotcompensation){
             var eventcontractor = {
-                 id: id
+                 eventcontractorid: eventcontractorid
+                ,eventid: eventid
+                ,contractorid:contractorid
                 ,fullname: fullname
                 ,imagename: imagename
                 ,roleid: roleid
@@ -128,9 +141,17 @@
 
         //Remove Contractor from List
         function removeContractor(contractor){
+            //Remove Contractor From List
             for(var i=0; i < $scope.contractorlist.length; i++){
-                if($scope.contractorlist[i].id == contractor.id){
+                if($scope.contractorlist[i].contractorid == contractor.contractorid){
                     $scope.contractorlist.splice(i,1);
+                }
+            }
+
+            //Readd Contract Back to Dropdown
+            for(var j=0; j < $scope.allcontractors.length; j++){
+                if($scope.allcontractors[j].ID == contractor.contractorid){
+                    $scope.contractors.push($scope.allcontractors[j]);
                 }
             }
         }
@@ -144,6 +165,21 @@
                 }
             }
             return role;
+        }
+
+        //Save event Contractors
+        function saveContractors(){           
+            var params = $scope.contractorlist;
+            console.log(params);
+            eventservice.updateEventContractors(params).then(
+                function(results){
+                    //Show Success
+                    common.logger.success('Success','','Event contracts have been saved successfully.');
+
+                    //Navigate to Step 2
+                    //common.routeTo('/events/pricing/'+results[0].ID);                        
+                }    
+            );
         }
 
     };
