@@ -28,8 +28,6 @@
                 </md-card-header>
                 
                 <md-card-content layout="column">
-                    <form name="pricingForm" ng-submit="pricingForm.$valid && savePricing()">
-
                         <!--Contractor Costs-->
                         <h3 class="md-no-sticky md-title">Contractor Costs</h3>
                         <md-list ng-if="event.contractorcosts.length" flex>
@@ -64,38 +62,83 @@
 
                         <md-divider><br /></md-divider>  
 
-                        <!--Margin-->
-                        <div layout="row" layout-align="end center" flex> 
-                            <md-input-container flex="20">
-                                <label>Margin Percentage</label>
-                                <input required type="number" step="1" name="margin" ng-model="marginpercentage" min="0" max="100" />
-                                <div ng-messages="eventForm.margin.$error" ng-if="eventForm.margin.$touched">
-                                    <div ng-message="required">Margin is required.</div>
-                                    <div ng-message="minlength">Margin must be at least 0.</div>
-                                </div>
-                            </md-input-container>
-                        </div>
-
-                        <md-divider></md-divider> 
-
                         <!--Contractor Costs-->
                         <div layout="column" layout-align="center end"> 
-                            <h3 class="md-no-sticky md-title" class="pricing-green-30">Suggested Registration Price: {{getSuggestedPrice() | currency}}</h3>               
+                            <h4 class="md-no-sticky md-title pricing-red">Total Expenses: {{pricing.totalexpenses | currency}}</h4>               
                         </div>
                         
+                        <div layout="column" layout-align="center end"> 
+                            <h4 class="md-no-sticky md-title pricing-green">Profit Margin: {{pricing.marginamount | currency}}</h4>               
+                        </div>
 
+                        <div layout="column" layout-align="center end"> 
+                            <h4 class="md-no-sticky md-title">Sub Total: {{pricing.subtotal | currency}}</h4>               
+                        </div>
+
+                        <div layout="column" layout-align="center end"> 
+                            <h4 class="md-no-sticky md-title">Suggested Registration: {{pricing.suggestedregistrationprice | currency}}</h4>               
+                        </div>
+
+                        <md-divider layout-padding></md-divider> 
+
+                        <!--Margin-->
+                        <div layout="row"> 
+                            <form layout="column" name="pricingForm" ng-submit="pricingForm.$valid && savePricing()" flex>
+                                
+                                <md-input-container>
+                                    <label>Margin Percentage</label>
+                                    <input required type="number" step="1" name="margin" ng-model="pricing.marginpercentage" min="0" max="100" ng-change="calculatePricing()" />
+                                    <div ng-messages="eventForm.margin.$error" ng-if="eventForm.margin.$touched">
+                                        <div ng-message="required">Margin is required.</div>
+                                        <div ng-message="minlength">Margin must be at least 0.</div>
+                                    </div>
+                                </md-input-container>
+                           
+
+                                <md-input-container>
+                                    <label>Actual Registration</label>
+                                    <input required type="number" step="1" name="actualreg" ng-model="pricing.actualregistration" min="0" max="100" />
+                                    <div ng-messages="eventForm.actualreg.$error" ng-if="eventForm.actualreg.$touched">
+                                        <div ng-message="required">Actual registration is required.</div>
+                                        <div ng-message="minlength">Actual registration must be at least 0.</div>
+                                    </div>
+                                </md-input-container>
+
+                                <div layout="row" flex>
+                                    <md-button class="md-raised md-primary" ng-disabled="!contractorlist.length" ng-click="saveContractors()" aria-label="Save" flex>
+                                        SAVE PRICING
+                                    </md-button>
+                                </div>
+                            </form>
+                        </div>
                         <!--Save Contractors-->
                         <!-- <div layout="row" flex>
                             <md-button class="md-raised md-primary" ng-disabled="!contractorlist.length" ng-click="saveContractors()" aria-label="Save" flex>
                                 SAVE CONTRACTORS
                             </md-button>
                         </div> -->
-                    </form>
                 </md-card-content>
             </md-card>            
         </div>
         <div layout="column" flex="30">
+            <md-card>
+                <md-card-header class="card-header">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">event_note</i>
+                        <span class="md-title">Event</span>
+                    </md-card-header-text>
+                </md-card-header>  
+                <img ng-src="{{common.buildfilepath(eventsImagePath,event.details.IMAGENAME)}}" class="md-card-image" alt="Event">
+                <md-card-content layout="column">                    
+                    <span class="event-details">Location: {{event.details.TITLE}}</span>
+                    <span class="event-details">Dates: {{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}}</span>
+                    <span class="event-details">Location: {{event.details.DROPZONENAME}}</span>
+                    <span class="event-details" ng-if="event.details.SLOTSLEFT">Slots Available: {{event.details.SLOTSLEFT}}</span>
+                    <span class="event-details" ng-if="!event.details.SLOTSLEFT" style="color:#FF5722">Slots Available: {{event.details.SLOTSLEFT}}</span>
+                </md-card-content>
+            </md-card>
         </div>
+        
 
     </div>
 

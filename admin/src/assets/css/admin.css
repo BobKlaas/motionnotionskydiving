@@ -63,6 +63,19 @@ body, .app-container {
 }
 
 .pricing-green-30{
-  color: green; 
+  color: #57B255; 
   font-size: 30px;
+}
+
+.pricing-red-30{
+  color: #BE2A38; 
+  font-size: 30px;
+}
+
+.pricing-green{
+  color: #57B255; 
+}
+
+.pricing-red{
+  color: #BE2A38; 
 }

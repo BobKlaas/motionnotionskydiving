@@ -15,7 +15,7 @@
         $scope.getEventByID = getEventByID;
         $scope.getCosts = getCosts;
         $scope.savePricing = savePricing;
-        $scope.getSuggestedPrice = getSuggestedPrice;
+        $scope.calculatePricing = calculatePricing;
 
         //VARIABLES
         $scope.eventsImagePath = '/assets/images/events/';
@@ -23,15 +23,22 @@
         $scope.etitle = 'Expenses and Pricing';
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[], ticketcosts:[], contractorcosts:[]};
-        $scope.marginpercentage = 20;
-        $scope.registrationprice = 0;
+
+        $scope.pricing = {
+             marginpercentage: 20
+            ,totalexpenses: 0
+            ,marginamount: 0
+            ,subtotal: 0
+            ,suggestedregistrationprice: 0
+            ,actualregistration: 0
+        }
+        
 
         //Init Function
         $scope.init();
         function init(){
             $scope.getEventByID();
             $scope.getCosts();
-            console.log($scope.event);
         }
 
         //Get Event by ID
@@ -42,6 +49,7 @@
                     $scope.event.details = results.DETAILS[0];
                     $scope.event.contractors = results.CONTRACTORS;
                     $scope.event.customers = results.CUSTOMERS;
+                    $scope.calculatePricing();
                 }    
             );
         }
@@ -53,32 +61,49 @@
                 function(results){
                     $scope.event.ticketcosts = results.TICKETRATES;
                     $scope.event.contractorcosts = results.DAYRATES;
+                    $scope.calculatePricing();
                 }    
             );
         }
 
-        //Get Suggested Registration
-        function getSuggestedPrice(){
-            var suggested = 0;
-            var addmargin = 0;
+        //Get Total Expenses
+        function calculatePricing(){
+            var slots = $scope.event.details.SLOTS;
 
+            var newpricing = {
+                 marginpercentage: ($scope.pricing.marginpercentage == null)?0:$scope.pricing.marginpercentage
+                ,totalexpenses: 0
+                ,marginamount: 0
+                ,subtotal: 0
+                ,suggestedregistrationprice: 0
+                ,actualregistration: 0
+            }            
+
+            //CALCULATE: TOTAL EXPENSES_______________________________________>
             //Add Ticket Costs
             for(var i=0; i < $scope.event.ticketcosts.length; i++){
-                var suggested = suggested + $scope.event.ticketcosts[i].TOTALCOST;
+                newpricing.totalexpenses = newpricing.totalexpenses + $scope.event.ticketcosts[i].TOTALCOST;
             }
 
             //Add Contractor Dayrate Costs
             for(var j=0; j < $scope.event.contractorcosts.length; j++){
-                var suggested = suggested + $scope.event.contractorcosts[j].TOTALCOST;
+                newpricing.totalexpenses = newpricing.totalexpenses + $scope.event.contractorcosts[j].TOTALCOST;
             }
 
-            if($scope.marginpercentage){
-                addmargin = suggested * ($scope.marginpercentage / 100);
-                suggested = suggested + addmargin;
-            }
-            $scope.registrationprice = suggested;
-            
-            return suggested;
+            //CALCULATE: MARGIN____________________________>
+            newpricing.marginamount = (newpricing.totalexpenses * (newpricing.marginpercentage / 100));
+
+            //CALCULATE: SUBTOTAL____________________________>
+            newpricing.subtotal = Math.ceil((newpricing.totalexpenses + newpricing.marginamount));            
+
+            //CALCULATE: SUGGESTED REGISTRATION AMOOUNT____________________________>
+            newpricing.suggestedregistrationprice = Math.ceil(((newpricing.totalexpenses + newpricing.marginamount) / slots));
+
+            //Force Actual Registration to Suggested Registration
+            newpricing.actualregistration = newpricing.suggestedregistrationprice;
+
+            //Set New Pricing
+            $scope.pricing = newpricing;
         }
 
         //Save Event Pricing
