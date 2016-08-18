@@ -52,6 +52,7 @@
             ,getEventCustomers: getEventCustomers
             ,updateEventContractors: updateEventContractors
             ,createEvent: createEvent
+            ,getEventCosts: getEventCosts
         };
         return service;
 
@@ -83,6 +84,11 @@
         //Create Event
         function createEvent(params){
             return utility.HttpService.sendRequest('/rest/api/events/create/',params,'post');
+        }
+
+        //Get Event Pricing
+        function getEventCosts(params){
+            return utility.HttpService.sendRequest('/rest/api/events/costs/get/'+params.id);
         }
 
     }

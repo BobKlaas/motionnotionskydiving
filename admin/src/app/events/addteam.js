@@ -174,10 +174,10 @@
             eventservice.updateEventContractors(params).then(
                 function(results){
                     //Show Success
-                    common.logger.success('Success','','Event contracts have been saved successfully.');
+                    common.logger.success('Success','','Event contractors have been saved successfully.');
 
                     //Navigate to Step 2
-                    //common.routeTo('/events/pricing/'+results[0].ID);                        
+                    common.routeTo('/events/pricing/'+$scope.eventid);
                 }    
             );
         }

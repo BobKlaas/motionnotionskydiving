@@ -1,0 +1,109 @@
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="./events">Home</a></li>
+                <li><a href="./events">Events</a></li>
+                <li><a href="index.cfm" ng-bind="event.details.TITLE"></a></li>
+                <li class="active" ng-bind="etitle"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!--Events List-->
+    
+    <div layout="column" layout-gt-sm="row">
+        <div layout="column" flex="70">
+            
+            <md-card>
+                <md-card-header class="card-header pop">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">monetization_on</i>
+                        <span class="md-title" ng-bind="etitle"></span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column">
+                    <form name="pricingForm" ng-submit="pricingForm.$valid && savePricing()">
+
+                        <!--Contractor Costs-->
+                        <h3 class="md-no-sticky md-title">Contractor Costs</h3>
+                        <md-list ng-if="event.contractorcosts.length" flex>
+                            <md-list-item class="md-3-line" ng-repeat="contractor in event.contractorcosts" ng-click="null">
+                                <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-avatar" alt="{{contractor.FULLNAME}}" />
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{contractor.FULLNAME}}</h3>
+                                    <h4>{{contractor.ROLETITLE}}</h4>
+                                </div>
+                                <div class="md-list-item-text" layout="column" layout-align="center end">                                
+                                    <h2 class="pricing-green-30"><i class="material-icons">monetization_on</i> {{contractor.TOTALCOST | currency}}</h2>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+
+                        <md-divider></md-divider>
+
+                        <!--Jump Ticket Costs-->
+                        <h3 class="md-no-sticky md-title">Jump Ticket Costs</h3>
+                        <md-list ng-if="event.contractorcosts.length" flex>
+                            <md-list-item class="md-3-line" ng-repeat="contractor in event.ticketcosts" ng-click="null">
+                                <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-avatar" alt="{{contractor.FULLNAME}}" />
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{contractor.FULLNAME}}</h3>
+                                    <h4>{{contractor.ROLETITLE}}</h4>
+                                </div>
+                                <div class="md-list-item-text" layout="column" layout-align="center end">                                
+                                    <h2 class="pricing-green-30"><i class="material-icons">airplanemode_on</i> {{contractor.TOTALCOST | currency}}</h2>
+                                </div>
+                            </md-list-item>
+                        </md-list>   
+
+                        <md-divider><br /></md-divider>  
+
+                        <!--Margin-->
+                        <div layout="row" layout-align="end center" flex> 
+                            <md-input-container flex="20">
+                                <label>Margin Percentage</label>
+                                <input required type="number" step="1" name="margin" ng-model="marginpercentage" min="0" max="100" />
+                                <div ng-messages="eventForm.margin.$error" ng-if="eventForm.margin.$touched">
+                                    <div ng-message="required">Margin is required.</div>
+                                    <div ng-message="minlength">Margin must be at least 0.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <md-divider></md-divider> 
+
+                        <!--Contractor Costs-->
+                        <div layout="column" layout-align="center end"> 
+                            <h3 class="md-no-sticky md-title" class="pricing-green-30">Suggested Registration Price: {{getSuggestedPrice() | currency}}</h3>               
+                        </div>
+                        
+
+                        <!--Save Contractors-->
+                        <!-- <div layout="row" flex>
+                            <md-button class="md-raised md-primary" ng-disabled="!contractorlist.length" ng-click="saveContractors()" aria-label="Save" flex>
+                                SAVE CONTRACTORS
+                            </md-button>
+                        </div> -->
+                    </form>
+                </md-card-content>
+            </md-card>            
+        </div>
+        <div layout="column" flex="30">
+        </div>
+
+    </div>
+
+  
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

@@ -264,5 +264,23 @@
 		</cfloop>
 	</cffunction>
 
+
+	<!---Get Event Pricing--->
+	<cffunction name="getEventPricing" access="remote" httpMethod="GET" restPath="/costs/get/{eventid}" returntype="any" produces="application/json">		
+		<cfargument name="eventid" type="string" required="true" restargsource="path">
+		<cfstoredproc procedure="sp_get_event_pricing" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#eventid#" dbvarname="@eventid"/>
+			<cfprocresult name="ticketrates" resultset="1"/>
+			<cfprocresult name="dayrates" resultset="2"/>
+		</cfstoredproc>
+
+		<!---Create Structure From Results--->
+		<cfset event = structNew()>
+		<cfset event.ticketrates = QueryToStruct(ticketrates)>
+		<cfset event.dayrates = QueryToStruct(dayrates)>
+		<cfset JSONReturn = SerializeJSON(event)>
+		<cfreturn JSONReturn>
+	</cffunction>
+
     
 </cfcomponent>

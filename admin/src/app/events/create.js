@@ -98,7 +98,7 @@
                         common.logger.success('Success','',results[0].TITLE +' was saved successfully.');
 
                         //Navigate to Step 2
-                        common.routeTo('/events/team/'+results[0].ID);                        
+                        common.routeTo('/events/team/'+results[0].ID);                  
                     }    
                 );
             }

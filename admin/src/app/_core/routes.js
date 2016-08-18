@@ -27,6 +27,10 @@
                      templateUrl: 'src/app/events/addteam.html'
                     ,controller: 'eventTeamController'
                 })
+                .when('/events/pricing/:eventid/', {
+                     templateUrl: 'src/app/events/pricing.html'
+                    ,controller: 'eventPricingController'
+                })
                 .otherwise({redirectTo:'/events'});
 
                 $locationProvider.html5Mode(true);

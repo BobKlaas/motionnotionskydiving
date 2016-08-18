@@ -75,36 +75,37 @@
                                 </md-button>                                
                             </div>
                         </div>
+                    </form>
 
-                        <!--Team List-->
-                        <md-list ng-if="contractorlist.length" flex>
-                            <md-list-item class="md-3-line" ng-repeat="contractor in contractorlist" ng-click="null">
-                                <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.imagename)}}" class="md-avatar" alt="{{contractorlist.fullname}}" />
-                                <div layout="column" layout-gt-sm="row" flex>
-                                    <div class="md-list-item-text" layout="column">
-                                        <h3>{{ contractor.fullname }} - {{ contractor.roletitle }}</h3>
-                                        <h4>Day Rate: {{contractor.dayrate | currency}}</h4>
-                                        <h4>Slots Compensated: {{ contractor.slotcompensation ? "Yes" : "No" }}</h4>
-                                    </div>
+                    <!--Team List-->
+                    <md-list ng-if="contractorlist.length" flex>
+                        <md-list-item class="md-3-line" ng-repeat="contractor in contractorlist" ng-click="null">
+                            <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.imagename)}}" class="md-avatar" alt="{{contractorlist.fullname}}" />
+                            <div layout="column" layout-gt-sm="row" flex>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{ contractor.fullname }} - {{ contractor.roletitle }}</h3>
+                                    <h4>Day Rate: {{contractor.dayrate | currency}}</h4>
+                                    <h4>Slots Compensated: {{ contractor.slotcompensation ? "Yes" : "No" }}</h4>
                                 </div>
-                                <div class="md-list-item-text" layout="column" layout-align="center end">                                
-                                     <!--FAB: Remove Contractor -->
-                                    <md-button class="md-fab md-mini" aria-label="Remove Contractor" ng-click="removeContractor(contractor)">
-                                        <md-tooltip md-direction="bottom">
-                                            Remove Contractor
-                                        </md-tooltip>
-                                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">remove</md-icon>
-                                    </md-button>
-                                </div>
-                            </md-list-item>
-                        </md-list>                           
+                            </div>
+                            <div class="md-list-item-text" layout="column" layout-align="center end">                                
+                                 <!--FAB: Remove Contractor -->
+                                <md-button class="md-fab md-mini" aria-label="Remove Contractor" ng-click="removeContractor(contractor)">
+                                    <md-tooltip md-direction="bottom">
+                                        Remove Contractor
+                                    </md-tooltip>
+                                    <md-icon class="material-icons icon-edit" md-font-set="material-icons">remove</md-icon>
+                                </md-button>
+                            </div>
+                        </md-list-item>
+                    </md-list>                           
 
-                        <!--Save Contractors-->
-                        <div layout="row" flex>
-                            <md-button class="md-raised md-primary" ng-disabled="!contractorlist.length" ng-click="saveContractors()" aria-label="Save" flex>
-                                SAVE CONTRACTORS
-                            </md-button>
-                        </div>
+                    <!--Save Contractors-->
+                    <div layout="row" flex>
+                        <md-button class="md-raised md-primary" ng-disabled="!contractorlist.length" ng-click="saveContractors()" aria-label="Save" flex>
+                            SAVE CONTRACTORS
+                        </md-button>
+                    </div>
                 </md-card-content>
             </md-card>
             

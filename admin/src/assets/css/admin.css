@@ -61,3 +61,8 @@ body, .app-container {
   font-weight: bold;
   font-size: 14px;
 }
+
+.pricing-green-30{
+  color: green; 
+  font-size: 30px;
+}
