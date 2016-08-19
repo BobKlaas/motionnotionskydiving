@@ -76,7 +76,7 @@
                         </div>
 
                         <div layout="column" layout-align="center end"> 
-                            <h4 class="md-no-sticky md-title">Suggested Registration: {{pricing.suggestedregistrationprice | currency}}</h4>               
+                            <h4 class="md-no-sticky md-title">Suggested Registration: {{pricing.suggestedregistrationfee | currency}}</h4>               
                         </div>
 
                         <md-divider layout-padding></md-divider> 
@@ -87,7 +87,7 @@
                                 
                                 <md-input-container>
                                     <label>Margin Percentage</label>
-                                    <input required type="number" step="1" name="margin" ng-model="pricing.marginpercentage" min="0" max="100" ng-change="calculatePricing()" />
+                                    <input required type="number" step="0.01" name="margin" ng-model="pricing.marginpercentage" min="0.00" max="100" ng-change="calculatePricing()" />
                                     <div ng-messages="eventForm.margin.$error" ng-if="eventForm.margin.$touched">
                                         <div ng-message="required">Margin is required.</div>
                                         <div ng-message="minlength">Margin must be at least 0.</div>
@@ -97,7 +97,7 @@
 
                                 <md-input-container>
                                     <label>Actual Registration</label>
-                                    <input required type="number" step="1" name="actualreg" ng-model="pricing.actualregistration" min="0" max="100" />
+                                    <input required type="number" step="0.01" name="actualreg" ng-model="pricing.actualregistrationfee" min="0.00" max="100" />
                                     <div ng-messages="eventForm.actualreg.$error" ng-if="eventForm.actualreg.$touched">
                                         <div ng-message="required">Actual registration is required.</div>
                                         <div ng-message="minlength">Actual registration must be at least 0.</div>

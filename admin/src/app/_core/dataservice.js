@@ -52,7 +52,9 @@
             ,getEventCustomers: getEventCustomers
             ,updateEventContractors: updateEventContractors
             ,createEvent: createEvent
-            ,getEventCosts: getEventCosts
+            ,updateEvent: updateEvent
+            ,getEventPricing: getEventPricing
+            ,updateEventPricing: updateEventPricing
         };
         return service;
 
@@ -86,9 +88,19 @@
             return utility.HttpService.sendRequest('/rest/api/events/create/',params,'post');
         }
 
+        //Update Event
+        function updateEvent(params){
+            return utility.HttpService.sendRequest('/rest/api/events/update/',params,'post');
+        }
+
+        //Update Event Pricing
+        function updateEventPricing(params){
+            return utility.HttpService.sendRequest('/rest/api/events/pricing/update/',params,'post');
+        }
+
         //Get Event Pricing
-        function getEventCosts(params){
-            return utility.HttpService.sendRequest('/rest/api/events/costs/get/'+params.id);
+        function getEventPricing(params){
+            return utility.HttpService.sendRequest('/rest/api/events/pricing/get/'+params.id);
         }
 
     }

@@ -266,7 +266,7 @@
 
 
 	<!---Get Event Pricing--->
-	<cffunction name="getEventPricing" access="remote" httpMethod="GET" restPath="/costs/get/{eventid}" returntype="any" produces="application/json">		
+	<cffunction name="getEventPricing" access="remote" httpMethod="GET" restPath="/pricing/get/{eventid}" returntype="any" produces="application/json">		
 		<cfargument name="eventid" type="string" required="true" restargsource="path">
 		<cfstoredproc procedure="sp_get_event_pricing" datasource="motion">
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#eventid#" dbvarname="@eventid"/>
@@ -280,6 +280,57 @@
 		<cfset event.dayrates = QueryToStruct(dayrates)>
 		<cfset JSONReturn = SerializeJSON(event)>
 		<cfreturn JSONReturn>
+	</cffunction>
+
+
+	<!---Update Event--->
+	<cffunction name="updateEvent" access="remote" httpMethod="POST" restPath="/update/" returntype="any" produces="application/json">		
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.id = structKeyExists(rc,'id')?rc.id:''>
+		<cfset rc.title = structKeyExists(rc,'title')?rc.title:''>
+		<cfset rc.description = structKeyExists(rc,'description')?rc.description:''>
+		<cfset rc.startdate = structKeyExists(rc,'startdate')?ISOToDateTime(rc.startdate):''>
+		<cfset rc.enddate = structKeyExists(rc,'enddate')?ISOToDateTime(rc.enddate):''>
+		<cfset rc.jumpsperday = structKeyExists(rc,'jumpsperday')?rc.jumpsperday:''>
+		<cfset rc.slots = structKeyExists(rc,'slots')?rc.slots:''>
+		<cfset rc.reserveslots = structKeyExists(rc,'reserveslots')?rc.reserveslots:''>
+		<cfset rc.dropzoneid = structKeyExists(rc,'dropzoneid')?rc.dropzoneid:''>
+		<cfset rc.image = structKeyExists(rc,'image')?rc.image:''>
+		<cfset rc.active = structKeyExists(rc,'active')?rc.active:0>
+
+		<!---Create Image Name--->
+		<cfif len(trim(rc.image))>
+			<cfset imagename = REReplace(rc.title,"[^0-9A-Za-z ]","","all")>
+			<cfset imagename = imagename & TimeFormat(now(),"hhmmssl") & ".png">
+			<cfset imagelocation = ExpandPath('\assets\images\events\') & imagename>
+
+			<!---Upload Image--->
+			<cfset image = imageReadBase64(rc.image)>
+			<cfset imageWrite(image,imagelocation,1,true)>
+		</cfif>
+
+		<!---Add Customer to Event --->
+		<cfstoredproc procedure="sp_insert_event" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.id#" dbvarname="@eventid"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.title#" dbvarname="@title"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.description#" dbvarname="@description"/>
+			<cfprocparam cfsqltype="CF_SQL_TIMESTAMP" value="#rc.startdate#" dbvarname="@startdate"/>
+			<cfprocparam cfsqltype="CF_SQL_TIMESTAMP" value="#rc.enddate#" dbvarname="@enddate"/>
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.jumpsperday#" dbvarname="@jumpsperday"/>
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.slots#" dbvarname="@slots"/>
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.reserveslots#" dbvarname="@reserveslots"/>
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.dropzoneid#" dbvarname="@dropzoneid"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#imagename#" dbvarname="@imagename"/>
+			<cfprocparam cfsqltype="CF_SQL_BIT" value="#rc.active#" dbvarname="@active"/>
+			<cfprocresult name="event" resultset="1"/>
+		</cfstoredproc>
+
+		<!---Create Structure From Results--->
+		<cfset ls=QueryToStruct(event)>
+		<cfreturn ls>
 	</cffunction>
 
     

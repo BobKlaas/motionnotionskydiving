@@ -13,7 +13,7 @@
         $scope.common = common;
         $scope.init = init;
         $scope.getEventByID = getEventByID;
-        $scope.getCosts = getCosts;
+        $scope.getPricing = getPricing;
         $scope.savePricing = savePricing;
         $scope.calculatePricing = calculatePricing;
 
@@ -29,8 +29,8 @@
             ,totalexpenses: 0
             ,marginamount: 0
             ,subtotal: 0
-            ,suggestedregistrationprice: 0
-            ,actualregistration: 0
+            ,suggestedregistrationfee: 0
+            ,actualregistrationfee: 0
         }
         
 
@@ -38,7 +38,7 @@
         $scope.init();
         function init(){
             $scope.getEventByID();
-            $scope.getCosts();
+            $scope.getPricing();
         }
 
         //Get Event by ID
@@ -55,9 +55,9 @@
         }
 
         //Get Contractor Costs
-        function getCosts(){
+        function getPricing(){
             var params = {id: $scope.eventid}
-            eventservice.getEventCosts(params).then(
+            eventservice.getEventPricing(params).then(
                 function(results){
                     $scope.event.ticketcosts = results.TICKETRATES;
                     $scope.event.contractorcosts = results.DAYRATES;
@@ -69,14 +69,15 @@
         //Get Total Expenses
         function calculatePricing(){
             var slots = $scope.event.details.SLOTS;
+            var marginperc = ($scope.pricing.marginpercentage==null)?0:$scope.pricing.marginpercentage;                
 
             var newpricing = {
-                 marginpercentage: ($scope.pricing.marginpercentage == null)?0:$scope.pricing.marginpercentage
+                 marginpercentage: marginperc
                 ,totalexpenses: 0
                 ,marginamount: 0
                 ,subtotal: 0
-                ,suggestedregistrationprice: 0
-                ,actualregistration: 0
+                ,suggestedregistrationfee: 0
+                ,actualregistrationfee: 0
             }            
 
             //CALCULATE: TOTAL EXPENSES_______________________________________>
@@ -97,10 +98,10 @@
             newpricing.subtotal = Math.ceil((newpricing.totalexpenses + newpricing.marginamount));            
 
             //CALCULATE: SUGGESTED REGISTRATION AMOOUNT____________________________>
-            newpricing.suggestedregistrationprice = Math.ceil(((newpricing.totalexpenses + newpricing.marginamount) / slots));
+            newpricing.suggestedregistrationfee = Math.ceil(((newpricing.totalexpenses + newpricing.marginamount) / slots));
 
             //Force Actual Registration to Suggested Registration
-            newpricing.actualregistration = newpricing.suggestedregistrationprice;
+            newpricing.actualregistrationfee = newpricing.suggestedregistrationfee;
 
             //Set New Pricing
             $scope.pricing = newpricing;
@@ -108,7 +109,22 @@
 
         //Save Event Pricing
         function savePricing(){
-            console.log();
+            //Set Params
+                var params = {
+                    marginpercentage: 0
+                    registrationfee: 0
+                }
+                
+                //Save Event
+                eventservice.updateEventPricing(params).then(
+                    function(results){
+                        //Show Success
+                        common.logger.success('Success','','Pricing was saved successfully for the '+results[0].TITLE+ ' event.');
+
+                        //Navigate to Step 2
+                        common.routeTo('/events');
+                    }    
+                );
         }
 
     };
