@@ -333,5 +333,43 @@
 		<cfreturn ls>
 	</cffunction>
 
+
+	<!---Update Event--->
+	<cffunction name="updateEventPricing" access="remote" httpMethod="POST" restPath="/pricing/update/" returntype="any" produces="application/json">		
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.eventid = StructKeyExists(rc,"eventid")?rc.eventid:''>
+		<cfset rc.profitmargin = StructKeyExists(rc,"profitmargin")?rc.profitmargin:''>
+		<cfset rc.marginpercentage = StructKeyExists(rc,"marginpercentage")?rc.marginpercentage:''>
+		<cfset rc.totalexpenses = StructKeyExists(rc,"totalexpenses")?rc.totalexpenses:''>
+		<cfset rc.suggestedtotal = StructKeyExists(rc,"suggestedtotal")?rc.suggestedtotal:''>
+		<cfset rc.suggestedregistrationfee = StructKeyExists(rc,"suggestedregistrationfee")?rc.suggestedregistrationfee:''>
+		<cfset rc.actualtotal = StructKeyExists(rc,"actualtotal")?rc.actualtotal:''>
+		<cfset rc.actualregistrationfee = StructKeyExists(rc,"actualregistrationfee")?rc.actualregistrationfee:''>
+
+		<!---Add Customer to Event --->
+		<cfstoredproc procedure="sp_insert_event_pricing" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#" dbvarname="@eventid"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.profitmargin#" dbvarname="@profitmargin" scale="2"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.marginpercentage#" dbvarname="@marginpercentage" scale="2"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.totalexpenses#" dbvarname="@totalexpenses" scale="2"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.suggestedtotal#" dbvarname="@suggestedtotal" scale="2"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.suggestedregistrationfee#" dbvarname="@suggestedregistrationfee" scale="2"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.actualtotal#" dbvarname="@actualtotal" scale="2"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.actualregistrationfee#" dbvarname="@actualregistrationfee" scale="2"/>
+			<cfprocresult name="eventpricing" resultset="1"/>
+			<cfprocresult name="eventdetails" resultset="2"/>
+		</cfstoredproc>
+
+		<!---Create Structure From Results--->
+		<cfset event = structNew()>
+		<cfset event.pricing = QueryToStruct(eventpricing)>
+		<cfset event.details = QueryToStruct(eventdetails)>
+		<cfset JSONReturn = SerializeJSON(event)>
+		<cfreturn JSONReturn>
+	</cffunction>
+
     
 </cfcomponent>

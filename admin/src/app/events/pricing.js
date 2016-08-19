@@ -28,7 +28,7 @@
              marginpercentage: 20
             ,totalexpenses: 0
             ,marginamount: 0
-            ,subtotal: 0
+            ,expensesplusmargin: 0
             ,suggestedregistrationfee: 0
             ,actualregistrationfee: 0
         }
@@ -75,7 +75,7 @@
                  marginpercentage: marginperc
                 ,totalexpenses: 0
                 ,marginamount: 0
-                ,subtotal: 0
+                ,expensesplusmargin: 0
                 ,suggestedregistrationfee: 0
                 ,actualregistrationfee: 0
             }            
@@ -94,8 +94,8 @@
             //CALCULATE: MARGIN____________________________>
             newpricing.marginamount = (newpricing.totalexpenses * (newpricing.marginpercentage / 100));
 
-            //CALCULATE: SUBTOTAL____________________________>
-            newpricing.subtotal = Math.ceil((newpricing.totalexpenses + newpricing.marginamount));            
+            //CALCULATE: EXPENSES PLUS MARGIN____________________________>
+            newpricing.expensesplusmargin = Math.ceil((newpricing.totalexpenses + newpricing.marginamount));            
 
             //CALCULATE: SUGGESTED REGISTRATION AMOOUNT____________________________>
             newpricing.suggestedregistrationfee = Math.ceil(((newpricing.totalexpenses + newpricing.marginamount) / slots));
@@ -110,21 +110,27 @@
         //Save Event Pricing
         function savePricing(){
             //Set Params
-                var params = {
-                    marginpercentage: 0
-                    registrationfee: 0
-                }
-                
-                //Save Event
-                eventservice.updateEventPricing(params).then(
-                    function(results){
-                        //Show Success
-                        common.logger.success('Success','','Pricing was saved successfully for the '+results[0].TITLE+ ' event.');
+            var params = {
+                 eventid: $scope.eventid
+                ,profitmargin: $scope.pricing.marginamount
+                ,marginpercentage: $scope.pricing.marginpercentage
+                ,totalexpenses: $scope.pricing.totalexpenses
+                ,suggestedtotal: $scope.pricing.expensesplusmargin
+                ,suggestedregistrationfee: $scope.pricing.suggestedregistrationfee
+                ,actualtotal: ($scope.pricing.actualregistrationfee * $scope.event.details.SLOTS)
+                ,actualregistrationfee: $scope.pricing.actualregistrationfee
+            }
+            
+            //Save Event
+             eventservice.updateEventPricing(params).then(
+                 function(results){
+                     //Show Success
+                     common.logger.success('Pricing was saved successfully for the '+results.DETAILS[0].TITLE+ ' event.','','Pricing Updated Succesfully');
 
-                        //Navigate to Step 2
-                        common.routeTo('/events');
-                    }    
-                );
+                     //Navigate to Step 2
+                     common.routeTo('/events');
+                 }    
+             );
         }
 
     };
