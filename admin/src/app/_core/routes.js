@@ -31,6 +31,10 @@
                      templateUrl: 'src/app/events/pricing.html'
                     ,controller: 'eventPricingController'
                 })
+                .when('/events/overview/:eventid/', {
+                     templateUrl: 'src/app/events/overview.html'
+                    ,controller: 'eventOverviewController'
+                })
                 .otherwise({redirectTo:'/events'});
 
                 $locationProvider.html5Mode(true);

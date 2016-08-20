@@ -16,13 +16,15 @@
         $scope.getPricing = getPricing;
         $scope.savePricing = savePricing;
         $scope.calculatePricing = calculatePricing;
+        $scope.setPricing = setPricing;
 
         //VARIABLES
         $scope.eventsImagePath = '/assets/images/events/';
         $scope.peopleImagePath = '/assets/images/people/';
         $scope.etitle = 'Expenses and Pricing';
         $scope.eventid = common.$routeParams.eventid;
-        $scope.event = {details:[], contractors:[], customers:[], ticketcosts:[], contractorcosts:[]};
+        $scope.pricinglocked = 0;
+        $scope.event = {details:[], contractors:[], customers:[], ticketcosts:[], contractorcosts:[], pricing:[]};
 
         $scope.pricing = {
              marginpercentage: 20
@@ -49,6 +51,7 @@
                     $scope.event.details = results.DETAILS[0];
                     $scope.event.contractors = results.CONTRACTORS;
                     $scope.event.customers = results.CUSTOMERS;
+                    $scope.pricinglocked = $scope.event.details.PRICINGLOCKED;
                     $scope.calculatePricing();
                 }    
             );
@@ -61,9 +64,19 @@
                 function(results){
                     $scope.event.ticketcosts = results.TICKETRATES;
                     $scope.event.contractorcosts = results.DAYRATES;
+                    $scope.event.pricing = results.PRICING[0];
+
+                    //Calculate Pricing
+                    $scope.setPricing();
                     $scope.calculatePricing();
                 }    
             );
+        }
+
+        //Loads existing pricing
+        function setPricing(){
+            $scope.pricing.marginpercentage = $scope.event.pricing.MARGINPERCENTAGE;
+            $scope.pricing.actualregistrationfee = $scope.event.pricing.ACTUALREGISTRATIONFEE;            
         }
 
         //Get Total Expenses

@@ -1,0 +1,120 @@
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="./events">Home</a></li>
+                <li><a href="./events">Events</a></li>
+                <li class="active" ng-bind="event.details.TITLE"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div layout="column" layout-gt-sm="row">
+        <div layout="column" flex="60">
+
+            <!--EVENT DETAILS___________________________________-->
+            <md-card>
+                <md-card-header class="card-header">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">event_note</i>
+                        <span class="md-title">Event Details</span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column">                
+                    
+                </md-card-content>
+            </md-card>
+
+            <!--CONTRACTORS___________________________________-->
+            <md-card>
+                <md-card-header class="card-header">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">people</i>
+                        <span class="md-title">Event Contractors</span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column">                
+                    <!--Team List-->
+                    <md-list flex>
+                        <md-list-item class="md-3-line" ng-repeat="contractor in event.contractors" ng-click="null">
+                            <img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-avatar" alt="{{contractorlist.FULLNAME}}" />
+                            <div layout="column" layout-gt-sm="row" flex>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{ contractor.FULLNAME }} - {{ contractor.ECROLE }}</h3>
+                                    <h4>Day Rate: {{contractor.DAYRATE | currency}}</h4>
+                                    <h4>Slots Compensated: {{ contractor.SLOTCOMPENSATION ? "Yes" : "No" }}</h4>
+                                </div>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-card-content>
+
+                <md-card-actions>
+                    <md-button class="md-raised md-primary" ng-href="./events/team/{{eventid}}" aria-label="Edit Contractors" flex>
+                        EDIT CONTRACTORS
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+
+
+        <div layout="column" flex="30">
+
+            <!--Registration List___________________________________-->
+            <md-card>
+                <md-card-header class="card-header">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">people</i>
+                        <span class="md-title">Registration</span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column">                
+                    <!--Team List-->
+                    <md-list flex>
+                        <!--Registration Count-->
+                        <md-list-item class="md-2-line" ng-click="null">
+                            <md-icon class="material-icons icon-edit" md-font-set="material-icons">person</md-icon>
+                            <div layout="column" layout-gt-sm="row" flex>
+                                <div class="md-list-item-text" layout="column" layout-fill flex>
+                                    <h3>{{ event.details.SLOTS - event.details.SLOTSLEFT }} / {{event.details.SLOTS}} Registered</h3>
+                                    <h4>{{event.details.RESERVELISTCOUNT}} On Reserve</h4>
+                                </div>
+                            </div>
+                        </md-list-item>
+                        
+                        <!--Registration Collected-->
+                        <md-list-item class="md-2-line" ng-click="null">
+                            <md-icon class="material-icons icon-edit" md-font-set="material-icons">attach_money</md-icon>
+                            <div layout="column" layout-gt-xs="row" layout-fill flex>
+                                <div class="md-list-item-text" layout="column">
+                                    <p><span class="pricing-green md-title">{{event.pricing.EARNED | currency}} </span> /
+                                    <span class="pricing-red md-title"> {{event.pricing.TOTALEXPENSES | currency}}</span></p>
+                                </div>
+                            </div>
+                        </md-list-item>
+
+                    </md-list>
+                </md-card-content>
+
+                <md-card-actions>
+                </md-card-actions>
+            </md-card>
+        </div>
+
+    </div>
+
+  
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

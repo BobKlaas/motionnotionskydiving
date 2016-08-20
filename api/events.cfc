@@ -272,12 +272,14 @@
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#eventid#" dbvarname="@eventid"/>
 			<cfprocresult name="ticketrates" resultset="1"/>
 			<cfprocresult name="dayrates" resultset="2"/>
+			<cfprocresult name="pricing" resultset="3"/>
 		</cfstoredproc>
 
 		<!---Create Structure From Results--->
 		<cfset event = structNew()>
 		<cfset event.ticketrates = QueryToStruct(ticketrates)>
 		<cfset event.dayrates = QueryToStruct(dayrates)>
+		<cfset event.pricing = QueryToStruct(pricing)>
 		<cfset JSONReturn = SerializeJSON(event)>
 		<cfreturn JSONReturn>
 	</cffunction>

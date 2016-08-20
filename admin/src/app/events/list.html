@@ -59,11 +59,11 @@
                 <!--Card Title-->
                 <md-card-title style="position:relative;" flex="none">                
                     <!--FAB: View Details -->
-                    <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./events/edit/{{event.ID}}">
+                    <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./events/overview/{{event.ID}}">
                         <md-tooltip md-direction="bottom">
                             Edit Event
                         </md-tooltip>
-                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">edit</md-icon>
+                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">description</md-icon>
                     </md-button>
 
                     <!--FAB: Registered List-->
@@ -80,7 +80,7 @@
                     <p class="event-details" ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></p>
                     <p class="event-details">Slots Filled: {{event.SLOTSFILLED}} of {{event.SLOTS}}</p>
                     <p class="event-details">Slots Remaining: {{event.SLOTSLEFT}}</p>
-                    <p class="event-details">Reserve List: {{event.RESERVELISTCOUNT}} registered</p>
+                    <p class="event-details">Reserve List: {{event.RESERVELISTCOUNT}}</p>
                     <!-- <p ng-bind="event.DESCRIPTION"></p><br> -->
                 </md-card-content>
 
