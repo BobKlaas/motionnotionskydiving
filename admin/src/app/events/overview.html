@@ -24,9 +24,24 @@
                         <span class="md-title">Event Details</span>
                     </md-card-header-text>
                 </md-card-header>
+                <img ng-src="{{common.buildfilepath(eventsImagePath,event.details.IMAGENAME)}}" class="md-card-image" alt="Event">
                 
-                <md-card-content layout="column">                
-                    
+                <!--Card Title-->
+                <md-card-title style="position:relative;" flex="none">                
+                    <!--FAB: Edit Event-->
+                    <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./events/overview/{{event.ID}}">
+                        <md-tooltip md-direction="bottom">
+                            Edit Event
+                        </md-tooltip>
+                        <md-icon class="material-icons icon-edit" md-font-set="material-icons">edit</md-icon>
+                    </md-button>
+                </md-card-title>
+
+                <md-card-content layout="column" ng-cloak>
+                    <h4 ng-bind="event.details.TITLE"></h4>            
+                    <h4>{{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}} <i>({{event.details.NUMDAYS}} days)</i></h4>
+                    <h4>Location: <a ng-href="{{event.details.DROPZONEWEBSITE}}" target="_blank">{{event.details.DROPZONENAME}}</a></h4>
+                    <p ng-bind="event.details.DESCRIPTION"></p>                        
                 </md-card-content>
             </md-card>
 
@@ -71,7 +86,7 @@
                 <md-card-header class="card-header">                    
                     <md-card-header-text layout="row">
                         <i class="material-icons">people</i>
-                        <span class="md-title">Registration</span>
+                        <span class="md-title">Manifest</span>
                     </md-card-header-text>
                 </md-card-header>
                 
@@ -79,7 +94,7 @@
                     <!--Team List-->
                     <md-list flex>
                         <!--Registration Count-->
-                        <md-list-item class="md-2-line" ng-click="null">
+                        <md-list-item class="md-2-line" ng-href="./events/registered/{{event.details.ID}}/">
                             <md-icon class="material-icons icon-edit" md-font-set="material-icons">person</md-icon>
                             <div layout="column" layout-gt-sm="row" flex>
                                 <div class="md-list-item-text" layout="column" layout-fill flex>
@@ -90,7 +105,7 @@
                         </md-list-item>
                         
                         <!--Registration Collected-->
-                        <md-list-item class="md-2-line" ng-click="null">
+                        <md-list-item class="md-2-line" ng-href="./events/registered/{{event.details.ID}}/">
                             <md-icon class="material-icons icon-edit" md-font-set="material-icons">attach_money</md-icon>
                             <div layout="column" layout-gt-xs="row" layout-fill flex>
                                 <div class="md-list-item-text" layout="column">
