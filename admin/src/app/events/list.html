@@ -61,7 +61,7 @@
                     <!--FAB: View Details -->
                     <md-button class="md-fab md-mini btn-card-float" aria-label="Details" ng-href="./events/overview/{{event.ID}}">
                         <md-tooltip md-direction="bottom">
-                            Edit Event
+                            Event Overview
                         </md-tooltip>
                         <md-icon class="material-icons icon-edit" md-font-set="material-icons">description</md-icon>
                     </md-button>
@@ -77,7 +77,7 @@
 
                 <!--Card Body-->
                 <md-card-content flex>
-                    <p class="event-details" ng-bind="common.formatDateRange(event.STARTDATE,event.ENDDATE)"></p>
+                    <p class="event-details">{{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}} <i>({{event.details.NUMDAYS}} days)</i></p>
                     <p class="event-details">Slots Filled: {{event.SLOTSFILLED}} of {{event.SLOTS}}</p>
                     <p class="event-details">Slots Remaining: {{event.SLOTSLEFT}}</p>
                     <p class="event-details">Reserve List: {{event.RESERVELISTCOUNT}}</p>

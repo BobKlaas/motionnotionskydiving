@@ -50,7 +50,7 @@
 
         <div class="col-md-6">
             <h4 ng-bind="event.details.TITLE"></h4>            
-            <h4 ng-bind="common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)"></h4>
+            <h4>{{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}} <i>({{event.details.NUMDAYS}} days)</i></h4>
             <h4>Location: <a ng-href="{{event.details.DROPZONEWEBSITE}}" target="_blank">{{event.details.DROPZONENAME}}</a></h4>
             <h4>Registration: {{event.details.REGISTRATIONFEE | currency}}</h4>
             <h4 ng-bind="buildSlotsString(event.details.SLOTSLEFT,event.details.SLOTS)"></h4>

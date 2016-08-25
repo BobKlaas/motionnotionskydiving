@@ -22,6 +22,8 @@
         $scope.resetForm = resetForm;
         $scope.removeContractor = removeContractor;
         $scope.getRole = getRole;
+        $scope.getPricing = getPricing;
+        $scope.loadContractors = loadContractors;
         
         //VARIABLES        
         $scope.eventsImagePath = '/assets/images/events/';
@@ -43,6 +45,7 @@
             $scope.getEventByID();
             $scope.getContractors();
             $scope.getContractorRoles();
+            $scope.getPricing();
         }
 
         //Get Event by ID
@@ -64,6 +67,52 @@
                 }    
             );            
         }
+
+        //Get Contractor Costs
+        function getPricing(){
+            var params = {id: $scope.eventid}
+            eventservice.getEventPricing(params).then(
+                function(results){
+                    $scope.event.ticketcosts = results.TICKETRATES;
+                    $scope.event.contractorcosts = results.DAYRATES;
+                    $scope.event.pricing = results.PRICING[0];
+                    
+                    //Set Contractors List
+                    $scope.loadContractors(results.TICKETRATES);
+                }    
+            );
+        }
+
+        //Populate Contractors List from Array
+        function loadContractors(aryContractors){
+            for(var i=0; i < aryContractors.length; i++){
+                //Create contracor object
+                var econtractor = $scope.newEventContractor(
+                     ''
+                    ,aryContractors[i].ID
+                    ,$scope.eventid
+                    ,aryContractors[i].FULLNAME
+                    ,aryContractors[i].IMAGENAME
+                    ,aryContractors[i].ROLEID
+                    ,aryContractors[i].ROLETITLE
+                    ,aryContractors[i].DAYRATE
+                    ,aryContractors[i].SLOTCOMPENSATION
+                );
+
+                //Remove COntractor from dropdown
+                for(var j=0; j < $scope.contractors.length; j++){
+                    if($scope.contractors[j].ID == econtractor.contractorid){
+                        //Remove Item From Dropdown Selection
+                        $scope.contractors.splice(j,1); 
+                    }
+                }
+
+                //Add Event Contractor to List
+                $scope.contractorlist.push(econtractor);
+            }                   
+        
+        }
+
 
         //Get Contractor Roles
         function getContractorRoles(){
