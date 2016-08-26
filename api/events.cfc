@@ -242,6 +242,7 @@
 		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
 			
 		<cfset rc1 = deserializeJSON(ARGUMENTS.params)>
+		<cfset contractorList = ''>
 
 		<cfloop array="#rc1#" index="i">
 			<cfset rc2 = i>
@@ -251,6 +252,11 @@
 			<cfset rc.roleid = len(trim(rc2.roleid))?rc2.roleid:''>
 			<cfset rc.dayrate = len(trim(rc2.dayrate))?rc2.dayrate:''>		
 			<cfset rc.slotcompensation = len(trim(rc2.slotcompensation))?rc2.slotcompensation:1>
+
+			<!---Add Contractor ID to List--->
+			<cfif len(trim(rc.contractorid))>
+				<cfset contractorList = listAppend(contractorList,rc.contractorid)>
+			</cfif>
 
 			<!---Update Customer Registration--->
 			<cfstoredproc procedure="sp_update_event_contractor" datasource="motion">
@@ -262,6 +268,16 @@
 				<cfprocparam cfsqltype="CF_SQL_BIT" value="#rc.slotcompensation#" dbvarname="@slotcompensation" />
 			</cfstoredproc>
 		</cfloop>
+
+		<!--- Delete Contractors who are not in list--->
+		<cfif listLen(contractorList) AND len(trim(rc.eventid))>
+			<cfquery name="qryDeleteContractor" datasource="motion">
+				DELETE FROM event_contractors 
+				WHERE 
+					eventid = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#"/>
+					AND contractorid NOT IN (<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#contractorList#" list="true">)
+			</cfquery>
+		</cfif>
 	</cffunction>
 
 

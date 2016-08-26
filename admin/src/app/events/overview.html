@@ -39,7 +39,7 @@
 
                 <md-card-content layout="column" ng-cloak>
                     <h4 ng-bind="event.details.TITLE"></h4>            
-                    <h4>{{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}} <i>({{event.details.NUMDAYS}} days)</i></h4>
+                    <h4>{{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}} ({{common.formatdays(event.details.NUMDAYS)}})</h4>
                     <h4>Location: <a ng-href="{{event.details.DROPZONEWEBSITE}}" target="_blank">{{event.details.DROPZONENAME}}</a></h4>
                     <p ng-bind="event.details.DESCRIPTION"></p>                        
                 </md-card-content>
@@ -115,6 +115,34 @@
                             </div>
                         </md-list-item>
 
+                    </md-list>
+                </md-card-content>
+
+                <md-card-actions>
+                </md-card-actions>
+            </md-card>
+
+               <!--Registration List___________________________________-->
+            <md-card>
+                <md-card-header class="card-header">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">local_offer</i>
+                        <span class="md-title">Pricing</span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column">                
+                    <!--Team List-->
+                    <md-list flex>
+                        <!--Event Pricing-->
+                        <md-list-item class="md-2-line" ng-href="./events/pricing/{{event.details.ID}}/">
+                            <md-icon class="material-icons icon-edit" md-font-set="material-icons">attach_money</md-icon>
+                            <div layout="column" layout-gt-sm="row" flex>
+                                <div class="md-list-item-text" layout="column">
+                                    <p><span class="pricing-green md-title">{{event.pricing.ACTUALREGISTRATIONFEE | currency}}</span></p>
+                                </div>
+                            </div>
+                        </md-list-item>
                     </md-list>
                 </md-card-content>
 

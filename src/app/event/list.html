@@ -48,7 +48,7 @@
 
                 <!--Card Body-->
                 <md-card-content class="min-height-300">
-                    <h4>{{common.formatDateRange(event.STARTDATE,event.ENDDATE)}} <i>({{event.NUMDAYS}} ({{event.NUMDAYS}} > 1)?'days':'day')</i></h4>
+                    <h4>{{common.formatDateRange(event.STARTDATE,event.ENDDATE)}} ({{common.formatdays(event.NUMDAYS)}})</h4>
                     <p class="event-details" ng-if="event.SLOTSLEFT">Slots Available: {{event.SLOTSLEFT}}</p>
                     <p class="event-details" ng-if="!event.SLOTSLEFT" style="color:#FF5722">Slots Available: {{event.SLOTSLEFT}}</p>
                     <p ng-bind="event.DESCRIPTION"></p><br>

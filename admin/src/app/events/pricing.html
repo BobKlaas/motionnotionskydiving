@@ -70,23 +70,23 @@
 
                     <!--Contractor Costs-->
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title pricing-red">Total Expenses: {{pricing.totalexpenses | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title pricing-red" ng-cloak>Total Expenses: {{pricing.totalexpenses | currency}}</h4>               
                     </div>
                     
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title pricing-green">Profit Margin: {{pricing.marginamount | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title pricing-green" ng-cloak>Profit Margin: {{pricing.marginamount | currency}}</h4>               
                     </div>
 
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title">Expenses + Margin: {{pricing.expensesplusmargin | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title" ng-cloak>Expenses + Margin: {{pricing.expensesplusmargin | currency}}</h4>               
                     </div>
 
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title">Suggested Registration: {{pricing.suggestedregistrationfee | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title" ng-cloak>Suggested Registration: {{pricing.suggestedregistrationfee | currency}}</h4>               
                     </div>
 
                     <div layout="column" layout-align="center end" ng-if="pricinglocked"> 
-                        <h4 class="md-no-sticky md-title">Actual Registration: {{pricing.actualregistrationfee | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title" ng-cloak>Actual Registration: {{pricing.actualregistrationfee | currency}}</h4>               
                     </div>
 
                     <md-divider layout-padding></md-divider> 

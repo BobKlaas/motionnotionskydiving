@@ -20,6 +20,7 @@
             buildfilepath       : buildfilepath,
             getSocialUrls       : getSocialUrls,
             chunkdata           : chunkdata,
+            formatdays          : formatdays,
             $log                : $log,
             $http               : $http,
             $q                  : $q,
@@ -62,6 +63,16 @@
             }
             return newarray;
         };
+
+        //Format Days String
+        function formatdays(days){
+            var string = 'asdf';
+            if(days > 1)
+                string = days + ' days';
+            else
+                string = days + ' day';
+            return string;            
+        }
 
         //Show Slideshow on Homepage Only
         function showslideshow(){
