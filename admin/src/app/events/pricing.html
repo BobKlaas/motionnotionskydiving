@@ -135,7 +135,7 @@
                 <img ng-src="{{common.buildfilepath(eventsImagePath,event.details.IMAGENAME)}}" class="md-card-image" alt="Event">
                 <md-card-content layout="column">                    
                     <span class="event-details">Location: {{event.details.TITLE}}</span>
-                    <span class="event-details">Dates: {{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}} <i>({{event.details.NUMDAYS}} days)</i></span>
+                    <span class="event-details">Dates: {{common.formatDateRange(event.details.STARTDATE,event.details.ENDDATE)}} ({{common.formatdays(event.details.NUMDAYS)}})</span>
                     <span class="event-details">Location: {{event.details.DROPZONENAME}}</span>
                     <span class="event-details">Total Slots: {{event.details.SLOTS}}</span>
                 </md-card-content>

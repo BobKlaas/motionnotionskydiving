@@ -7,6 +7,7 @@
             <ol class="breadcrumb">
                 <li><a href="index.cfm">Home</a></li>
                 <li><a href="index.cfm">Events</a></li>
+                <li ng-if="eventid"><a href="index.cfm" ng-bind="event.title"></a></li>
                 <li class="active" ng-bind="etitle"></li>
             </ol>
         </div>
@@ -44,7 +45,7 @@
                     <textarea ng-model="event.description" name="description" minlength="50" maxlength="1000" md-maxlength="1000" rows="3" required md-select-on-focus></textarea>
                     <div ng-messages="eventForm.description.$error" ng-if="eventForm.description.$touched">
                         <div ng-message="required">Event description is required.</div>
-                        <div ng-message="minlength">Event description must be at least 10 characters long.</div>
+                        <div ng-message="minlength">Event description must be at least 5SS0 characters long.</div>
                     </div>
                 </md-input-container>
 
@@ -71,7 +72,7 @@
                 <!--Dropzone-->
                 <md-input-container>
                     <label>Dropzone</label>
-                    <md-select required ng-model="event.dropzone" name="dropzone">
+                    <md-select required ng-model="event.dropzoneid" name="dropzone">
                         <md-option ng-repeat="dropzone in dropzones" value="{{dropzone.ID}}">{{dropzone.NAME}}</md-option>
                     </md-select>
                     <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.dropzone.$touched">

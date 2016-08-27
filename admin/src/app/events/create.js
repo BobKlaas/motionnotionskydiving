@@ -11,15 +11,16 @@
     function eventCreateController($scope,common,eventservice,dropzoneservice){       
         //METHODS
         $scope.init = init;
-        $scope.createEvent = createEvent;
         $scope.getDropzones = getDropzones;
         $scope.readFile = readFile;
         $scope.saveEvent = saveEvent;
+        $scope.getEventByID = getEventByID;
         
         //VARIABLES
         $scope.common = common;
         $scope.eventsImagePath = '/assets/images/events/';
         $scope.etitle = 'Step 1: Create Event';
+        $scope.eventid = common.$routeParams.eventid;
         $scope.btnSubmitTitle = 'SAVE';
         $scope.minDate = new Date();
         $scope.maxDate = new Date($scope.minDate.getFullYear()+1,$scope.minDate.getMonth(),$scope.minDate.getDate());
@@ -46,9 +47,9 @@
             ,slots: ''
             ,jumpsperday: ''
             ,reserveslots: 10
-            ,suggestedregistrationfee: 50.00
+            ,suggestedregistrationfee: 0
             ,registrationfee: 0
-            ,dropzoneid: 1
+            ,dropzoneid: ''
             ,image: ''
             ,active: 0
         }
@@ -57,12 +58,43 @@
         $scope.init();
         function init(){
             $scope.getDropzones();
+
+            if($scope.eventid != undefined){
+                $scope.getEventByID();
+                $scope.etitle = 'Edit Event';
+            }
         }
 
-        //Create New Event
-        function createEvent(){
-            console.log(event);
+        //Get Event By ID
+        function getEventByID(){
+            var params = {id: $scope.eventid}
+            eventservice.getEventByID(params).then(
+                function(results){
+                    $scope.event = setEvent(results.DETAILS[0]);
+                }    
+            );
         }
+
+        //Set Event Object
+        function setEvent(event){
+            var event = {
+                 title: event.TITLE
+                ,description: event.DESCRIPTION
+                ,startdate: event.STARTDATE 
+                ,enddate: event.ENDDATE 
+                ,slots: event.SLOTS 
+                ,jumpsperday: event.JUMPSPERDAY 
+                ,reserveslots: event.RESERVESLOTS 
+                ,suggestedregistrationfee: event.SUGGESTEDREGISTRATIONFEE
+                ,registrationfee: event.REGISTRATIONFEE
+                ,dropzoneid: event.DROPZONEID
+                ,image: event.IMAGE 
+                ,active: event.ACTIVE
+            }
+            console.log(event);
+            return event;
+        }
+
 
         //Get Dropzones
         function getDropzones(){
@@ -91,16 +123,29 @@
                     params.startdate = $scope.event.startdate.toISOString();
                     params.enddate = $scope.event.enddate.toISOString();
                 
-                //Save Event
-                eventservice.createEvent(params).then(
-                    function(results){
-                        //Show Success
-                        common.logger.success('Success','',results[0].TITLE +' was saved successfully.');
+                if($scope.eventid){
+                    //Update Event
+                    eventservice.updateEvent(params).then(
+                        function(results){
+                            //Show Success
+                            common.logger.success('Success','',results[0].TITLE +' was updated successfully.');
 
-                        //Navigate to Step 2
-                        common.routeTo('/events/team/'+results[0].ID);                  
-                    }    
-                );
+                            //Navigate to Step 2
+                            common.routeTo('/events/team/'+results[0].ID);                  
+                        }    
+                    );
+                }else{
+                    //Save Event
+                    eventservice.createEvent(params).then(
+                        function(results){
+                            //Show Success
+                            common.logger.success('Success','',results[0].TITLE +' was saved successfully.');
+
+                            //Navigate to Step 2
+                            common.routeTo('/events/team/'+results[0].ID);                  
+                        }    
+                    );
+                }                
             }
         }
 
