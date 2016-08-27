@@ -61,13 +61,14 @@
         function getPricing(){
             var params = {id: $scope.eventid}
             eventservice.getEventPricing(params).then(
-                function(results){
+                function(results){                    
                     $scope.event.ticketcosts = results.TICKETRATES;
                     $scope.event.contractorcosts = results.DAYRATES;
-                    $scope.event.pricing = results.PRICING[0];
-
-                    //Calculate Pricing
-                    $scope.setPricing();
+                    
+                    if(results.PRICING.length){
+                        $scope.event.pricing = results.PRICING[0];
+                        $scope.setPricing();
+                    }
                     $scope.calculatePricing();
                 }    
             );
