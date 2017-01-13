@@ -52,10 +52,8 @@
                 </md-card-header>
 
                 <!--Event Image-->
-                <a ng-href="/events/view/{{event.ID}}">
-                    <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" class="md-card-image" alt="Event">
-                </a>
-
+                <img ng-src="{{common.buildfilepath(eventsImagePath,event.IMAGENAME)}}" ng-href="/events/view/{{event.ID}}" class="md-card-image" alt="Event">
+                
                 <!--Card Title-->
                 <md-card-title style="position:relative;" flex="none">                
                     <!--FAB: View Details -->
