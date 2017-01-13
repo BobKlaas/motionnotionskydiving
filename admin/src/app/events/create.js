@@ -4,7 +4,10 @@
 
     angular
         .module('app.events')
-        .controller('eventCreateController',eventCreateController);
+        .controller('eventCreateController',eventCreateController)
+        .config(function($compileProvider){
+            $compileProvider.preAssignBindingsEnabled(true);
+        });
 
     eventCreateController.$inject = ['$scope','common','eventservice','dropzoneservice'];
 
@@ -42,10 +45,10 @@
         $scope.event = {
              title: ''
             ,description: ''
-            ,startdate: ''
-            ,enddate: ''
-            ,slots: ''
-            ,jumpsperday: ''
+            ,startdatetime: new Date (new Date().toDateString() + ' ' + '8:00')
+            ,enddatetime: new Date (new Date().toDateString() + ' ' + '18:00')
+            ,slots: 10
+            ,jumpsperday: 1
             ,reserveslots: 10
             ,suggestedregistrationfee: 0
             ,registrationfee: 0
@@ -71,28 +74,36 @@
             eventservice.getEventByID(params).then(
                 function(results){
                     $scope.event = setEvent(results.DETAILS[0]);
+
+                    console.log($scope.event);
+
+                    //Set Image in Cropper
+                    if(results.DETAILS[0].IMAGENAME.length){
+                        if(cropper) cropper.replace('/assets/images/events/'+results.DETAILS[0].IMAGENAME);                         
+                        $scope.hasImage = true;
+                    }
                 }    
             );
         }
 
         //Set Event Object
-        function setEvent(event){
-            var event = {
-                 title: event.TITLE
+        function setEvent(event){   
+            var newevent = {
+                 id: event.ID         
+                ,title: event.TITLE
                 ,description: event.DESCRIPTION
-                ,startdate: event.STARTDATE 
-                ,enddate: event.ENDDATE 
-                ,slots: event.SLOTS 
-                ,jumpsperday: event.JUMPSPERDAY 
-                ,reserveslots: event.RESERVESLOTS 
+                ,startdatetime: new Date(event.STARTDATEISO)
+                ,enddatetime: new Date(event.ENDDATEISO)
+                ,slots: event.SLOTS
+                ,jumpsperday: event.JUMPSPERDAY
+                ,reserveslots: event.RESERVESLOTS
                 ,suggestedregistrationfee: event.SUGGESTEDREGISTRATIONFEE
                 ,registrationfee: event.REGISTRATIONFEE
                 ,dropzoneid: event.DROPZONEID
-                ,image: event.IMAGE 
+                ,image: event.IMAGE
                 ,active: event.ACTIVE
             }
-            console.log(event);
-            return event;
+            return newevent;
         }
 
 
@@ -107,6 +118,8 @@
 
         //Save Event
         function saveEvent(){
+            console.log($scope.event);
+
             var readyForSave = 0;
             try{
                 var image = cropper.getCroppedCanvas({width:750,height:300}).toDataURL();
@@ -120,8 +133,8 @@
             if(readyForSave){
                 //Set Params
                 var params = $scope.event;
-                    params.startdate = $scope.event.startdate.toISOString();
-                    params.enddate = $scope.event.enddate.toISOString();
+                    params.startdate = $scope.event.startdatetime.toISOString();
+                    params.enddate = $scope.event.enddatetime.toISOString();
                 
                 if($scope.eventid){
                     //Update Event

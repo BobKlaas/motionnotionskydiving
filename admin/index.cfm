@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="src/lib/angular-material/angular-material.css">
     <link rel="stylesheet" href="src/lib/toastr/toastr.css">
     <link rel="stylesheet" href="src/lib/angular-loading-bar/build/loading-bar.css">
-    <link rel="stylesheet" href="src/lib/angular-material-datetimepicker/css/material-datetimepicker.min.css">
     <link rel="stylesheet" href="src/lib/cropperjs/dist/cropper.css">
     <link rel="stylesheet" href="src/lib/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="src/lib/lightgallery/dist/css/lightgallery.css">
@@ -62,9 +61,9 @@
     <script src="src/lib/ng-device-detector/ng-device-detector.js"></script>
     <script src="src/lib/re-tree/re-tree.js"></script>
     <script src="src/lib/toastr/toastr.js"></script>
-    <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="src/lib/angular-filter/dist/angular-filter.js"></script>
     <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
-    <script src="src/lib/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
+    <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
     <script src="src/lib/angular-recaptcha/release/angular-recaptcha.js"></script>
     <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
     <script src="src/lib/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script>

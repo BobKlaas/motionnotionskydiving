@@ -42,40 +42,44 @@
                 <!--Event Description-->
                 <md-input-container>
                     <label>Event Description</label>
-                    <textarea ng-model="event.description" name="description" minlength="50" maxlength="1000" md-maxlength="1000" rows="3" required md-select-on-focus></textarea>
+                    <textarea ng-model="event.description" name="description" minlength="20" maxlength="1000" md-maxlength="1000" rows="3" required md-select-on-focus></textarea>
                     <div ng-messages="eventForm.description.$error" ng-if="eventForm.description.$touched">
                         <div ng-message="required">Event description is required.</div>
-                        <div ng-message="minlength">Event description must be at least 5SS0 characters long.</div>
+                        <div ng-message="minlength">Event description must be at least 20 characters long.</div>
                     </div>
                 </md-input-container>
 
-                <!--Start Date | End Date-->
-                <div layout="column" layout-gt-xs="row">
-                    <md-input-container flex>
-                        <label>Start Date/Time</label>
-                        <input mdc-datetime-picker="" date="true" time="true" type="text" name="startdatetime" placeholder="Start Date" min-date="minDate" max-date="maxDate" ng-model="event.startdate" class="md-input" required>
-                        <div class="errors" ng-messages="eventForm.startdatetime.$error" ng-if="eventForm.startdatetime.$touched">
-                            <div ng-message="required">Start date is Required</div>
-                        </div>
-                    </md-input-container>
                 
-                    <!--End Date-->
-                    <md-input-container flex>
-                        <label>End Date/Time</label>
-                        <input mdc-datetime-picker="" date="true" time="true" type="text" name="enddatetime" placeholder="End Date" min-date="minDate" max-date="maxDate" ng-model="event.enddate" class="md-input" required>
-                        <div class="errors" ng-messages="eventForm.enddatetime.$error" ng-if="eventForm.enddatetime.$touched">
-                            <div ng-message="required">End date is Required</div>
+                <!--Event Start/End Date Time-->
+                <div layout="column" layout-gt-sm="row">
+                    <!--Start Date-->
+                    <md-input-container flex="70">
+                        <label>Start Time</label>
+                        <input name="startdatetime" type="datetime-local" ng-model="event.startdatetime">
+                        <div class="errors" ng-messages="eventForm.startdatetime.$error" ng-if="eventForm.startdatetime.$touched">
+                            <div ng-message="required">Start Date is Required</div>
                         </div>
                     </md-input-container>
-                </div>                  
+
+                    <!--End Date-->
+                    <md-input-container flex="70">
+                        <label>End Time</label>
+                        <input name="enddatetime" type="datetime-local" ng-model="event.enddatetime">
+                        <div class="errors" ng-messages="eventForm.enddatetime.$error" ng-if="eventForm.enddatetime.$touched">
+                            <div ng-message="required">End Date is Required</div>
+                        </div>
+                    </md-input-container>
+                </div>    
+
+                
 
                 <!--Dropzone-->
                 <md-input-container>
                     <label>Dropzone</label>
-                    <md-select required ng-model="event.dropzoneid" name="dropzone">
+                    <md-select ng-model="event.dropzoneid" name="dropzoneid" required>
                         <md-option ng-repeat="dropzone in dropzones" value="{{dropzone.ID}}">{{dropzone.NAME}}</md-option>
                     </md-select>
-                    <div class="errors" ng-messages="eventForm.dropzone.$error" ng-if="eventForm.dropzone.$touched">
+                    <div class="errors" ng-messages="eventForm.dropzoneid.$error" ng-if="eventForm.dropzoneid.$touched">
                         <div ng-message="required">Dropzone is Required</div>
                     </div>
                 </md-input-container>
@@ -112,9 +116,11 @@
                     </md-input-container>
                 </div>  
 
-                <!--Event Image-->                
-                <img id="previewimage" src="">
-                <img id="resultimage" src="">
+                <!--Event Image-->  
+                <div layout="column" flex>              
+                    <img id="previewimage" src="" style="max-width: 100%;">
+                </div>
+
                 <div class="actions" style="padding-left:40px;">                     
                     <md-button class="md-raised md-primary">
                         <label for="upload">

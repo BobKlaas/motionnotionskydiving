@@ -12,7 +12,6 @@
             'ngMaterial',
             'ui.bootstrap',
             'angular.filter',
-            'ngMaterialDatePicker',
             'ui.mask',
       
             //Other 3rd-Party

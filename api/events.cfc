@@ -331,7 +331,7 @@
 		</cfif>
 
 		<!---Add Customer to Event --->
-		<cfstoredproc procedure="sp_insert_event" datasource="motion">
+		<cfstoredproc procedure="sp_update_event" datasource="motion">
 			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.id#" dbvarname="@eventid"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.title#" dbvarname="@title"/>
 			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.description#" dbvarname="@description"/>
