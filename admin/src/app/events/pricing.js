@@ -53,6 +53,9 @@
                     $scope.event.customers = results.CUSTOMERS;
                     $scope.pricinglocked = $scope.event.details.PRICINGLOCKED;
                     $scope.calculatePricing();
+
+                    if($scope.pricing.marginamount <= 0)
+                        common.logger.error('This event is operating at a loss. Event expenses exceed event profit.','','Net Loss Expected');
                 }    
             );
         }
@@ -77,7 +80,7 @@
         //Loads existing pricing
         function setPricing(){
             $scope.pricing.marginpercentage = $scope.event.pricing.MARGINPERCENTAGE;
-            $scope.pricing.actualregistrationfee = $scope.event.pricing.ACTUALREGISTRATIONFEE;            
+            $scope.pricing.actualregistrationfee = $scope.event.details.ACTUALREGISTRATIONFEE;            
         }
 
         //Get Total Expenses
@@ -106,7 +109,7 @@
             }
 
             //CALCULATE: MARGIN____________________________>
-            newpricing.marginamount = (newpricing.totalexpenses * (newpricing.marginpercentage / 100));
+            newpricing.marginamount = Math.ceil((newpricing.totalexpenses * (newpricing.marginpercentage / 100)));
 
             //CALCULATE: EXPENSES PLUS MARGIN____________________________>
             newpricing.expensesplusmargin = Math.ceil((newpricing.totalexpenses + newpricing.marginamount));            

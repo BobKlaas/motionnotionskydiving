@@ -22,12 +22,24 @@
             <md-card>
                 <md-card-header class="card-header pop">                    
                     <md-card-header-text layout="row">
-                        <i class="material-icons">event</i>
+                        <i class="material-icons">people</i>
                         <span class="md-title" ng-bind="etitle"></span>
                     </md-card-header-text>
                 </md-card-header>
                 
                 <md-card-content layout="column">
+                    <!--Pricing Locked Notification-->
+                    <div class="alert alert-warning" ng-if="event.details.PRICINGLOCKED && (event.pricing.PROFITMARGIN >= 0)"> 
+                        <i class="material-icons">lock</i>
+                        <strong>Pricing Locked: </strong> Someone has already registered for this event. Pricing has been locked at {{event.details.REGISTRATIONFEE | currency}} for all attendees. Please take this into consideration when modifying expenses. <b>This can reduce profit and potentially allow event expenses to exceed profit.</b></a>
+                    </div>
+
+                    <!--Pricing Locked Notification-->
+                    <div class="alert alert-danger" ng-if="event.details.PRICINGLOCKED && (event.pricing.PROFITMARGIN < 0)"> 
+                        <i class="material-icons">lock</i>
+                        <strong>Net Loss Expected: </strong>This events expenses exceed potential revenue and therefore will result in a net loss. To remedy this, add more registration slots or reduce expenses.</b></a>
+                    </div>  
+
                     <form name="addForm" ng-submit="addForm.$valid && addContractorToArray()">
                         <div layout="column" layout-gt-sm="row">
                             <!--Contractor-->
@@ -89,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="md-list-item-text" layout="column" layout-align="center end">                                
-                                 <!--FAB: Remove Contractor -->
+                                <!--FAB: Remove Contractor -->
                                 <md-button class="md-fab md-mini" aria-label="Remove Contractor" ng-click="removeContractor(contractor)">
                                     <md-tooltip md-direction="bottom">
                                         Remove Contractor

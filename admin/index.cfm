@@ -114,6 +114,7 @@
     <script src="src/app/events/pricing.js"></script>
     <script src="src/app/events/overview.js"></script>
 
+
     <!---CONTRACTORS--->    
     <script src="src/app/contractors/contractors.module.js"></script>
     <script src="src/app/contractors/contractors.js"></script>

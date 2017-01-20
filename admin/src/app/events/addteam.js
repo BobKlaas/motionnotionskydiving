@@ -6,9 +6,10 @@
         .module('app.events')
         .controller('eventTeamController',eventTeamController);
 
-    eventTeamController.$inject = ['$scope','common','$filter','eventservice','contractorservice'];
+    eventTeamController.$inject = ['$scope','common','$filter','$mdDialog','eventservice','contractorservice'];
+    
 
-    function eventTeamController($scope,common,$filter,eventservice,contractorservice){       
+    function eventTeamController($scope,common,$filter,$mdDialog,eventservice,contractorservice){       
         //METHODS
         $scope.common = common;
         $scope.init = init;
@@ -54,6 +55,7 @@
             eventservice.getEventByID(params).then(
                 function(results){
                     $scope.event.details = results.DETAILS[0];
+                    console.log($scope.event);
                 }    
             );            
         }
@@ -79,6 +81,10 @@
                     
                     //Set Contractors List
                     $scope.loadContractors(results.TICKETRATES);
+
+                    //Notify of Net Loss
+                    if($scope.pricing.marginamount <= 0)
+                        common.logger.error('This event is operating at a loss. Event expenses exceed event profit.','','Net Loss Expected');
                 }    
             );
         }

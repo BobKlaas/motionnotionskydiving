@@ -55,7 +55,7 @@
                     <!--Start Date-->
                     <md-input-container flex="70">
                         <label>Start Time</label>
-                        <input name="startdatetime" type="datetime-local" ng-model="event.startdatetime">
+                        <input name="startdatetime" type="datetime-local" ng-model="event.startdatetime" ng-readonly="event.pricinglocked">
                         <div class="errors" ng-messages="eventForm.startdatetime.$error" ng-if="eventForm.startdatetime.$touched">
                             <div ng-message="required">Start Date is Required</div>
                         </div>
@@ -64,19 +64,17 @@
                     <!--End Date-->
                     <md-input-container flex="70">
                         <label>End Time</label>
-                        <input name="enddatetime" type="datetime-local" ng-model="event.enddatetime">
+                        <input name="enddatetime" type="datetime-local" ng-model="event.enddatetime" ng-readonly="event.pricinglocked">
                         <div class="errors" ng-messages="eventForm.enddatetime.$error" ng-if="eventForm.enddatetime.$touched">
                             <div ng-message="required">End Date is Required</div>
                         </div>
                     </md-input-container>
-                </div>    
-
-                
+                </div>
 
                 <!--Dropzone-->
                 <md-input-container>
                     <label>Dropzone</label>
-                    <md-select ng-model="event.dropzoneid" name="dropzoneid" required>
+                    <md-select ng-model="event.dropzoneid" name="dropzoneid" required ng-readonly="event.pricinglocked">
                         <md-option ng-repeat="dropzone in dropzones" value="{{dropzone.ID}}">{{dropzone.NAME}}</md-option>
                     </md-select>
                     <div class="errors" ng-messages="eventForm.dropzoneid.$error" ng-if="eventForm.dropzoneid.$touched">
@@ -89,7 +87,7 @@
                     <!--Slots-->
                     <md-input-container flex>
                         <label>Jumps Per Day</label>
-                        <input required type="number" step="1" name="jumpsperday" ng-model="event.jumpsperday" max="25" />
+                        <input required type="number" step="1" name="jumpsperday" ng-model="event.jumpsperday" ng-readonly="event.pricinglocked" max="25" />
                         <div ng-messages="eventForm.jumpsperday.$error" ng-if="eventForm.jumpsperday.$touched">
                             <div ng-message="required">Jumps per day is required.</div>
                         </div>
@@ -98,7 +96,7 @@
                     <!--Slots-->
                     <md-input-container flex>
                         <label>Available Slots</label>
-                        <input required type="number" step="1" name="slots" ng-model="event.slots" min="1" max="25" />
+                        <input required type="number" step="1" name="slots" ng-model="event.slots" min="{{minslots}}" max="25" />
                         <div ng-messages="eventForm.slots.$error" ng-if="eventForm.slots.$touched">
                             <div ng-message="required">Slots is required.</div>
                             <div ng-message="minlength">Slots must be at least 1.</div>
@@ -108,7 +106,7 @@
                     <!--Reserve Slots-->
                     <md-input-container flex>
                         <label>Reserve Slots</label>
-                        <input required type="number" step="1" name="reserveslots" ng-model="event.reserveslots" min="1" max="25" />
+                        <input required type="number" step="1" name="reserveslots" ng-model="event.reserveslots" min="1" max="25" ng-readonly="event.pricinglocked"/>
                         <div ng-messages="eventForm.reserveslots.$error" ng-if="eventForm.reserveslots.$touched">
                             <div ng-message="required">Reserve slots is required.</div>
                             <div ng-message="minlength">Reserve slots must be at least 1.</div>

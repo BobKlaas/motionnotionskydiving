@@ -28,6 +28,8 @@
         $scope.minDate = new Date();
         $scope.maxDate = new Date($scope.minDate.getFullYear()+1,$scope.minDate.getMonth(),$scope.minDate.getDate());
         $scope.dropzones = [];
+        $scope.pricinglocked = 0;
+        $scope.minslots = 1;
 
         //Image Variables
         var image = document.getElementById('previewimage');
@@ -74,8 +76,7 @@
             eventservice.getEventByID(params).then(
                 function(results){
                     $scope.event = setEvent(results.DETAILS[0]);
-
-                    console.log($scope.event);
+                    $scope.minslots = $scope.event.slots;
 
                     //Set Image in Cropper
                     if(results.DETAILS[0].IMAGENAME.length){
@@ -102,6 +103,9 @@
                 ,dropzoneid: event.DROPZONEID
                 ,image: event.IMAGE
                 ,active: event.ACTIVE
+                ,slotsleft: event.SLOTSLEFT
+                ,reservelistcount: event.RESERVELISTCOUNT
+                ,pricinglocked: event.PRICINGLOCKED
             }
             return newevent;
         }

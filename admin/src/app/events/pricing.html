@@ -29,10 +29,16 @@
                 
                 <md-card-content layout="column">
                     <!--Pricing Locked Notification-->
-                    <div class="alert alert-danger" ng-if="pricinglocked"> 
+                    <div class="alert alert-warning" ng-if="pricinglocked && (pricing.marginamount >= 0)"> 
                         <i class="material-icons">lock</i>
-                        <strong>Pricing Locked:</strong> Someone has already registered for this event. Pricing has been locked at {{pricing.actualregistrationfee | currency}}.</a>
+                        <strong>Pricing Locked:</strong> Someone has already registered for this event. Pricing has been locked at {{event.details.REGISTRATIONFEE | currency}} for all attendees. Please take this into consideration when modifying expenses. <b>This can reduce profit and potentially allow event expenses to exceed profit.</b></a>
                     </div>
+
+                    <!--Pricing Locked Notification-->
+                    <div class="alert alert-danger" ng-if="pricinglocked && (pricing.marginamount < 0)"> 
+                        <i class="material-icons">lock</i>
+                        <strong>Net Loss Expected:</strong>This events expenses exceed potential revenue and therefore will result in a net loss. To remedy this, add more registration slots or reduce expenses.</b></a>
+                    </div>                    
 
                     <!--Contractor Costs-->
                     <h3 class="md-no-sticky md-title">Contractor Costs</h3>
@@ -74,19 +80,19 @@
                     </div>
                     
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title pricing-green" ng-cloak>Profit Margin: {{pricing.marginamount | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title pricing-green" ng-cloak>Potential Revenue: {{event.details.REGISTRATIONFEE * event.details.SLOTS | currency}}</h4>               
                     </div>
 
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title" ng-cloak>Expenses + Margin: {{pricing.expensesplusmargin | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title" ng-class="(pricing.marginamount >= 0)?'pricing-green':'pricing-red'" ng-cloak>Profit Margin: {{pricing.marginamount | currency}}</h4>
                     </div>
 
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title" ng-cloak>Suggested Registration: {{pricing.suggestedregistrationfee | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title" ng-class="(pricing.marginamount >= 0)?'pricing-green':'pricing-red'" ng-cloak>Profit Margin Perc: {{pricing.marginpercentage}}%</h4>
                     </div>
 
-                    <div layout="column" layout-align="center end" ng-if="pricinglocked"> 
-                        <h4 class="md-no-sticky md-title" ng-cloak>Actual Registration: {{pricing.actualregistrationfee | currency}}</h4>               
+                    <div layout="column" layout-align="center end" ng-if="pricinglocked" ng-class="(event.details.REGISTRATIONFEE >= pricing.suggestedregistrationfee)?'pricing-green':'pricing-red'"> 
+                        <h4 class="md-no-sticky md-title" ng-cloak><i class="material-icons">lock</i> Actual Registration: {{event.details.REGISTRATIONFEE | currency}}</h4>               
                     </div>
 
                     <md-divider layout-padding></md-divider> 

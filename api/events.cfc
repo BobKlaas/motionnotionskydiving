@@ -258,7 +258,7 @@
 				<cfset contractorList = listAppend(contractorList,rc.contractorid)>
 			</cfif>
 
-			<!---Update Customer Registration--->
+			<!---Update Event Contractor--->
 			<cfstoredproc procedure="sp_update_event_contractor" datasource="motion">
 				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventcontractorid#" dbvarname="@eventcontractorid" null="#(len(trim(rc.eventcontractorid))?false:true)#"/>
 				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#" dbvarname="@eventid" null="#(len(trim(rc.eventid))?false:true)#"/>
@@ -277,6 +277,18 @@
 					eventid = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#"/>
 					AND contractorid NOT IN (<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#contractorList#" list="true">)
 			</cfquery>
+		</cfif>
+
+		<!---Check for event pricing record--->
+		<cfquery name="qryGetCosting" datasource="motion">
+			SELECT * FROM event_pricing WHERE eventid=<cfqueryparam cfsqltype="cf_sql_integer" value="#rc.eventid#">
+		</cfquery>
+
+		<!---Recalculate costing if costing record exists--->
+		<cfif qryGetCosting.recordcount AND len(trim(rc.eventid))>
+			<cfstoredproc procedure="sp_recalc_event_pricing" datasource="motion">
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.eventid#" dbvarname="@eventid"/>
+			</cfstoredproc>
 		</cfif>
 	</cffunction>
 
