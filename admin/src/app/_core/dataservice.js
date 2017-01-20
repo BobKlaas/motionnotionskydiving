@@ -6,6 +6,7 @@
         .factory('contractorservice',contractorservice)
         .factory('eventservice',eventservice)
         .factory('dropzoneservice',dropzoneservice)
+        .factory('mediaservice',mediaservice)    
         .factory('commonservice',commonservice)        
 
   
@@ -15,7 +16,8 @@
     contractorservice.$inject = ['utility'];
     eventservice.$inject = ['utility'];
     dropzoneservice.$inject = ['utility'];
-    commonservice.$inject = ['utility'];
+    mediaservice.$inject = ['utility'];
+    commonservice.$inject = ['utility'];    
 
 
     //CONTRACTOR Service___________________________________________________________________>
@@ -123,6 +125,26 @@
         function getDropzoneByName(params){
             return utility.HttpService.sendRequest('/rest/api/dropzones/get/'+params.name);
         }
+    }
+
+    //Media Service___________________________________________________________________>
+    function mediaservice(utility) {
+        var service = {
+              getMediaByContractor: getMediaByContractor
+             ,getMediaByEvent: getMediaByEvent
+        };
+        return service;
+
+        //Get Media by Contractor
+        function getMediaByContractor(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/media/'+params.contractorid);
+        }
+
+        //Get Media by Event
+        function getMediaByEvent(){
+            return utility.HttpService.sendRequest('/rest/api/events/media/'+params.eventid);
+        }
+
     }
 
     //Common Service___________________________________________________________________>

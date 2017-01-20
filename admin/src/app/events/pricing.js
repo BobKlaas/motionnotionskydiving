@@ -53,9 +53,6 @@
                     $scope.event.customers = results.CUSTOMERS;
                     $scope.pricinglocked = $scope.event.details.PRICINGLOCKED;
                     $scope.calculatePricing();
-
-                    if($scope.pricing.marginamount <= 0)
-                        common.logger.error('This event is operating at a loss. Event expenses exceed event profit.','','Net Loss Expected');
                 }    
             );
         }
@@ -71,6 +68,9 @@
                     if(results.PRICING.length){
                         $scope.event.pricing = results.PRICING[0];
                         $scope.setPricing();
+
+                        if($scope.event.pricing.MARGINAMOUNT <= 0)
+                            common.logger.error('This event is operating at a loss. Event expenses exceed event profit.','','Net Loss Expected');
                     }
                     $scope.calculatePricing();
                 }    
@@ -119,6 +119,9 @@
 
             //Force Actual Registration to Suggested Registration
             newpricing.actualregistrationfee = newpricing.suggestedregistrationfee;
+
+            //Potential Revenue
+            newpricing.potentialrevenue = (newpricing.actualregistrationfee * slots);
 
             //Set New Pricing
             $scope.pricing = newpricing;

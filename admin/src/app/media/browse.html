@@ -1,0 +1,80 @@
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <ol class="breadcrumb">
+                <li><a href="./events">Home</a></li>
+                <li class="active" ng-bind="etitle"></li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!--Events List-->
+    
+    <div layout="column" layout-gt-sm="row">
+        <div layout="column" flex>
+            
+            <md-card>
+                <md-card-header class="card-header pop">                    
+                    <md-card-header-text layout="row">
+                        <i class="material-icons">people</i>
+                        <span class="md-title" ng-bind="etitle"></span>
+                    </md-card-header-text>
+                </md-card-header>
+                
+                <md-card-content layout="column">
+   
+                    <form name="addForm" ng-submit="addForm.$valid && addContractorToArray()">
+                        <div layout="column" layout-gt-sm="row">
+                            <!--Contractor-->
+                            <md-input-container flex>
+                                <label>Contractor</label>
+                                <md-select required ng-model="contractor.id" name="contractor" ng-change="getMediaByContractor()">
+                                    <md-option ng-repeat="contractor in contractors" value="{{contractor.ID}}">{{contractor.FULLNAME}}</md-option>
+                                </md-select>
+                                <div class="errors" ng-messages="addForm.contractor.$error" ng-if="addForm.contractor.$touched">
+                                    <div ng-message="required">Contractor is required</div>
+                                </div>
+                            </md-input-container>
+
+                        </div>
+                    </form>
+                </md-card-content>
+            </md-card>
+            
+        </div>
+    </div>
+
+    <div layout="column" layout-gt-sm="row">
+        <div layout="column" flex>
+            <md-card>
+                 <div class="row" ng-repeat="chunk in media.chunked">
+                    <div class="col-md-4" ng-repeat="item in chunk">   
+                        <!-- <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='YouTube'" style="border:5px solid blue">
+                            <youtube-video class="embed-responsive-item" video-url="item.URL"></youtube-video>
+                        </div> -->
+
+                        <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='Vimeo'">
+                            <vimeo-video class="embed-responsive-item" player-id="video$index" video-url="trustSrc('https://vimeo.com/97564754')"></vimeo-video>
+                        </div>
+                        
+                        <!-- <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='Photo'">
+                            <img class="img-responsive img-hover img-related" ng-src="{{item.URL}}" alt="">
+                        </div>  -->
+                    </div>
+                </div>
+            </md-card>            
+        </div>
+    </div>   
+
+  
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

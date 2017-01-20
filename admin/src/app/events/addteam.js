@@ -83,7 +83,7 @@
                     $scope.loadContractors(results.TICKETRATES);
 
                     //Notify of Net Loss
-                    if($scope.pricing.marginamount <= 0)
+                    if(results.PRICING[0].MARGINAMOUNT <= 0)
                         common.logger.error('This event is operating at a loss. Event expenses exceed event profit.','','Net Loss Expected');
                 }    
             );

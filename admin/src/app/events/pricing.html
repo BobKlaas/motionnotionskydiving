@@ -80,14 +80,14 @@
                     </div>
                     
                     <div layout="column" layout-align="center end"> 
-                        <h4 class="md-no-sticky md-title pricing-green" ng-cloak>Potential Revenue: {{event.details.REGISTRATIONFEE * event.details.SLOTS | currency}}</h4>               
+                        <h4 class="md-no-sticky md-title pricing-green" ng-cloak>Potential Revenue: {{pricing.potentialrevenue | currency}}</h4>               
                     </div>
 
                     <div layout="column" layout-align="center end"> 
                         <h4 class="md-no-sticky md-title" ng-class="(pricing.marginamount >= 0)?'pricing-green':'pricing-red'" ng-cloak>Profit Margin: {{pricing.marginamount | currency}}</h4>
                     </div>
 
-                    <div layout="column" layout-align="center end"> 
+                    <div layout="column" layout-align="center end" ng-if="pricinglocked"> 
                         <h4 class="md-no-sticky md-title" ng-class="(pricing.marginamount >= 0)?'pricing-green':'pricing-red'" ng-cloak>Profit Margin Perc: {{pricing.marginpercentage}}%</h4>
                     </div>
 

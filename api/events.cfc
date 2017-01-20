@@ -331,16 +331,31 @@
 		<cfset rc.image = structKeyExists(rc,'image')?rc.image:''>
 		<cfset rc.active = structKeyExists(rc,'active')?rc.active:0>
 
-		<!---Create Image Name--->
-		<cfif len(trim(rc.image))>
-			<cfset imagename = REReplace(rc.title,"[^0-9A-Za-z ]","","all")>
-			<cfset imagename = imagename & TimeFormat(now(),"hhmmssl") & ".png">
-			<cfset imagelocation = ExpandPath('\assets\images\events\') & imagename>
+		<!---Get Event Image--->
+		<cfquery name="qryEvent" datasource="motion">
+			SELECT imagename FROM events WHERE id=<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#rc.id#" />
+		</cfquery>
 
-			<!---Upload Image--->
-			<cfset image = imageReadBase64(rc.image)>
-			<cfset imageWrite(image,imagelocation,1,true)>
-		</cfif>
+		<!---Create Image Name--->
+		<cftry>
+			<cfif len(trim(rc.image))>
+				<cfset imagename = REReplace(rc.title,"[^0-9A-Za-z ]","","all")>
+				<cfset imagename = imagename & TimeFormat(now(),"hhmmssl") & ".png">
+				<cfset imagelocation = ExpandPath('\assets\images\events\') & imagename>
+
+				<!---Upload Image--->
+				<cfset image = imageReadBase64(rc.image)>
+				<cfset imageWrite(image,imagelocation,1,true)>
+
+				<!---Delete Old Image--->
+				<cfif len(trim(qryEvent.imagename)) AND fileExists(ExpandPath('\assets\images\events\') & qryEvent.imagename)>
+					<cfset fileDelete(ExpandPath('\assets\images\events\') & qryEvent.imagename)>
+				</cfif>
+			</cfif>
+
+			<cfcatch></cfcatch>
+		</cftry>
+
 
 		<!---Add Customer to Event --->
 		<cfstoredproc procedure="sp_update_event" datasource="motion">
@@ -389,13 +404,11 @@
 			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.suggestedregistrationfee#" dbvarname="@suggestedregistrationfee" scale="2"/>
 			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.actualtotal#" dbvarname="@actualtotal" scale="2"/>
 			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.actualregistrationfee#" dbvarname="@actualregistrationfee" scale="2"/>
-			<cfprocresult name="eventpricing" resultset="1"/>
-			<cfprocresult name="eventdetails" resultset="2"/>
+			<cfprocresult name="eventdetails" resultset="1"/>
 		</cfstoredproc>
 
 		<!---Create Structure From Results--->
 		<cfset event = structNew()>
-		<cfset event.pricing = QueryToStruct(eventpricing)>
 		<cfset event.details = QueryToStruct(eventdetails)>
 		<cfset JSONReturn = SerializeJSON(event)>
 		<cfreturn JSONReturn>

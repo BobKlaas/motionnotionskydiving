@@ -51,11 +51,12 @@
     <script src="src/lib/angular/angular.js"></script>
     <script src="src/lib/angular-animate/angular-animate.js"></script>
     <script src="src/lib/angular-aria/angular-aria.js"></script>
-    <script src="src/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="src/lib/angular-cookies/angular-cookies.js"></script>
     <script src="src/lib/angular-material/angular-material.js"></script>
     <script src="src/lib/angular-messages/angular-messages.js"></script>
+    <script src="src/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="src/lib/angular-route/angular-route.js"></script>
+    <script src="src/lib/angular-sanitize/angular-sanitize.js"></script>
     <script src="src/lib/angular-touch/angular-touch.js"></script>
     <script src="src/lib/momentjs/moment.js"></script>
     <script src="src/lib/ng-device-detector/ng-device-detector.js"></script>
@@ -67,8 +68,8 @@
     <script src="src/lib/angular-recaptcha/release/angular-recaptcha.js"></script>
     <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
     <script src="src/lib/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script>
-    <script src="src/lib/angular-youtube-mb/src/angular-youtube-embed.js"></script>
     <script src="src/lib/cropperjs/dist/cropper.js"></script>
+    <script src="src/lib/angular-youtube-mb/src/angular-youtube-embed.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -104,6 +105,10 @@
     <!---HOME--->    
     <script src="src/app/home/home.module.js"></script>
     <script src="src/app/home/home.js"></script>
+
+    <!---HOME--->    
+    <script src="src/app/media/media.module.js"></script>
+    <script src="src/app/media/browse.js"></script>
 
     <!---EVENTS--->    
     <script src="src/app/events/events.module.js"></script>

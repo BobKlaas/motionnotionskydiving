@@ -39,6 +39,10 @@
                      templateUrl: 'src/app/events/overview.html'
                     ,controller: 'eventOverviewController'
                 })
+                .when('/media/', {
+                     templateUrl: 'src/app/media/browse.html'
+                    ,controller: 'mediaBrowseController'
+                })
                 .otherwise({redirectTo:'/events'});
 
                 $locationProvider.html5Mode(true);

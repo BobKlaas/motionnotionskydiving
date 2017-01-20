@@ -34,7 +34,7 @@
         //Image Variables
         var image = document.getElementById('previewimage');
         var cropper = new Cropper(image, {
-            aspectRatio: 5 / 2,
+            aspectRatio: 4 / 2,
             center: true,
             restore: true,
             autoCropArea: 1,
