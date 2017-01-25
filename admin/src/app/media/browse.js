@@ -6,25 +6,31 @@
         .module('app.media')
         .controller('mediaBrowseController', mediaBrowseController);
         
-    mediaBrowseController.$inject = ['$scope','common','contractorservice','mediaservice','$sce'];
+    mediaBrowseController.$inject = ['$scope','common','contractorservice','eventservice','mediaservice','$sce'];
 
-    function mediaBrowseController($scope,common,contractorservice,mediaservice,$sce) {       
+    function mediaBrowseController($scope,common,contractorservice,eventservice,mediaservice,$sce) {       
         //METHODS
         $scope.init = init;
+        $scope.common = common;
         $scope.getContractors = getContractors;
-        $scope.getMediaByContractor = getMediaByContractor;
+        $scope.getEvents = getEvents;
+        $scope.searchMedia = searchMedia;
         $scope.trustSrc = trustSrc;
 
         $scope.init();
 
         //VARIABLES
         $scope.etitle = 'Browse Media';
-        $scope.contractor = {};
+        $scope.contractors = [];
+        $scope.events = [];
+        $scope.search = {};
         $scope.media = {all:[],chunked:[]};
+        $scope.searchExecuted = 0;
 
         //Init        
         function init(){
             $scope.getContractors();
+            $scope.getEvents();
         }
 
         //Get All Active Contractors
@@ -32,8 +38,16 @@
             contractorservice.getContractors().then(
                 function(results){
                     $scope.contractors = results;              
-                    $scope.contractor.id = results[0].ID;
-                    $scope.getMediaByContractor();
+                }    
+            );            
+        }
+
+        //Get Events
+        function getEvents(){
+            eventservice.getEvents().then(
+                function(results){
+                    //All Contractors
+                    $scope.events = results; 
                 }    
             );            
         }
@@ -43,18 +57,24 @@
             return $sce.trustAsResourceUrl(src);
         }
 
-        //Get Media by Contractor
-        function getMediaByContractor(){
-            var params = {contractorid: $scope.contractor.id};
-            mediaservice.getMediaByContractor(params).then(
+        //Search for Media
+        function searchMedia(){
+            var params = $scope.search;
+            console.log(params);
+            mediaservice.searchMedia(params).then(
                 function(results){
-                    //All Contractors
+                    $scope.searchExecuted = 1;
+                    
+                    if(results.length)
+                        common.logger.success(results.length + ' item(s) found.','','Search Results');
+
+                    //All Media
                     $scope.media.all = results; 
 
                     //Chunk The Array
                     $scope.media.chunked = common.chunkdata(results,3);
                 }    
-            );   
+            ); 
         }
 
     };

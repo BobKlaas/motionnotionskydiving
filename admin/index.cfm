@@ -44,17 +44,19 @@
         <div data-ng-view="" flex layout="column" class="view-fade-in"></div>
     </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <!-- 3rd-party libraries js -->
     <!-- build:js dist/js/lib.js -->
     <!-- inject:lib:js -->
     <script src="src/lib/jquery/dist/jquery.js"></script>
     <script src="src/lib/angular/angular.js"></script>
     <script src="src/lib/angular-animate/angular-animate.js"></script>
+    <script src="src/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="src/lib/angular-aria/angular-aria.js"></script>
     <script src="src/lib/angular-cookies/angular-cookies.js"></script>
-    <script src="src/lib/angular-material/angular-material.js"></script>
     <script src="src/lib/angular-messages/angular-messages.js"></script>
-    <script src="src/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="src/lib/angular-material/angular-material.js"></script>
     <script src="src/lib/angular-route/angular-route.js"></script>
     <script src="src/lib/angular-sanitize/angular-sanitize.js"></script>
     <script src="src/lib/angular-touch/angular-touch.js"></script>
@@ -68,9 +70,10 @@
     <script src="src/lib/angular-recaptcha/release/angular-recaptcha.js"></script>
     <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
     <script src="src/lib/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script>
-    <script src="src/lib/cropperjs/dist/cropper.js"></script>
     <script src="src/lib/angular-youtube-mb/src/angular-youtube-embed.js"></script>
     <script src="src/lib/jszip/dist/jszip.js"></script>
+    <script src="src/lib/cropperjs/dist/cropper.js"></script>
+    <script src="src/lib/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="src/lib/lightgallery/dist/js/lightgallery.min.js"></script>

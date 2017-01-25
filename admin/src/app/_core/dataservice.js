@@ -130,10 +130,16 @@
     //Media Service___________________________________________________________________>
     function mediaservice(utility) {
         var service = {
-              getMediaByContractor: getMediaByContractor
+              searchMedia: searchMedia
+             ,getMediaByContractor: getMediaByContractor
              ,getMediaByEvent: getMediaByEvent
         };
         return service;
+
+        //Search Media by Contractor, Event, or Tag
+        function searchMedia(params){
+            return utility.HttpService.sendRequest('/rest/api/media/search/',params,'post');
+        }
 
         //Get Media by Contractor
         function getMediaByContractor(params){

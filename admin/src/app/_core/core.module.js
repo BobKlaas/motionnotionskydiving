@@ -16,6 +16,7 @@
             ,'ui.mask'
             ,'youtube-embed'
             ,'vimeoEmbed'
+            ,'videosharing-embed'
       
             //Other 3rd-Party
             ,'Logger'

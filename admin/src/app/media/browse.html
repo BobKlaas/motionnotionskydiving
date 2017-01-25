@@ -27,48 +27,69 @@
                 
                 <md-card-content layout="column">
    
-                    <form name="addForm" ng-submit="addForm.$valid && addContractorToArray()">
+                    <form name="searchForm" ng-submit="searchForm.$valid && searchMedia()">
                         <div layout="column" layout-gt-sm="row">
                             <!--Contractor-->
                             <md-input-container flex>
                                 <label>Contractor</label>
-                                <md-select required ng-model="contractor.id" name="contractor" ng-change="getMediaByContractor()">
+                                <md-select ng-model="search.contractorid" name="contractor">
                                     <md-option ng-repeat="contractor in contractors" value="{{contractor.ID}}">{{contractor.FULLNAME}}</md-option>
                                 </md-select>
-                                <div class="errors" ng-messages="addForm.contractor.$error" ng-if="addForm.contractor.$touched">
-                                    <div ng-message="required">Contractor is required</div>
-                                </div>
                             </md-input-container>
 
+                            <!--Event-->
+                            <md-input-container flex>
+                                <label>Event</label>
+                                <md-select ng-model="search.eventid" name="event">
+                                    <md-option ng-repeat="event in events" value="{{event.ID}}">{{event.FULLNAME}}</md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <!--Tag-->
+                            <md-input-container flex>
+                                <label>Tag</label>
+                                <input ng-model="search.tag" name="tag" minlength="5" maxlength="25">                                
+                            </md-input-container>
+
+                            <!--Submit Button-->
+                            <div>
+                                <md-button class="md-raised md-primary" type="submit" ng-disabled="!searchForm.$valid" aria-label="Submit" ng-cloak>Search</md-button>
+                            </div>
                         </div>
                     </form>
+
+                    <div  class="alert alert-warning" layout="row" ng-if="!media.chunked.length && searchExecuted">
+                        <p>No media found matching your search criteria.</p>        
+                    </div>
                 </md-card-content>
             </md-card>
             
         </div>
     </div>
 
-    <div layout="column" layout-gt-sm="row">
+    <!--Search Results-->
+    <div layout="column" layout-gt-sm="row" ng-if="media.chunked.length">
         <div layout="column" flex>
-            <md-card>
+            <md-card layout-padding>
                  <div class="row" ng-repeat="chunk in media.chunked">
                     <div class="col-md-4" ng-repeat="item in chunk">   
-                        <!-- <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='YouTube'" style="border:5px solid blue">
+                        <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='YouTube'">
                             <youtube-video class="embed-responsive-item" video-url="item.URL"></youtube-video>
-                        </div> -->
+                        </div>
 
                         <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='Vimeo'">
-                            <vimeo-video class="embed-responsive-item" player-id="video$index" video-url="trustSrc('https://vimeo.com/97564754')"></vimeo-video>
+                            <embed-video iframe-id="vimeoframe$index" api="1" player_id="vimeo$index" ng-href="{{item.URL}}"></embed-video>
                         </div>
                         
-                        <!-- <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='Photo'">
+                        <div class="embed-responsive embed-responsive-16by9" ng-if="item.TYPE=='Photo'">
                             <img class="img-responsive img-hover img-related" ng-src="{{item.URL}}" alt="">
-                        </div>  -->
+                        </div>
+                        <a href="">Edit</a>
                     </div>
                 </div>
             </md-card>            
         </div>
-    </div>   
+    </div>
 
   
     <hr>
