@@ -66,7 +66,9 @@
                     $scope.searchExecuted = 1;
                     
                     if(results.length)
-                        common.logger.success(results.length + ' item(s) found.','','Search Results');
+                        common.logger.success(results.length + ' items found.','','Search Results');
+                    else
+                        common.logger.warn(results.length + ' items found.','','Search Results');
 
                     //All Media
                     $scope.media.all = results; 

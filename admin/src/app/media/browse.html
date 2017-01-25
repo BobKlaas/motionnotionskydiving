@@ -32,7 +32,7 @@
                             <!--Contractor-->
                             <md-input-container flex>
                                 <label>Contractor</label>
-                                <md-select ng-model="search.contractorid" name="contractor">
+                                <md-select ng-model="search.contractorid" name="contractor" placeholder="Select Contractor">
                                     <md-option ng-repeat="contractor in contractors" value="{{contractor.ID}}">{{contractor.FULLNAME}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -40,8 +40,8 @@
                             <!--Event-->
                             <md-input-container flex>
                                 <label>Event</label>
-                                <md-select ng-model="search.eventid" name="event">
-                                    <md-option ng-repeat="event in events" value="{{event.ID}}">{{event.FULLNAME}}</md-option>
+                                <md-select ng-model="search.eventid" name="event" placeholder="Select Event">
+                                    <md-option ng-repeat="event in events" value="{{event.ID}}">{{event.TITLE}}</md-option>
                                 </md-select>
                             </md-input-container>
 
@@ -54,6 +54,7 @@
                             <!--Submit Button-->
                             <div>
                                 <md-button class="md-raised md-primary" type="submit" ng-disabled="!searchForm.$valid" aria-label="Submit" ng-cloak>Search</md-button>
+                                <md-button class="md-raised md-primary md-warn" type="button" ng-click="search = {contractorid,eventid,tag};">Clear</md-button>
                             </div>
                         </div>
                     </form>
