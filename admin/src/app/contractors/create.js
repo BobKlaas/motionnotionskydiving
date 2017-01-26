@@ -6,9 +6,9 @@
         .module('app.contractors')
         .controller('contractorCreateController', contractorCreateController);
 
-    contractorCreateController.$inject = ['$scope','common','contractorservice','commonservice','$filter'];
+    contractorCreateController.$inject = ['$scope','common','contractorservice','commonservice','dropzoneservice','$filter'];
 
-    function contractorCreateController($scope,common,contractorservice,commonservice,$filter) {       
+    function contractorCreateController($scope,common,contractorservice,commonservice,dropzoneservice,$filter) {       
         //METHODS
         $scope.init = init;
         $scope.getContractorByUniqueName = getContractorByUniqueName;
@@ -78,7 +78,7 @@
         function dropzoneSearch(searchText){
             var dropzonenames = [];
             var params = {name: searchText};
-            $scope.customer.homedropzonename = searchText;
+            $scope.contractormodel.homedropzonename = searchText;
             return dropzoneservice.getDropzoneByName(params).then(
                 function(response){                    
                     angular.forEach(response, function(value, key) {

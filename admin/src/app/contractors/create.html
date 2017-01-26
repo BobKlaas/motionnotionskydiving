@@ -156,7 +156,7 @@
                         <md-item-template>
                             <span md-highlight-text="searchText">{{item.name}}</span>
                         </md-item-template>
-                        <div ng-messages="registrationForm.homeDropzoneField.$error" ng-if="registrationForm.homeDropzoneField.$touched">
+                        <div ng-messages="contractorForm.homeDropzoneField.$error" ng-if="contractorForm.homeDropzoneField.$touched">
                             <div ng-message="required">Please enter your home dropzone.</div>
                         </div>
                     </md-autocomplete>                            
@@ -184,6 +184,17 @@
                             </div>
                         </div>
                     </md-input-container>
+                        
+                    
+                    <!-- <md-input-container flex="30">
+                        <label>Card Type</label>
+                        <md-select ng-model="billing.cardtype" name="cardtype" required>
+                            <md-option value="{{type.name}}" ng-repeat="type in cardtypes">{{type.name}}</md-option>
+                        </md-select>
+                        <div class="errors" ng-messages="paymentForm.cardtype.$error" ng-if="paymentForm.cardtype.$touched">
+                            <div ng-message="required">Card Type is required</div>
+                        </div>
+                    </md-input-container> -->
                 </div>
 
                 <h5 class="md-subhead">Social</h5>
