@@ -11,6 +11,14 @@
                      templateUrl: 'src/app/contractors/contractors.html'
                     ,controller: 'contractorsController'
                 })
+                .when('/contractors/create/', {
+                     templateUrl: 'src/app/contractors/create.html'
+                    ,controller: 'contractorCreateController'
+                })
+                .when('/contractors/edit/:uniquename', {
+                     templateUrl: 'src/app/contractors/create.html'
+                    ,controller: 'contractorCreateController'
+                })
                 .when('/events', {
                      templateUrl: 'src/app/events/list.html'
                     ,controller: 'eventListController'

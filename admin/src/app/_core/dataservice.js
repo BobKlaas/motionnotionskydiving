@@ -26,8 +26,14 @@
              getContractors: getContractors
             ,updateContractorStatus:updateContractorStatus
             ,getContractorRoles: getContractorRoles
+            ,getContractorByUniqueName: getContractorByUniqueName
         };
         return service;
+
+        //Get Contractors by Unique Name
+        function getContractorByUniqueName(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/get/'+params.uniquename);
+        }
 
         //Get All Active Contractors
         function getContractors(params){
@@ -158,12 +164,18 @@
         var service = {
               getStates: getStates
              ,getDisciplines: getDisciplines
+             ,getRatings: getRatings
         };
         return service;
 
         //Get States
         function getStates(params){
             return utility.HttpService.sendRequest('/rest/api/common/states/get/');
+        }
+
+        //Get Ratings
+        function getRatings(params){
+            return utility.HttpService.sendRequest('/rest/api/common/ratings/get/',params,'post');
         }
 
         //Get Disciplines
