@@ -18,7 +18,7 @@
         //VARIABLES
         $scope.common = common;
         $scope.contractors = {all:[],chunked:[]};
-        $scope.peopleImagePath = '/assets/images/people/';
+        $scope.peopleImagePath = '/assets/images/contractors/';
         $scope.searchtext;
 
         $scope.init();

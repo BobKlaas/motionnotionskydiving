@@ -126,7 +126,8 @@
     <!---CONTRACTORS--->    
     <script src="src/app/contractors/contractors.module.js"></script>
     <script src="src/app/contractors/contractors.js"></script>
-    <script src="src/app/contractors/create.js"></script>
+    <script src="src/app/contractors/create_step1.js"></script>
+    <script src="src/app/contractors/create_step2.js"></script>
 </body>
 
 </html>

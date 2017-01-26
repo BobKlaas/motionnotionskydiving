@@ -11,13 +11,21 @@
                      templateUrl: 'src/app/contractors/contractors.html'
                     ,controller: 'contractorsController'
                 })
-                .when('/contractors/create/', {
-                     templateUrl: 'src/app/contractors/create.html'
-                    ,controller: 'contractorCreateController'
+                .when('/contractors/create/step1/', {
+                     templateUrl: 'src/app/contractors/create_step1.html'
+                    ,controller: 'contractorCreateStep1Controller'
                 })
-                .when('/contractors/edit/:uniquename', {
-                     templateUrl: 'src/app/contractors/create.html'
-                    ,controller: 'contractorCreateController'
+                .when('/contractors/edit/step1/:uniquename?', {
+                     templateUrl: 'src/app/contractors/create_step1.html'
+                    ,controller: 'contractorCreateStep1Controller'
+                })
+                .when('/contractors/create/step2/:uniquename', {
+                     templateUrl: 'src/app/contractors/create_step2.html'
+                    ,controller: 'contractorCreateStep2Controller'
+                })
+                .when('/contractors/edit/step2/:uniquename', {
+                     templateUrl: 'src/app/contractors/create_step2.html'
+                    ,controller: 'contractorCreateStep2Controller'
                 })
                 .when('/events', {
                      templateUrl: 'src/app/events/list.html'

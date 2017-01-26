@@ -27,6 +27,8 @@
             ,updateContractorStatus:updateContractorStatus
             ,getContractorRoles: getContractorRoles
             ,getContractorByUniqueName: getContractorByUniqueName
+            ,createContractor: createContractor
+            ,updateContractor: updateContractor
         };
         return service;
 
@@ -48,6 +50,16 @@
         //Toggles the status of a contractor
         function updateContractorStatus(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/update/status',params,'post');
+        }
+
+        //Create Contractor
+        function createContractor(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/create',params,'post');
+        }
+
+        //Update Contractor
+        function updateContractor(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/update',params,'post');
         }
     }
 

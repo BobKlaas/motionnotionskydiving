@@ -4,11 +4,11 @@
 
     angular
         .module('app.contractors')
-        .controller('contractorCreateController', contractorCreateController);
+        .controller('contractorCreateStep2Controller', contractorCreateStep2Controller);
 
-    contractorCreateController.$inject = ['$scope','common','contractorservice','commonservice','dropzoneservice','$filter'];
+    contractorCreateStep2Controller.$inject = ['$scope','common','contractorservice','commonservice','dropzoneservice','$filter'];
 
-    function contractorCreateController($scope,common,contractorservice,commonservice,dropzoneservice,$filter) {       
+    function contractorCreateStep2Controller($scope,common,contractorservice,commonservice,dropzoneservice,$filter) {       
         //METHODS
         $scope.init = init;
         $scope.getContractorByUniqueName = getContractorByUniqueName;

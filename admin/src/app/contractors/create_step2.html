@@ -168,7 +168,7 @@
                         <!-- <div class="hint">What email can we reach you at?</div> -->
                         <div ng-messages="contractorForm.uspalicense.$error">
                             <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                Your email must be between 1 and 100 characters long and be valid.
+                                USPA license must be between 1 and 10 characters long and be valid.
                             </div>
                         </div>
                     </md-input-container>
@@ -176,11 +176,11 @@
                     <!--USPA Member-->
                     <md-input-container class="md-block" flex>
                         <label>USPA Member</label>
-                        <input ng-model="contractormodel.shortblurb" name="uspamember" minlength="1" maxlength="10">
+                        <input ng-model="contractormodel.uspamemberno" name="uspamemberno" minlength="1" maxlength="10">
                         <!-- <div class="hint">What email can we reach you at?</div> -->
                         <div ng-messages="contractorForm.uspamember.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                Your email must be between 1 and 100 characters long and be valid.
+                            <div ng-message-exp="['minlength', 'maxlength', 'pattern']">
+                                USPA member number must be between 1 and 10 characters long and be valid.
                             </div>
                         </div>
                     </md-input-container>
@@ -227,7 +227,7 @@
                     <!--Instragram-->
                     <md-input-container flex>
                         <label>Instagram URL</label>
-                        <input ng-model="contractormodel.intragram" name="intragram" minlength="15" maxlength="100" http://wng-pattern="/(https?:\/\/(.+?\.)?instagram\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/" />
+                        <input ng-model="contractormodel.intragram" name="intragram" minlength="15" maxlength="100"  ng-pattern="/(https?:\/\/(.+?\.)?instagram\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/"/>
                         <div ng-messages="contractorForm.intragram.$error">
                             <div ng-message-exp="['minlength', 'maxlength', 'pattern']">                              
                                 Please enter a valid intragram.
