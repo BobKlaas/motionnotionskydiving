@@ -30,6 +30,7 @@
             ,createContractor: createContractor
             ,updateContractor: updateContractor
             ,updateContractorProfile: updateContractorProfile
+            ,getActiveContractors: getActiveContractors
         };
         return service;
 
@@ -38,12 +39,17 @@
             return utility.HttpService.sendRequest('/rest/api/contractors/get/'+params.uniquename);
         }
 
-        //Get All Active Contractors
+        //Get All Contractors
         function getContractors(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/get/');
         }
 
-        //Get All Active Contractors
+        //Get Active Contractors
+        function getActiveContractors(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/get/active');
+        }
+
+        //Get Contractor Roles
         function getContractorRoles(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/roles/get/');
         }

@@ -44,8 +44,8 @@
         $scope.init();
         function init(){
             $scope.getEventByID();
-            $scope.getContractors();
             $scope.getContractorRoles();
+            $scope.getContractors();
             $scope.getPricing();
         }
 
@@ -62,7 +62,7 @@
 
         //Get All Active Contractors
         function getContractors(){
-            contractorservice.getContractors().then(
+            contractorservice.getActiveContractors().then(
                 function(results){
                     $scope.contractors = results;
                     $scope.allcontractors = angular.copy(results);
@@ -105,7 +105,7 @@
                     ,aryContractors[i].SLOTCOMPENSATION
                 );
 
-                //Remove COntractor from dropdown
+                //Remove Contractor from dropdown
                 for(var j=0; j < $scope.contractors.length; j++){
                     if($scope.contractors[j].ID == econtractor.contractorid){
                         //Remove Item From Dropdown Selection
