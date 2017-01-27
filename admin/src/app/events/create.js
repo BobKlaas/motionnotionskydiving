@@ -93,8 +93,8 @@
                  id: event.ID         
                 ,title: event.TITLE
                 ,description: event.DESCRIPTION
-                ,startdatetime: new Date(event.STARTDATEISO)
-                ,enddatetime: new Date(event.ENDDATEISO)
+                ,startdatetime: new Date(event.STARTDATE)
+                ,enddatetime: new Date(event.ENDDATE)
                 ,slots: event.SLOTS
                 ,jumpsperday: event.JUMPSPERDAY
                 ,reserveslots: event.RESERVESLOTS
@@ -122,7 +122,9 @@
 
         //Save Event
         function saveEvent(){
-            console.log($scope.event);
+            // console.log($scope.event);
+
+            // console.log($scope.event.startdatetime);
 
             var readyForSave = 0;
             try{
@@ -137,8 +139,8 @@
             if(readyForSave){
                 //Set Params
                 var params = $scope.event;
-                    params.startdate = $scope.event.startdatetime.toISOString();
-                    params.enddate = $scope.event.enddatetime.toISOString();
+                    params.startdate = $scope.event.startdatetime.toString();
+                    params.enddate = $scope.event.enddatetime.toString();
                 
                 if($scope.eventid){
                     //Update Event
