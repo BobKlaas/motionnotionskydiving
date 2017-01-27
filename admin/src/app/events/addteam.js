@@ -43,10 +43,9 @@
         //Init Function
         $scope.init();
         function init(){
-            $scope.getEventByID();
-            $scope.getContractorRoles();
             $scope.getContractors();
-            $scope.getPricing();
+            $scope.getEventByID();
+            $scope.getContractorRoles();            
         }
 
         //Get Event by ID
@@ -55,7 +54,6 @@
             eventservice.getEventByID(params).then(
                 function(results){
                     $scope.event.details = results.DETAILS[0];
-                    console.log($scope.event);
                 }    
             );            
         }
@@ -66,6 +64,9 @@
                 function(results){
                     $scope.contractors = results;
                     $scope.allcontractors = angular.copy(results);
+
+                    //Get Pricing
+                    $scope.getPricing();
                 }    
             );            
         }
@@ -107,7 +108,7 @@
 
                 //Remove Contractor from dropdown
                 for(var j=0; j < $scope.contractors.length; j++){
-                    if($scope.contractors[j].ID == econtractor.contractorid){
+                    if($scope.contractors[j].ID == aryContractors[i].ID){
                         //Remove Item From Dropdown Selection
                         $scope.contractors.splice(j,1); 
                     }
