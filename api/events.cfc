@@ -322,8 +322,8 @@
 		<cfset rc.id = structKeyExists(rc,'id')?rc.id:''>
 		<cfset rc.title = structKeyExists(rc,'title')?rc.title:''>
 		<cfset rc.description = structKeyExists(rc,'description')?rc.description:''>
-		<cfset rc.startdate = structKeyExists(rc,'startdate')?ISOToDateTime(rc.startdate):''>
-		<cfset rc.enddate = structKeyExists(rc,'enddate')?ISOToDateTime(rc.enddate):''>
+		<cfset rc.startdate = structKeyExists(rc,'startdate')?DateConvert("utc2Local",ISOToDateTime(rc.startdate)):''>
+		<cfset rc.enddate = structKeyExists(rc,'enddate')?DateConvert("utc2Local",ISOToDateTime(rc.enddate)):''>
 		<cfset rc.jumpsperday = structKeyExists(rc,'jumpsperday')?rc.jumpsperday:''>
 		<cfset rc.slots = structKeyExists(rc,'slots')?rc.slots:''>
 		<cfset rc.reserveslots = structKeyExists(rc,'reserveslots')?rc.reserveslots:''>
@@ -355,7 +355,6 @@
 
 			<cfcatch></cfcatch>
 		</cftry>
-
 
 		<!---Add Customer to Event --->
 		<cfstoredproc procedure="sp_update_event" datasource="motion">
