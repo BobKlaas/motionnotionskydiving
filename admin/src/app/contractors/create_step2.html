@@ -27,184 +27,14 @@
                 
                 <md-card-content layout="column" flex>
                 
-                <h5 class="md-subhead">Contact Information</h5>
-
-                <!--First Name, Last Name___________________-->
-                <div layout="column" layout-gt-sm="row">
-                    <!--First Name-->
-                    <md-input-container flex>
-                        <label>First Name</label>
-                        <input ng-model="contractormodel.firstname" name="firstname" required minlength="2" maxlength="50" autofocus>
-                        <div ng-messages="contractorForm.firstname.$error" ng-if="contractorForm.firstname.$touched">
-                            <div ng-message="required">First Name is required.</div>
-                            <div ng-message="minlength">First Name must be at least 2 characters long.</div>
-                        </div>
-                    </md-input-container>
-
-                    <!--Last Name-->
-                    <md-input-container flex>
-                        <label>Last Name</label>
-                        <input ng-model="contractormodel.lastname" name="lastname" required minlength="2" maxlength="50" autofocus>
-                        <div ng-messages="contractorForm.lastname.$error" ng-if="contractorForm.lastname.$touched">
-                            <div ng-message="required">Last Name is required.</div>
-                            <div ng-message="minlength">Last Name must be at least 2 characters long.</div>
-                        </div>
-                    </md-input-container>
-                </div>
-
-                <!--Phone,Email___________________-->
-                <div layout="column" layout-gt-sm="row">
-                    <!--Phone-->
-                    <md-input-container flex>
-                        <label>Phone Number</label>
-                        <input ng-model="contractormodel.phonenumber" name="phonenumber" autoComplete="off" required minlength="7" maxlength="25" ui-mask="999-999-9999" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/" />
-                        <!-- <div class="hint" class="hints">###-###-####</div> -->
-                        <div ng-messages="contractorForm.phonenumber.$error">                              
-                            <div ng-message="required">Phone number is required.</div>
-                            <div ng-message="pattern">###-###-#### - Please enter a valid phone number.</div>
-                        </div>
-                    </md-input-container>
-
-                    <!--Email Address-->
-                    <md-input-container class="md-block" flex>
-                        <label>Email Address</label>
-                        <input required ng-model="contractormodel.emailaddress" name="emailaddress" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
-                        <!-- <div class="hint">What email can we reach you at?</div> -->
-                        <div ng-messages="contractorForm.emailaddress.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                Your email must be between 10 and 100 characters long and be valid.
-                            </div>
-                        </div>
-                    </md-input-container>
-                </div>
-
-
-                <h5 class="md-subhead">Address</h5>
-
-                <!--Address 1 And Address 2___________________________-->
-                <div layout="column" layout-gt-sm="row">
-                    <md-input-container flex>
-                        <label>Address 1</label>
-                        <input required ng-model="contractormodel.address1" autofocus name="address1" minlength="7" maxlength="40" />
-                        <div ng-messages="contractorForm.address1.$error" ng-if="contractorForm.address1.$touched">
-                            <div ng-message="required">Address is required.</div>
-                            <div ng-message="minlength">Address must be a minimum of 7 characters.</div>
-                        </div>
-                    </md-input-container>
-
-                    <!--Address-->
-                    <md-input-container flex>
-                        <label>Address 2 (optional)</label>
-                        <input ng-model="contractormodel.address2" name="address2" minlength="1" maxlength="25" />
-                    </md-input-container>
-                </div>
-                
-                <!--City, State, Zipcode__________________________-->
-                <div layout="row">
-                    <!--City-->
-                    <md-input-container flex>
-                        <label>City</label>
-                        <input required ng-model="contractormodel.city" required name="city" minlength="2" maxlength="20" ng-pattern="/^[a-zA-Z\s-]+$/" />
-                        <div ng-messages="contractorForm.city.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
-                                Please enter a valid city.
-                            </div>
-                        </div>
-                    </md-input-container>
-
-                    <!--State-->
-                    <md-input-container flex>
-                        <label>State</label>
-                        <md-select required ng-model="contractormodel.state" name="state">
-                            <md-option ng-repeat="state in states" value="{{state.ID}}">
-                                {{state.TITLE}}
-                            </md-option>
-                        </md-select>
-                        <div class="errors" ng-messages="contractorForm.state.$error" ng-if="contractorForm.state.$touched">
-                            <div ng-message="required">State is Required</div>
-                        </div>
-                    </md-input-container>
-
-                     <!--Zipcode-->
-                    <md-input-container>
-                        <label>Zipcode</label>
-                        <input required ng-model="contractormodel.zipcode" name="zipcode" minlength="5" maxlength="5" ui-mask="99999" ng-pattern="/^[0-9]{5}/"/>
-                        <div ng-messages="contractorForm.zipcode.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">                              
-                                Please enter a valid zipcode.
-                            </div>
-                        </div>
-                    </md-input-container>
-                </div>
-
-                
-                <h5 class="md-subhead">Dropzone / USPA</h5>
-
-                <!--Dropzone / USPA_______________________________-->
-                <div layout="row">
-                    <md-autocomplete 
-                        md-input-name="homeDropzoneField"
-                        md-min-length="2"
-                        md-no-cache="false"
-                        md-selected-item="contractormodel.homedropzone"                            
-                        md-search-text="searchText"                            
-                        md-items="item in dropzoneSearch(searchText)"
-                        md-item-text="item.name"                            
-                        md-floating-label="Home Dropzone"
-                        ng-cloak flex
-                        required>
-                        <md-item-template>
-                            <span md-highlight-text="searchText">{{item.name}}</span>
-                        </md-item-template>
-                        <div ng-messages="contractorForm.homeDropzoneField.$error" ng-if="contractorForm.homeDropzoneField.$touched">
-                            <div ng-message="required">Please enter your home dropzone.</div>
-                        </div>
-                    </md-autocomplete>                            
-
-                    <!--USPA License-->
-                    <md-input-container class="md-block" flex>
-                        <label>USPA License</label>
-                        <input required ng-model="contractormodel.uspalicense" name="uspalicense" minlength="1" maxlength="10">
-                        <!-- <div class="hint">What email can we reach you at?</div> -->
-                        <div ng-messages="contractorForm.uspalicense.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                USPA license must be between 1 and 10 characters long and be valid.
-                            </div>
-                        </div>
-                    </md-input-container>
-
-                    <!--USPA Member-->
-                    <md-input-container class="md-block" flex>
-                        <label>USPA Member</label>
-                        <input ng-model="contractormodel.uspamemberno" name="uspamemberno" minlength="1" maxlength="10">
-                        <!-- <div class="hint">What email can we reach you at?</div> -->
-                        <div ng-messages="contractorForm.uspamember.$error">
-                            <div ng-message-exp="['minlength', 'maxlength', 'pattern']">
-                                USPA member number must be between 1 and 10 characters long and be valid.
-                            </div>
-                        </div>
-                    </md-input-container>
-                        
-                    
-                    <!-- <md-input-container flex="30">
-                        <label>Card Type</label>
-                        <md-select ng-model="billing.cardtype" name="cardtype" required>
-                            <md-option value="{{type.name}}" ng-repeat="type in cardtypes">{{type.name}}</md-option>
-                        </md-select>
-                        <div class="errors" ng-messages="paymentForm.cardtype.$error" ng-if="paymentForm.cardtype.$touched">
-                            <div ng-message="required">Card Type is required</div>
-                        </div>
-                    </md-input-container> -->
-                </div>
-
                 <h5 class="md-subhead">Social</h5>
 
                 <!--Blurb___________________________-->
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
                         <label>Blurb</label>
-                        <textarea ng-model="contractormodel.shortblurb" name="shortblurb" minlength="20" maxlength="1000" md-maxlength="1000" rows="2" required md-select-on-focus></textarea>
-                        <div ng-messages="contractorForm.shortblurb.$error">
+                        <textarea ng-model="contractor.blurb" name="blurb" minlength="20" maxlength="1000" md-maxlength="1000" rows="2" required md-select-on-focus></textarea>
+                        <div ng-messages="contractorForm.blurb.$error">
                             <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
                                 Blurb must be between 20 and 1000 characters long and be valid.
                             </div>
@@ -212,14 +42,15 @@
                     </md-input-container>
                 </div>
 
+                <!--Facebook, Instagram___________________________-->
                 <div layout="column" layout-gt-sm="row">
                     <!--Facebook-->
                     <md-input-container flex>
                         <label>Facebook URL</label>
-                        <input ng-model="contractormodel.facebookurl" name="facebookurl" minlength="15" maxlength="100" ng-pattern="/(https?:\/\/(.+?\.)?facebook\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/" />
+                        <input ng-model="contractor.facebookurl" name="facebookurl" minlength="15" maxlength="100" ng-pattern="/(https?:\/\/(.+?\.)?facebook\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/" />
                         <div ng-messages="contractorForm.facebookurl.$error">
                             <div ng-message-exp="['minlength', 'maxlength', 'pattern']">                              
-                                Please enter a valid facebookurl.
+                                Please enter a valid facebook url.
                             </div>
                         </div>
                     </md-input-container>
@@ -227,43 +58,54 @@
                     <!--Instragram-->
                     <md-input-container flex>
                         <label>Instagram URL</label>
-                        <input ng-model="contractormodel.intragram" name="intragram" minlength="15" maxlength="100"  ng-pattern="/(https?:\/\/(.+?\.)?instagram\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/"/>
-                        <div ng-messages="contractorForm.intragram.$error">
+                        <input ng-model="contractor.instagramurl" name="instagramurl" minlength="15" maxlength="100"  ng-pattern="/(https?:\/\/(.+?\.)?instagram\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/"/>
+                        <div ng-messages="contractorForm.instagramurl.$error">
                             <div ng-message-exp="['minlength', 'maxlength', 'pattern']">                              
-                                Please enter a valid intragram.
+                                Please enter a valid intragram url.
                             </div>
                         </div>
                     </md-input-container>
-                    
+                </div>
+
+                <!--Video, LinkedIn___________________________-->
+                <div layout="column" layout-gt-sm="row">
                     <!--Video-->
                     <md-input-container flex>
                         <label>YouTube / Vimeo URL</label>
-                        <input ng-model="contractormodel.videourl" name="videourl" minlength="15" maxlength="100" type="url" />
+                        <input ng-model="contractor.videourl" name="videourl" minlength="15" maxlength="100" type="url" />
                         <div ng-messages="contractorForm.videourl.$error">
                             <div ng-message-exp="['minlength', 'maxlength', 'pattern']">                              
-                                Please enter a valid url for youtube or vimeo.
+                                Please enter a valid url for youtube or vimeo url.
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                    <!--LinkedIn URL-->
+                    <md-input-container flex>
+                        <label>LinkedIn URL</label>
+                        <input ng-model="contractor.linkedinurl" name="linkedinurl" minlength="15" maxlength="100" type="url" />
+                        <div ng-messages="contractorForm.linkedinurl.$error">
+                            <div ng-message-exp="['minlength', 'maxlength', 'pattern']">                              
+                                Please enter a valid linkedin url.
                             </div>
                         </div>
                     </md-input-container>
                 </div>
-
-                <!--Event Image-->  
-                <div layout="column" flex>              
-                    <img id="previewimage" src="" style="max-width: 100%;">
-                </div>
-
-                <div class="actions" style="padding-left:40px;">                     
-                    <md-button class="md-raised md-primary">
-                        <label for="upload">
-                            <md-icon md-font-set="material-icons">search</md-icon> BROWSE FOR IMAGE
-                        </label>
-                    </md-button>
-                    <input type="file" name="upload" id="upload" value="Choose an image to upload" accept="image/*" style="display:none;">                    
-                </div>
                 
+                <h5 class="md-subhead">Contractor Rates</h5>
 
+                <!--Negotiated Day Rate -->
+                <md-input-container>
+                    <label>Day Rate (USD)</label>
+                    <input required type="text" name="dayrate" ng-model="contractor.dayrate" ui-money-mask/>
+                    <div ng-messages="contractorForm.dayrate.$error" ng-if="contractorForm.dayrate.$touched">
+                        <div ng-message="required">Day rate is required.</div>
+                        <div ng-message="minlength">Day Rate must be at least 0.</div>
+                    </div>
+                </md-input-container>
+ 
                 <!--Submit Button-->
-                <md-button class="md-raised md-primary" type="submit" ng-disabled="!contractorForm.$valid" aria-label="Submit" ng-bind="btnSubmitTitle" ng-cloak></md-button>
+                <md-button class="md-raised md-primary" type="submit" ng-disabled="!contractorForm.$valid" aria-label="Submit" ng-cloak>Save</md-button>
                 </md-card-content>
             </md-card>
             </form>

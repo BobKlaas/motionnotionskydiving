@@ -29,6 +29,7 @@
             ,getContractorByUniqueName: getContractorByUniqueName
             ,createContractor: createContractor
             ,updateContractor: updateContractor
+            ,updateContractorProfile: updateContractorProfile
         };
         return service;
 
@@ -60,6 +61,11 @@
         //Update Contractor
         function updateContractor(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/update',params,'post');
+        }
+
+        //Update Contractor Profile
+        function updateContractorProfile(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/profile/update',params,'post');
         }
     }
 

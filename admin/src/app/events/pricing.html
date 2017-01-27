@@ -113,7 +113,7 @@
 
                             <md-input-container>
                                 <label>Actual Registration</label>
-                                <input required type="number" step="1" name="actualreg" ng-model="pricing.actualregistrationfee" min="0" max="1000" />
+                                <input required type="text" step="1" name="actualreg" ng-model="pricing.actualregistrationfee" min="0" max="1000" ui-money-mask/>
                                 <div ng-messages="pricingForm.actualreg.$error" ng-if="pricingForm.actualreg.$touched">
                                     <div ng-message="required">Actual registration is required.</div>
                                     <div ng-message="minlength">Actual registration must be at least 0.</div>

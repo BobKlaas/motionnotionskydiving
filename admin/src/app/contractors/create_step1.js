@@ -26,7 +26,7 @@
         $scope.uniquename = common.$routeParams.uniquename;
         $scope.states = [];
         $scope.ratings = [];
-        $scope.title = 'Add Contractor';
+        $scope.title = 'Step 1: Add Contractor';
         $scope.btnSubmitTitle = 'SAVE';
         $scope.contractor = {
              id: undefined
@@ -66,7 +66,7 @@
             $scope.getStates();
             if($scope.uniquename != undefined){
                 $scope.getContractorByUniqueName();
-                $scope.title = 'Edit Contractor';
+                $scope.title = 'Step 1: Edit Contractor';
             }
         }
 
@@ -179,8 +179,7 @@
                             common.logger.success(results[0].FULLNAME +' has been updated.','','Success');
 
                             //Navigate to Step 2
-                            //common.routeTo('/contractors/create/step2/'+results[0].ID);       
-                            common.routeTo('/contractors');
+                            common.routeTo('/contractors/create/step2/'+results[0].UNIQUENAME);       
                         }    
                     );
                 }else{
@@ -191,8 +190,7 @@
                             common.logger.success(results[0].FULLNAME +' has been added.','','Success');
 
                             //Navigate to Step 2
-                            //common.routeTo('/contractors/create/step2/'+results[0].ID);                
-                            common.routeTo('/contractors');
+                            common.routeTo('/contractors/create/step2/'+results[0].UNIQUENAME);
                         }    
                     );
                 }                

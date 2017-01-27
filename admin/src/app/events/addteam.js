@@ -28,7 +28,7 @@
         
         //VARIABLES        
         $scope.eventsImagePath = '/assets/images/events/';
-        $scope.peopleImagePath = '/assets/images/people/';
+        $scope.peopleImagePath = '/assets/images/contractors/';
         $scope.etitle = 'Add Team';
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[]};   

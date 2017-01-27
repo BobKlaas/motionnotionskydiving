@@ -31,6 +31,7 @@
     "angular-vimeo-embed": "^0.1.2",
     "cropperjs": "^0.7.2",
     "angular-sanitize": "^1.6.1",
-    "ng-videosharing-embed": "^0.3.7"
+    "ng-videosharing-embed": "^0.3.7",
+    "angular-input-masks": "^2.5.0"
   }
 }

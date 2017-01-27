@@ -355,7 +355,7 @@
                                       <cfoutput><a href="http://maps.google.com/?q=#details.fulladdress#" style="Margin: 0; color: ##2199e8; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.3; margin: 0; padding: 0; text-align: left; text-decoration: none;">#details.dropzonename# | #details.address#, #details.city# #details.state# #details.zipcode#</a></cfoutput>
                                     </p>
                                     <p style="Margin: 0; Margin-bottom: 10px; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 10px; padding: 0; text-align: left;"><b>Start Date:</b>
-                                      <cfoutput>#DateFormat(details.enddate,'mm/dd/yyyy')#</cfoutput>
+                                      <cfoutput>#DateFormat(details.startdate,'mm/dd/yyyy')#</cfoutput>
                                     </p>
                                     <p style="Margin: 0; Margin-bottom: 10px; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 1.3; margin: 0; margin-bottom: 10px; padding: 0; text-align: left;"><b>Start Time:</b>
                                       <cfoutput>#TimeFormat(details.startdate, 'h:mm tt')#</cfoutput>

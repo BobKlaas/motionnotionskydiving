@@ -20,7 +20,7 @@
 
         //VARIABLES
         $scope.eventsImagePath = '/assets/images/events/';
-        $scope.peopleImagePath = '/assets/images/people/';
+        $scope.peopleImagePath = '/assets/images/contractors//';
         $scope.etitle = 'Expenses and Pricing';
         $scope.eventid = common.$routeParams.eventid;
         $scope.pricinglocked = 0;

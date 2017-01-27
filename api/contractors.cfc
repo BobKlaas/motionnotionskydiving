@@ -217,6 +217,40 @@
 		<cfset ls=QueryToStruct(contractor)>
 		<cfreturn ls>
 	</cffunction>
+
+
+	<!---Update Contractor Profile--->
+	<cffunction name="sp_update_contractor_profile" access="remote" httpMethod="POST" restPath="/profile/update" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.profileid = structKeyExists(rc,"profileid")?rc.profileid:''>
+		<cfset rc.contractorid = structKeyExists(rc,"contractorid")?rc.contractorid:''>
+		<cfset rc.instagramurl = structKeyExists(rc,"instagramurl")?rc.instagramurl:''>
+		<cfset rc.facebookurl = structKeyExists(rc,"facebookurl")?rc.facebookurl:''>
+		<cfset rc.linkedinurl = structKeyExists(rc,"linkedinurl")?rc.linkedinurl:''>
+		<cfset rc.videourl = structKeyExists(rc,"videourl")?rc.videourl:''>
+		<cfset rc.blurb = structKeyExists(rc,"blurb")?rc.blurb:''>
+		<cfset rc.dayrate = structKeyExists(rc,"dayrate")?rc.dayrate:''>
+		
+		<!---Update Contractor Profile--->
+		<cfstoredproc procedure="sp_update_contractor_profile" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.profileid#" dbvarname="@profileid" />
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#" dbvarname="@contractorid" />
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.instagramurl#" maxlength="150" dbvarname="@instagramurl" null="#(len(trim(rc.instagramurl))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.facebookurl#" maxlength="150" dbvarname="@facebookurl" null="#(len(trim(rc.facebookurl))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.linkedinurl#" maxlength="150" dbvarname="@linkedinurl" null="#(len(trim(rc.linkedinurl))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.videourl#" maxlength="150" dbvarname="@videourl" null="#(len(trim(rc.videourl))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#rc.blurb#" maxlength="1000" dbvarname="@blurb" null="#(len(trim(rc.blurb))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_DECIMAL" value="#rc.dayrate#" scale="2" dbvarname="@dayrate" null="#(len(trim(rc.dayrate))?false:true)#"/>
+			<cfprocresult name="contractor" resultset="1"/>
+		</cfstoredproc>
+
+		<!---Create Structure From Results--->
+		<cfset ls=QueryToStruct(contractor)>
+		<cfreturn ls>
+	</cffunction>
 	   
 	    
 </cfcomponent>

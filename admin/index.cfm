@@ -51,10 +51,11 @@
     <!-- inject:lib:js -->
     <script src="src/lib/jquery/dist/jquery.js"></script>
     <script src="src/lib/angular/angular.js"></script>
+    <script src="src/lib/angular-aria/angular-aria.js"></script>
     <script src="src/lib/angular-animate/angular-animate.js"></script>
     <script src="src/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="src/lib/angular-aria/angular-aria.js"></script>
     <script src="src/lib/angular-cookies/angular-cookies.js"></script>
+    <script src="src/lib/angular-input-masks/angular-input-masks-standalone.js"></script>
     <script src="src/lib/angular-messages/angular-messages.js"></script>
     <script src="src/lib/angular-material/angular-material.js"></script>
     <script src="src/lib/angular-route/angular-route.js"></script>
@@ -64,15 +65,15 @@
     <script src="src/lib/ng-device-detector/ng-device-detector.js"></script>
     <script src="src/lib/re-tree/re-tree.js"></script>
     <script src="src/lib/toastr/toastr.js"></script>
+    <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
     <script src="src/lib/angular-filter/dist/angular-filter.js"></script>
     <script src="src/lib/angular-filter/dist/angular-filter.min.js"></script>
-    <script src="src/lib/angular-loading-bar/build/loading-bar.js"></script>
     <script src="src/lib/angular-recaptcha/release/angular-recaptcha.js"></script>
     <script src="src/lib/angular-ui-mask/dist/mask.js"></script>
-    <script src="src/lib/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script>
     <script src="src/lib/angular-youtube-mb/src/angular-youtube-embed.js"></script>
-    <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/cropperjs/dist/cropper.js"></script>
+    <script src="src/lib/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script>
+    <script src="src/lib/jszip/dist/jszip.js"></script>
     <script src="src/lib/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
     <script src="src/lib/ngMeta/dist/ngMeta.js"></script>
     <script src="src/lib/bootstrap/dist/js/bootstrap.js"></script>

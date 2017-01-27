@@ -14,30 +14,27 @@
         $scope.getContractorByUniqueName = getContractorByUniqueName;
         $scope.saveContractor = saveContractor;
         $scope.setContractor = setContractor;
-        $scope.getStates = getStates;
-        $scope.getRatings = getRatings;
-        $scope.dropzoneSearch = dropzoneSearch;
 
         //VARIABLES
         $scope.common = common;
-        $scope.peopleImagePath = '/assets/images/people/';
-        $scope.searchtext;
         $scope.uniquename = common.$routeParams.uniquename;
-        $scope.contractor = {details: [], ratings: [], skills: []};
-        $scope.contractormodel = {};
-        $scope.states = [];
-        $scope.ratings = [];
-        $scope.init();
-        $scope.title = 'Add Contractor';
+        $scope.title = 'Step 2: Edit Contractor';
+        $scope.contractor = {
+             profileid: undefined
+            ,contractorid: undefined
+            ,blurb: "I started skydiving in 2012 and it has been a really fulfilling part of my life. I am truly grateful for the friendships I’ve made and the experiences I get to be a part of in this sport. As far as motion goes, I try and express myself without applying limitations of orientation. I believe a true master has a good understanding of all variations of his/her craft. I still have a lot to learn but I enjoy sharing my knowledge of dynamic motion. I also enjoy capturing the unbelievable moments that happen in the sky. I’m really new to the craft of videography, but I’m really passionate about creating and sharing these experiences. See you in the sky."
+            ,facebookurl: 'https://www.facebook.com/bob.klaas.3'
+            ,instagramurl: 'https://www.instagram.com/klaasic/'
+            ,videourl: 'https://www.youtube.com/user/sk8erboob/videos'
+            ,linkedinurl: 'https://www.linkedin.com/in/robertklaas'
+            ,dayrate: 0
+        };
+        
 
         //Init Function        
+        $scope.init();
         function init(){
-            $scope.getStates();
-            $scope.getRatings();
-            if($scope.uniquename != undefined){
-                $scope.getContractorByUniqueName();
-                $scope.title = 'Edit Contractor';
-            }
+            $scope.getContractorByUniqueName();
         }
 
         //Get Contractor by ID
@@ -45,67 +42,38 @@
             var params = {uniquename: $scope.uniquename}
             contractorservice.getContractorByUniqueName(params).then(
                 function(results){
-                    //Set Coach Info
-                    console.log(results);
-                    $scope.contractor.details = results.DETAILS[0];
-                    $scope.contractor.ratings = results.RATINGS;
-                    $scope.contractor.skills = results.SKILLS;
+                    $scope.contractor = setContractor(results.DETAILS[0]);
                 }    
             );            
         }
-
-        //Get States
-        function getStates(){
-            commonservice.getStates().then(
-                function(results){
-                    $scope.states = results;
-                }    
-            );            
-        }
-
-        //Get Ratings
-        function getRatings(){
-            var params = {ratingid: '', agencyid: ''};
-            commonservice.getRatings(params).then(
-                function(results){
-                    $scope.ratings = results;
-                    console.log($scope.ratings);
-                }    
-            );            
-        }
-
-        //Get Dropzone by Name
-        function dropzoneSearch(searchText){
-            var dropzonenames = [];
-            var params = {name: searchText};
-            $scope.contractormodel.homedropzonename = searchText;
-            return dropzoneservice.getDropzoneByName(params).then(
-                function(response){                    
-                    angular.forEach(response, function(value, key) {
-                        var dropzone = {};
-                        dropzone.id = value['ID'];
-                        dropzone.name = value['NAME'];
-                        dropzonenames.push(dropzone);
-                    },dropzonenames);
-                    return dropzonenames;
-                },
-                function(error){
-                    $log.log(error);
-                    return [];
-                }
-            );
-        };
-
-     
 
         //Save Contractor
         function saveContractor(){
+            var params = $scope.contractor;
+            contractorservice.updateContractorProfile(params).then(
+                function(results){
+                   //Show Success
+                    common.logger.success('Profile updated successfully.','','Success');
 
+                    //Navigate to Step 2
+                    common.routeTo('/contractors/');
+                }    
+            ); 
         }
 
         //Set Contractor Model
-        function setContractor(){
-
+        function setContractor(contractor){
+            var newContractor = {
+                 profileid: contractor.PROFILEID
+                ,contractorid: contractor.ID
+                ,blurb: contractor.BLURB
+                ,facebookurl: contractor.FACEBOOKURL
+                ,instagramurl: contractor.INSTAGRAMURL
+                ,videourl: contractor.VIDEOURL
+                ,linkedinurl: contractor.LINKEDINURL
+                ,dayrate: contractor.DAYRATE
+            };
+            return newContractor;
         }
 
         

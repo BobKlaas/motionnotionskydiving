@@ -14,6 +14,7 @@
             ,'ui.bootstrap'
             ,'angular.filter'
             ,'ui.mask'
+            ,'ui.utils.masks'
             ,'youtube-embed'
             ,'vimeoEmbed'
             ,'videosharing-embed'

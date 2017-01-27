@@ -19,7 +19,7 @@
 		//VARIABLES
 		$scope.common = common;
         $scope.eventsImagePath = '/assets/images/events/';
-        $scope.peopleImagePath = '/assets/images/people/';
+        $scope.peopleImagePath = '/assets/images/contractors/';
         $scope.eventid = common.$routeParams.eventid;
         $scope.event = {details:[], contractors:[], customers:[]};
 		
