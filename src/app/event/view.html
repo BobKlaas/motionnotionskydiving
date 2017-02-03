@@ -73,7 +73,7 @@
         </div>
 
        <div class="col-sm-3 col-xs-6" ng-repeat="contractor in event.contractors">
-            <a href="/coaches/{{contractor.UNIQUENAME}}">
+            <a href="/ourteam/{{contractor.UNIQUENAME}}">
                 <img class="img-responsive img-hover img-related" ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" alt="">
             </a>
             <h4 ng-cloak>{{contractor.FULLNAME}} - {{contractor.ECROLE}}</h4>
@@ -89,9 +89,9 @@
                     <span class="md-title">{{contractor.FULLNAME}}</span>
                 </md-card-header-text>
             </md-card-header>
-            <a ng-href="/coaches/{{contractor.UNIQUENAME}}"><img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-card-image  img-hover" alt="Coach"></a>            
+            <a ng-href="/ourteam/{{contractor.UNIQUENAME}}"><img ng-src="{{common.buildfilepath(peopleImagePath,contractor.IMAGENAME)}}" class="md-card-image  img-hover" alt="Coach"></a>            
             <md-card-title style="position:relative;" flex="none">
-                <md-button class="md-fab md-mini btn-card-float" aria-label="Watch" ng-href="/coaches/{{contractor.UNIQUENAME}}">
+                <md-button class="md-fab md-mini btn-card-float" aria-label="Watch" ng-href="/ourteam/{{contractor.UNIQUENAME}}">
                     <md-icon class="material-icons icon-edit" md-font-set="material-icons">person</md-icon>
                 </md-button>
             </md-card-title>

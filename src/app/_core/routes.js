@@ -34,22 +34,22 @@
                         ,url: "http://www.motionnotionskydiving.com/about/"
                     }
                 })
-                .when('/coaches', {
+                .when('/ourteam', {
                      templateUrl: 'src/app/coach/list.html'
                     ,controller: 'coachListController'
                     ,meta: {
-                         title: "Coaches"
-                        ,description: "Check out or list of experienced motion coaches."
-                        ,url: "http://www.motionnotionskydiving.com/coaches/"
+                         title: "Our Team"
+                        ,description: "Check out our team of awesome coaches and videographers."
+                        ,url: "http://www.motionnotionskydiving.com/ourteam/"
                     }
                 })
-                .when('/coaches/:uniquename', {
+                .when('/ourteam/:uniquename', {
                      templateUrl: 'src/app/coach/view.html'
                     ,controller: 'coachViewController'
                     ,meta: {
                          title: "Coaches"
                         ,description: "Check out or list of experienced motion coaches."
-                        ,url: "http://www.motionnotionskydiving.com/coaches"
+                        ,url: "http://www.motionnotionskydiving.com/ourteam"
                     }
                 })
                  .when('/media', {

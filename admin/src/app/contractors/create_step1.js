@@ -26,7 +26,7 @@
         $scope.uniquename = common.$routeParams.uniquename;
         $scope.states = [];
         $scope.ratings = [];
-        $scope.title = 'Step 1: Add Contractor';
+        $scope.title = 'Step 1: Contractor Details';
         $scope.btnSubmitTitle = 'SAVE';
         $scope.contractor = {
              id: undefined
@@ -66,7 +66,7 @@
             $scope.getStates();
             if($scope.uniquename != undefined){
                 $scope.getContractorByUniqueName();
-                $scope.title = 'Step 1: Edit Contractor';
+                $scope.title = 'Step 1: Contractor Details';
             }
         }
 

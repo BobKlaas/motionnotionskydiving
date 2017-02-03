@@ -8,8 +8,9 @@
           <ol class="breadcrumb">
               <li><a ng-href="/admin/">Admin</a></li>
               <li><a ng-href="/admin/contractors">Contactors</a></li>
-              <li><a ng-href="/admin/contractors/edit/step2/{{uniquename}}">Edit: Step 2</a></li>
-              <li class="active"><a ng-href="/admin/contractors/edit/step2/{{uniquename}}" ng-bind="contractor.fullname"></a></li>
+              <li><a ng-href="/admin/contractors/edit/step2/{{uniquename}}">{{contractor.fullname}}</a></li>
+              <li><a ng-href="/admin/contractors/edit/step1/{{uniquename}}">Step 1: Contractor Details</a></li>
+              <li>Step 2: Profile and Ratings</li>
           </ol>
         </div>
     </div>
