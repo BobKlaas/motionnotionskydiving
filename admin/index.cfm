@@ -129,6 +129,7 @@
     <script src="src/app/contractors/contractors.js"></script>
     <script src="src/app/contractors/create_step1.js"></script>
     <script src="src/app/contractors/create_step2.js"></script>
+    <script src="src/app/contractors/create_step3.js"></script>
 </body>
 
 </html>

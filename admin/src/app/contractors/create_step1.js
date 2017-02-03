@@ -172,25 +172,25 @@
                 var params = $scope.contractor;
 
                 if($scope.uniquename){
-                    //Update Event
+                    //Update Contractor
                     contractorservice.updateContractor(params).then(
                         function(results){
                             //Show Success
                             common.logger.success(results[0].FULLNAME +' has been updated.','','Success');
 
                             //Navigate to Step 2
-                            common.routeTo('/contractors/create/step2/'+results[0].UNIQUENAME);       
+                            common.routeTo('/contractors/edit/step2/'+results[0].UNIQUENAME);       
                         }    
                     );
                 }else{
-                    //Save Event
+                    //Save Contractor
                     contractorservice.createContractor(params).then(
                         function(results){
                             //Show Success
                             common.logger.success(results[0].FULLNAME +' has been added.','','Success');
 
                             //Navigate to Step 2
-                            common.routeTo('/contractors/create/step2/'+results[0].UNIQUENAME);
+                            common.routeTo('/contractors/edit/step2/'+results[0].UNIQUENAME);
                         }    
                     );
                 }                

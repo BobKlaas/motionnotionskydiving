@@ -31,6 +31,9 @@
             ,updateContractor: updateContractor
             ,updateContractorProfile: updateContractorProfile
             ,getActiveContractors: getActiveContractors
+            ,updateContractorSkills: updateContractorSkills
+            ,getSkillsByContractor: getSkillsByContractor
+            ,updateContractorRatings: updateContractorRatings
         };
         return service;
 
@@ -73,6 +76,21 @@
         function updateContractorProfile(params){
             return utility.HttpService.sendRequest('/rest/api/contractors/profile/update',params,'post');
         }
+
+        //Update Contractor Skills
+        function updateContractorSkills(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/skills/update',params,'post');
+        }
+
+        //Get Contractors Skills
+        function getSkillsByContractor(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/skills/get',params,'post');
+        }
+
+        //Update Contractor Ratings
+        function updateContractorRatings(params){
+            return utility.HttpService.sendRequest('/rest/api/contractors/ratings/update',params,'post');
+        }        
     }
 
     //EVENTS Service___________________________________________________________________>
@@ -187,8 +205,9 @@
     function commonservice(utility) {
         var service = {
               getStates: getStates
-             ,getDisciplines: getDisciplines
              ,getRatings: getRatings
+             ,getSkills: getSkills
+             ,getSkillLevels: getSkillLevels
         };
         return service;
 
@@ -202,9 +221,14 @@
             return utility.HttpService.sendRequest('/rest/api/common/ratings/get/',params,'post');
         }
 
-        //Get Disciplines
-        function getDisciplines(){
-            return utility.HttpService.sendRequest('/rest/api/common/skills/get/1');
+        //Get Skills
+        function getSkills(params){
+            return utility.HttpService.sendRequest('/rest/api/common/skills/get/',params,'post');
+        }
+
+        //Get Skill Levels
+        function getSkillLevels(params){
+            return utility.HttpService.sendRequest('/rest/api/common/skill/levels/get/',params,'post');
         }
 
     }

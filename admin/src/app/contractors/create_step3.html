@@ -1,0 +1,102 @@
+<!--Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+          <br>
+          <ol class="breadcrumb">
+              <li><a ng-href="/admin/">Admin</a></li>
+              <li><a ng-href="/admin/contractors">Contactors</a></li>
+              <li><a ng-href="/admin/contractors/edit/step3/{{uniquename}}">Edit: Step 3</a></li>
+              <li class="active"><a ng-href="/admin/contractors/edit/step3/{{uniquename}}" ng-bind="contractor.fullname"></a></li>
+          </ol>
+        </div>
+    </div>
+    
+<div layout="column" layout-gt-sm="row">
+    <div layout="column" flex="60">
+        
+        <md-card>
+            <md-card-header class="card-header pop">                    
+                <md-card-header-text layout="row">
+                    <i class="material-icons">people</i>
+                    <span class="md-title" ng-bind="title"></span>
+                </md-card-header-text>
+            </md-card-header>
+            
+            <md-card-content layout="column">
+     
+                <form name="skillForm" ng-submit="skillForm.$valid && addSkillToArray()">
+                    <div layout="column" layout-gt-sm="row">
+                        <!--Skill-->
+                        <md-input-container flex>
+                            <label>Skill</label>
+                            <md-select required ng-model="selectedSkill" name="selectedSkill">
+                                <md-option ng-repeat="skill in skills | orderBy: 'RANK'" value="{{skill.ID}}">{{skill.TITLE}}</md-option>
+                            </md-select>
+                            <div class="errors" ng-messages="skillForm.selectedSkill.$error">
+                                <div ng-message="required">Skill is required</div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Level-->
+                        <md-input-container flex>
+                            <label>Level</label>
+                            <md-select required ng-model="selectedLevel" name="selectedLevel">
+                                <md-option ng-repeat="level in levels" value="{{level.ID}}">{{level.TITLE}}</md-option>
+                            </md-select>
+                            <div class="errors" ng-messages="skillForm.selectedLevel.$error">
+                                <div ng-message="required">Skill level is required</div>
+                            </div>
+                        </md-input-container>
+
+                        <!--Slots Paid-->
+                        <div layout="row" layout-align="center center">
+                            <!--Add Contractor-->                            
+                            <md-button class="md-raised md-primary" type="submit" ng-disabled="!skillForm.$valid" aria-label="Submit" flex>
+                                <md-icon md-font-set="material-icons">add</md-icon> ADD
+                            </md-button>                                
+                        </div>
+                    </div>
+                </form>
+
+                <!--Team List-->
+                <md-list ng-if="contractorskills.length" flex>
+                    <md-list-item class="md-3-line" ng-repeat="skill in contractorskills" ng-click="null">
+                        <div layout="column" layout-gt-sm="row" flex>
+                            <md-icon md-font-set="material-icons">check</md-icon>
+                            <div class="md-list-item-text" layout="column" style="padding-left: 10px;">
+                               <h3>{{skill.skillname}}</h3>
+                               <h4>{{skill.levelname}}</h4>
+                            </div>
+                        </div>
+                        <div class="md-list-item-text" layout="column" layout-align="center end">                                
+                            <md-button class="md-fab md-mini" aria-label="Remove Contractor" ng-click="deleteContractorSkill(skill.skillid)">
+                                <md-tooltip md-direction="bottom">
+                                    Remove Skill
+                                </md-tooltip>
+                                <md-icon class="material-icons icon-edit" md-font-set="material-icons">remove</md-icon>
+                            </md-button>
+                        </div>
+                    </md-list-item>
+                </md-list>
+
+                <!--Save Contractors-->
+                <div layout="row" flex>
+                    <!--Submit Button-->
+                    <md-button class="md-raised md-primary" type="submit" aria-label="Save" ng-click="saveContractorSkills();" ng-cloak>Save</md-button>
+                </div>
+            </md-card-content>
+        </md-card>        
+    </div>
+    </div>
+
+  
+    <hr>
+
+    <!-- Footer -->
+    <customfooter></customfooter>
+
+</div>
+<!-- /.container

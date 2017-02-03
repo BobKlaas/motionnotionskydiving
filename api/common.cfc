@@ -29,14 +29,37 @@
 		<cfreturn ls>
 	</cffunction>
 
-	<!---Get Skills By Category--->
-	<cffunction name="getSkillsByCategory" access="remote" httpMethod="GET" restPath="/skills/get/{categoryid}" returntype="any" produces="application/json">	
-		<cfargument name="categoryid" type="numeric" required="false" default="1">
+	<!---Get Skills--->
+	<cffunction name="getSkills" access="remote" httpMethod="POST" restPath="/skills/get/" returntype="any" produces="application/json">	
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+		
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.skillcategoryid = structKeyExists(rc,'skillcategoryid')?rc.skillcategoryid:''>
+		<cfset rc.active = structKeyExists(rc,'active')?rc.active:''>
+
 		<cfstoredproc procedure="sp_get_skills" datasource="motion">
-			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#categoryid#" dbvarname="@skillcategoryid"/>
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.skillcategoryid#" dbvarname="@skillcategoryid" null="#(len(trim(rc.skillcategoryid))?false:true)#"/>
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.active#" dbvarname="@active" null="#(len(trim(rc.active))?false:true)#"/>
 			<cfprocresult name="skills" resultset="1">
 		</cfstoredproc>
 		<cfset ls=QueryToStruct(skills)>    
+		<cfreturn ls>
+	</cffunction>
+
+	<!---Get Skill Levels--->
+	<cffunction name="getSkillLevels" access="remote" httpMethod="POST" restPath="/skill/levels/get/" returntype="any" produces="application/json">	
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+		
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.id = structKeyExists(rc,'id')?rc.id:''>
+
+		<cfstoredproc procedure="sp_get_skill_levels" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.id#" dbvarname="@id" null="#(len(trim(rc.id))?false:true)#"/>
+			<cfprocresult name="levels" resultset="1">
+		</cfstoredproc>
+		<cfset ls=QueryToStruct(levels)>    
 		<cfreturn ls>
 	</cffunction>
 

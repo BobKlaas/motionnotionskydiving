@@ -19,13 +19,13 @@
                      templateUrl: 'src/app/contractors/create_step1.html'
                     ,controller: 'contractorCreateStep1Controller'
                 })
-                .when('/contractors/create/step2/:uniquename', {
-                     templateUrl: 'src/app/contractors/create_step2.html'
-                    ,controller: 'contractorCreateStep2Controller'
-                })
                 .when('/contractors/edit/step2/:uniquename', {
                      templateUrl: 'src/app/contractors/create_step2.html'
                     ,controller: 'contractorCreateStep2Controller'
+                })
+                .when('/contractors/edit/step3/:uniquename', {
+                     templateUrl: 'src/app/contractors/create_step3.html'
+                    ,controller: 'contractorCreateStep3Controller'
                 })
                 .when('/events', {
                      templateUrl: 'src/app/events/list.html'

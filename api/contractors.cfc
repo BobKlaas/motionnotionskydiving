@@ -220,7 +220,7 @@
 
 
 	<!---Update Contractor Profile--->
-	<cffunction name="sp_update_contractor_profile" access="remote" httpMethod="POST" restPath="/profile/update" returntype="any" produces="application/json">
+	<cffunction name="updateContractorProfile" access="remote" httpMethod="POST" restPath="/profile/update" returntype="any" produces="application/json">
 		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
 
 		<!---Setup Default ParamsList--->
@@ -251,6 +251,102 @@
 		<cfset ls=QueryToStruct(contractor)>
 		<cfreturn ls>
 	</cffunction>
+
+
+	<!---Update Contractor Skills--->
+	<cffunction name="saveEventContractors" access="remote" httpMethod="POST" restPath="/skills/update/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+			
+		<cfset rc1 = deserializeJSON(ARGUMENTS.params)>
+		<cfset skillList = ''>
+
+		<cfloop array="#rc1#" index="i">
+			<cfset rc2 = i>
+			<cfset rc.contractorid = structKeyExists(rc2,"contractorid")?rc2.contractorid:''>	
+			<cfset rc.skillid = structKeyExists(rc2,"skillid")?rc2.skillid:''>
+			<cfset rc.levelid = structKeyExists(rc2,"levelid")?rc2.levelid:''>
+			<cfset rc.active = structKeyExists(rc2,"active")?rc2.active:1>
+			
+			<!---Add Skill ID to List--->
+			<cfset skillList = listAppend(skillList,rc.skillid)>
+
+			<!---Update Contractor Skill--->
+			<cfstoredproc procedure="sp_update_contractor_skill" datasource="motion">
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#" dbvarname="@contractorid" null="#(len(trim(rc.contractorid))?false:true)#"/>
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.skillid#" dbvarname="@skillid" null="#(len(trim(rc.skillid))?false:true)#"/>
+				<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.levelid#" dbvarname="@levelid" null="#(len(trim(rc.levelid))?false:true)#"/>
+				<cfprocparam cfsqltype="CF_SQL_BIT" value="#rc.active#" dbvarname="@active" null="#(len(trim(rc.active))?false:true)#"/>
+			</cfstoredproc>
+		</cfloop>
+
+		<!--- Delete Skills by SkillID and Contractor that are NOT in skillList--->
+		<cfif len(trim(rc.contractorid))>
+			<cfquery name="qryDeleteContractor" datasource="motion">
+				DELETE FROM contractor_skills 
+				WHERE 
+					contractor_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#"/>
+					<cfif listLen(skillList)>
+						AND skill_id NOT IN (<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#skillList#" list="true">)
+					</cfif>
+			</cfquery>
+		</cfif>
+	</cffunction>
+
+
+	<!---Get Contractor Skills--->
+	<cffunction name="getContractorSkills" access="remote" httpMethod="POST" restPath="/skills/get/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.contractorid = structKeyExists(rc,"contractorid")?rc.contractorid:''>
+		
+		<!---Get Contractor Skills--->
+		<cfstoredproc procedure="sp_get_contractor_skills" datasource="motion">
+			<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#" dbvarname="@contractorid" />
+			<cfprocresult name="contractor" resultset="1"/>
+		</cfstoredproc>
+
+		<!---Create Structure From Results--->
+		<cfset ls=QueryToStruct(contractor)>
+		<cfreturn ls>
+	</cffunction>
+
+
+	<!---Update Contractor Ratings--->
+	<cffunction name="updateContractorRatings" access="remote" httpMethod="POST" restPath="/ratings/update/" returntype="any" produces="application/json">
+		<cfargument name="params" type="string" required="true" argtype="pathparam"/>
+		<cfset ratingList = ''>
+
+		<!---Setup Default ParamsList--->
+		<cfset rc = deserializeJSON(ARGUMENTS.params)>
+		<cfset rc.contractorid = structKeyExists(rc,"contractorid")?rc.contractorid:''>
+		<cfset rc.ratings = structKeyExists(rc,"ratings")?rc.ratings:''>
+		
+		<!---Update Contractor Ratings--->
+		<cfif listLen(rc.ratings)>			
+			<cfloop list="#rc.ratings#" delimiters="," index="i">
+				<cfset ratingList = listAppend(ratingList,i)>
+				<cfstoredproc procedure="sp_update_contractor_rating" datasource="motion">
+					<cfprocparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#" dbvarname="@contractorid" />
+					<cfprocparam cfsqltype="CF_SQL_VARCHAR" value="#i#" dbvarname="@ratingid" />
+				</cfstoredproc>
+			</cfloop>
+		</cfif>
+
+		<!--- Delete Skills by SkillID and Contractor that are NOT in skillList--->
+		<cfif len(trim(rc.contractorid))>
+			<cfquery name="qryDeleteContractor" datasource="motion">
+				DELETE FROM contractor_ratings 
+				WHERE 
+					contractor_id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#rc.contractorid#"/>
+					<cfif listLen(ratingList)>
+						AND rating_id NOT IN (<cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#ratingList#" list="true">)
+					</cfif>
+			</cfquery>
+		</cfif>
+	</cffunction> 
+
 	   
 	    
 </cfcomponent>

@@ -8,7 +8,8 @@
           <ol class="breadcrumb">
               <li><a ng-href="/admin/">Admin</a></li>
               <li><a ng-href="/admin/contractors">Contactors</a></li>
-              <li class="active"><a ng-href="/admin/contractors">Create</a></li>
+              <li><a ng-href="/admin/contractors/edit/step2/{{uniquename}}">Edit: Step 2</a></li>
+              <li class="active"><a ng-href="/admin/contractors/edit/step2/{{uniquename}}" ng-bind="contractor.fullname"></a></li>
           </ol>
         </div>
     </div>
@@ -103,6 +104,15 @@
                         <div ng-message="minlength">Day Rate must be at least 0.</div>
                     </div>
                 </md-input-container>
+
+                <h5 class="md-subhead">USPA Ratings</h5>
+
+                <!--USPA Ratings -->
+                <div ng-repeat="rating in usparatings" style="padding-left: 20px;">
+                     <md-checkbox ng-checked="exists(rating,selectedratings)" ng-click="toggleRating(rating)">
+                        {{rating.RATING}}
+                    </md-checkbox>
+                </div>
  
                 <!--Submit Button-->
                 <md-button class="md-raised md-primary" type="submit" ng-disabled="!contractorForm.$valid" aria-label="Submit" ng-cloak>Save</md-button>
